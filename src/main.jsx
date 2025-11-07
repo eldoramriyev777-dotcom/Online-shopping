@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       <Route path="/home" element={<HomeCompanent />} />
-      <Route path="/" element={<SignInPageComponent />} />
+      <Route path="/" element={<HomeCompanent />} />
       <Route path="/login/sign-in" element={<SignInPageComponent />} />
       <Route path="/login/sign-up" element={<SignUpComponent />} />
       <Route path="/login/reset-pw" element={<ResetpasswordComponent />} />
