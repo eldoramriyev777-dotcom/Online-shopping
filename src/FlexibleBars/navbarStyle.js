@@ -17,10 +17,10 @@ export const NavbarTopWrap = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-max-width: 1440px;
+max-width: 1300px;
 width: 100%;
-padding: 0 60px 0 60px;
 height: 36px;
+padding: 0 20px 0 20px;
 .location {
 display: flex;
 gap: 8px;
@@ -64,12 +64,12 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 gap: 25px;
-max-width: 1440px;
+max-width: 1300px;
 width: 100%;
-padding: 0 60px 0 60px;
+padding: 0 20px 0 20px;
 height: 132px;
 .freeline{
-    width: 1320px;
+width: 1260px;
 opacity: 0.1;
 border-width: 1px;
 background-color: #202020;

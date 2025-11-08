@@ -90,7 +90,7 @@ const SignInPageComponent = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   id="email"
-                  type="text"
+                  type="email"
                   placeholder="Email"
                 />
                 <input

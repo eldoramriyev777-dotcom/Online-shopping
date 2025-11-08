@@ -304,7 +304,6 @@ animation: ${fadeIn} 0.5s ease forwards;
 export const SignUpContainer = styled.div`
 padding: 30px;
 width: 411px;
-height: 860px;
 flex-shrink: 0;
 border-radius: 15px;
 background-color: #FFF;
@@ -316,14 +315,14 @@ export const SignUpTop = styled.div`
 display: flex;
 flex-direction: column;
 background-color: #FFF;
-gap: 100px;
+gap: 50px;
 .topdivision{
     width: 100%;
     display: flex;
     align-items: start;
     justify-content: left;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     p{
         color: var(--Black, #000);
         font-size: 28px;
@@ -356,7 +355,6 @@ gap: 100px;
 .form-container {
   width: 350px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
   animation: ${fadeIn} 0.5s ease forwards;
 }
 
@@ -367,9 +365,8 @@ gap: 100px;
 }
 
 label {
-  font-size: 14px;
+  font-size: 12px;
   color: #7a7a7a;
-  margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -377,7 +374,7 @@ input[type="email"],
 input[type="password"] {
   border: none;
   border-bottom: 2px solid #ccc;
-  padding: 8px 0;
+  padding: 5px 0;
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease;
@@ -394,7 +391,7 @@ input[type="password"] {
   display: flex;
   align-items: center;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 45px;
 }
 
 .form-checkbox input[type="checkbox"] {
@@ -403,7 +400,6 @@ input[type="password"] {
 
 button {
   width: 100%;
-  margin-top: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -412,6 +408,7 @@ button {
   font-size: 18px;
   font-weight: 500;
   border-radius: 90px;
+  height: 40px;
   background-color: var(--Brand-Color-F54F1F, #F54F1F);
   border: none;
   cursor: pointer;
@@ -441,6 +438,7 @@ display: flex;
 flex-direction: column;
 background-color: #FFF;
 align-items: center;
+gap: 180px;
 justify-content: space-between;
 animation: ${fadeIn} 0.5s ease forwards;
 
@@ -509,6 +507,7 @@ input[type="email"]{
   padding: 8px 0;
   font-size: 16px;
   outline: none;
+  margin-bottom: 180px;
   transition: all 0.3s ease;
   &:focus{
       border-bottom-color: var(--Brand-Color-F54F1F, #F54F1F);
@@ -530,7 +529,6 @@ button {
     border-radius: 90px;
     background-color: var(--Brand-Color-F54F1F, #F54F1F);
     border: none;
-    margin-top: 350px;
     cursor: pointer;
     transition: all 0.3s ease;
     &:hover{
@@ -550,7 +548,6 @@ background-color: #FFF;
 padding: 35px;
 border-radius: 10px;
 width: 411px;
-height: 860px;
 flex-shrink: 0;
 animation: ${scaleUp} 0.5s ease forwards;
 transition: all 0.3s ease;
@@ -566,6 +563,7 @@ align-items: start;
 justify-content: space-between;
 width: 100%;
 height: 100%;
+gap: 150px;
 animation: ${fadeInUp} 0.5s ease forwards;
 
 .confirmTexts{
@@ -706,6 +704,7 @@ align-items: start;
 justify-content: space-between;
 width: 100%;
 height: 100%;
+gap: 180px;
 animation: ${fadeInUp} 0.5s ease forwards;
 
 .confirmTexts{
