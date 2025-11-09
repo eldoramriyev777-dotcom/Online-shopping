@@ -3,12 +3,16 @@ import { ConfirmPwForm, LoginImg, SignInAllWrap, SignInContainer, SignUpContaine
 import signin from '../assets/login_assets/sign-in.jpg'
 import blossom from '../assets/login_assets/BLOSSOM.png'
 import resend from '../assets/login_assets/resend.svg'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation  } from 'react-router-dom'
 
 const ConfirmPasswordComponent = () => {
 
   const [time, setTime] = useState(120); // 2 daqiqa = 120 soniya
   const [isRunning, setIsRunning] = useState(true); // timer ishlayaptimi?
+  const location = useLocation();
+  const email = location.state?.email || "Unknown email";
+  const [value, setValue] = useState("")
+
 
   useEffect(() => {
     let timer;
@@ -33,11 +37,22 @@ const ConfirmPasswordComponent = () => {
   const navigate = useNavigate()
   const handleBack = (e) => {
     e.preventDefault();
-    navigate(-1);
+    
+    if (isRunning) {
+      const confirmBack = window.confirm("Timer is still running. Are you sure you want to go back?");
+      if (confirmBack) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/login/reset-pw/confirm-pw/setnew-pw")
+    if(value)
+    (navigate("/login/reset-pw/confirm-pw/setnew-pw"))
+  else alert("Please enter the validation code")
     // bu yerda formani jo‘natish logikasi bo‘ladi
   };
   return (
@@ -54,14 +69,14 @@ const ConfirmPasswordComponent = () => {
                     <div className='confirmTexts'>
                         <p>Confirm password</p>
                         <small>OTP code
-                        was sent to</small><span>blossom@gmail.com</span>
+                        was sent to</small><span>{email}</span>
                     </div>
                     <div className='midinputswithtime'>
                         <div className='inputswrap'>
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
-                        <input type="text" />
+                        <input onChange={(e) => setValue(e.target.value)} type="text" />
+                        <input onChange={(e) => setValue(e.target.value)}  type="text" />
+                        <input onChange={(e) => setValue(e.target.value)}  type="text" />
+                        <input onChange={(e) => setValue(e.target.value)}  type="text" />
                         </div>
                         <p style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                         {isRunning ? (

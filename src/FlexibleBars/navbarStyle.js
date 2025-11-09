@@ -105,6 +105,105 @@ justify-content: space-between;
     }
 }
 `
+export const BurgerImg = styled.img`
+  cursor: pointer;
+  border-radius: 2px;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+export const FullscreenWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* 🔹 qoraygan fon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px); /* 🔹 xiralik */
+  padding: 40px; /* 🔹 tashqi margin (ichkariga joy bo‘lishi uchun) */
+  box-sizing: border-box;
+`;
+
+export const ModalContent = styled.div`
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+`;
+
+export const Header = styled.h2`
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+`;
+
+export const Text = styled.p`
+  text-align: center;
+  line-height: 1.7;
+  font-size: 17px;
+  max-width: 750px;
+`;
+
+export const CloseButton = styled.button`
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 32px;
+  background: transparent;
+  border: none;
+  color: #333;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #d32f2f;
+  }
+`;
+
+export const ActionButton = styled.button`
+  padding: 10px 25px;
+  border: none;
+  background: #2d89ef;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.25s ease;
+
+  &:hover {
+    background: #1b63b0;
+  }
+`;
+
 export const NavbarBottomWrap = styled.div`
 display: flex;
 width: 100%;

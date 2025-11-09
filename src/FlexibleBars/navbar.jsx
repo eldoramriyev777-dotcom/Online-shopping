@@ -2,8 +2,13 @@ import React, { useState, useRef, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import {
+  BurgerImg,
+  CloseButton,
+  FullscreenWrapper,
   FullWrap,
+  Header,
   MidAndBotJointWrap,
+  ModalContent,
   NavbarAllWrap,
   NavbarBottomPartAllWrap,
   NavbarBottomWrap,
@@ -23,8 +28,10 @@ import like from '../assets/navbar_assets/like.svg'
 import login from '../assets/navbar_assets/login.svg'
 import search from '../assets/navbar_assets/search.svg'
 
-import { useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
+import ManCategory from './ManCategory'
+import styled from 'styled-components'
 
 const NavbarComponent = () => {
   const navigate = useNavigate()
@@ -96,6 +103,16 @@ const NavbarComponent = () => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  const [open, setOpen] = useState(false);
+
+  const handleSelect = (code) => {
+    handleCurrencySelect(code);
+    setOpen(false); // ✅ Tanlanganidan keyin avtomatik yopiladi
+  };
+
+  const location = useLocation();
+  const current = location.pathname;
 
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
@@ -179,12 +196,14 @@ const NavbarComponent = () => {
                   <small>{selectedLanguage}</small>
                 </p>
               }
-              position={languagePosition}
+              position={['bottom center', 'top center']}
+              repositionOnResize
+              keepTooltipInside={true}
               closeOnDocumentClick
               arrow={false}
             >
               <div style={{
-                width: '250px',
+                width: 'auto',
                 background: '#fff',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -219,18 +238,23 @@ const NavbarComponent = () => {
 
             {/* CURRENCY DROPDOWN */}
             <Popup
+              open={open}
+              onOpen={() => setOpen(true)}
+              onClose={() => setOpen(false)}
               trigger={
                 <p ref={currencyRef} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <img src={currency} alt='currency' />
                   <small>{selectedCurrency}</small>
                 </p>
               }
-              position={currencyPosition}
+              position={['bottom center', 'top center']}
+              repositionOnResize
+              keepTooltipInside={true}
               closeOnDocumentClick
               arrow={false}
             >
               <div style={{
-                width: '250px',
+                width: 'auto',
                 background: '#fff',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
@@ -247,10 +271,11 @@ const NavbarComponent = () => {
                     gap: '8px',
                     cursor: 'pointer',
                     padding: '5px 8px',
+                    border: "1px solid #c5c4c4",
                     borderRadius: '5px',
                     background: selectedCurrency === cur.code ? '#f5f5f5' : 'transparent'
                   }}
-                    onClick={() => handleCurrencySelect(cur.code)}
+                  onClick={() => handleSelect(cur.code)} // ✅ tanlansa yopiladi
                   >
                     <input type="checkbox" checked={selectedCurrency === cur.code} readOnly />
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -269,7 +294,52 @@ const NavbarComponent = () => {
       <NavbarBottomPartAllWrap>
         <MidAndBotJointWrap>
           <NavbarCenterWrap>
-            <img src={burger} alt='burger' />
+
+          <Popup
+      trigger={<BurgerImg src={burger} alt="burger" />}
+      modal
+      nested
+      closeOnDocumentClick
+      contentStyle={{ padding: 0, border: 'none', background: 'transparent' }}
+    >
+      {close => (
+        <FullscreenWrapper>
+          {/* <ModalContent>
+            <CloseButton onClick={close}>&times;</CloseButton>
+            <Header>Burger haqida ma’lumot 🍔</Header>
+            <Text>
+              Bu burger juda mazali! 😋 <br />
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, harum.
+              Tempora iste tenetur delectus minima asperiores dolorem explicabo.
+            </Text>
+            <ActionButton
+              onClick={() => {
+                console.log('Modal yopildi');
+                close();
+              }}
+            >
+              Close
+            </ActionButton>
+          </ModalContent> */}
+          <ModalContent>
+          <CloseButton onClick={close}>&times;</CloseButton>
+          <Header>
+          <Tabs>
+          <Tab to="/category/woman">Woman</Tab>
+          <Tab className={
+        current.includes("man") || current === "/category" ? "active" : ""
+      } to="/category/man">Man</Tab>
+          <Tab to="/category/kids">Kids</Tab>
+        </Tabs>
+          </Header>
+          <ManCategory active/>
+        <Outlet />
+      </ModalContent>
+        </FullscreenWrapper>
+      )}
+          </Popup>
+            {/* <CategoryModal/> */}
+
             <img src={blossom} alt='blossom' />
             <div className='leftsidewrap'>
               <img src={parcel} alt='parcel' />
@@ -324,5 +394,36 @@ const NavbarComponent = () => {
     </FullWrap>
   )
 }
+const Tabs = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 40px;
+`;
+
+const Tab = styled(NavLink)`
+  font-size: 18px;
+  font-weight: 500;
+  color: #555;
+  text-decoration: none;
+  padding-bottom: 8px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+
+  &.active {
+    color: #000;
+    border-bottom: 2px solid #000;
+  }
+
+  &:hover {
+    color: white;
+    background-color:  black;
+    padding: 2px 2px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+  }
+`;
+
 
 export default NavbarComponent

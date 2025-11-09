@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LoginImg, ResetWrap, SignInAllWrap, SignInContainer, SignUpTop, SignUpTopForReset } from './loginStyle'
 import signin from '../assets/login_assets/sign-in.jpg'
 import blossom from '../assets/login_assets/BLOSSOM.png'
 import { useNavigate } from 'react-router-dom'
 
 const ResetpasswordComponent = () => {
+    const [email, setEmail] = useState("")
     const navigate = useNavigate();
     const handleBack = (e) => {
         e.preventDefault()
@@ -12,7 +13,13 @@ const ResetpasswordComponent = () => {
       };
       const handleSubmit = (e) => {
         e.preventDefault();
-        navigate("/login/reset-pw/confirm-pw")
+        if (email && email.includes("@")) {
+            navigate("/login/reset-pw/confirm-pw", { state: { email } });
+        } 
+        else if (email) {
+            alert("Enter a valid email. Include '@'")
+        }
+        else alert("Please, enter an email")
         // bu yerda formani jo‘natish logikasi bo‘ladi
       };
   return (
@@ -33,6 +40,7 @@ const ResetpasswordComponent = () => {
                 <div className="form-group">
                     <label>Email</label>
                     <input
+                    onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     name="email"
                     />

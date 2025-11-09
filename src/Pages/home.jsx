@@ -2,6 +2,8 @@ import React from 'react'
 import { AdverSlideWrapper, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
 import NavbarComponent from '../FlexibleBars/navbar'
 import slider_woman from '../assets/home_assets/trendy-woman.png'
+import eCommerce from '../assets/home_assets/ecommerce.jpg'
+import shopify from '../assets/home_assets/shopify.webp'
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -61,10 +63,10 @@ const HomeCompanent = () => {
               <img src={slider_woman} alt="slider_woman" />
             </SwiperSlide>
             <SwiperSlide>
-              <img src={slider_woman} alt="slider_woman" />
+              <img src={eCommerce} alt="eCommerce" />
             </SwiperSlide>
             <SwiperSlide>
-             <img src={slider_woman} alt="slider_woman" />
+             <img src={shopify} alt="shopify" />
             </SwiperSlide>
             </Swiper>
           </SliderPartCon>

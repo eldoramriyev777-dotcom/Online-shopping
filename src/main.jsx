@@ -8,6 +8,8 @@ import ResetpasswordComponent from './auth/resetpassword'
 import ConfirmPasswordComponent from './auth/confirm-pw'
 import NewPasswordComponent from './auth/newpw'
 import DashboardComponent from './Pages/dashboard'
+import CategoryModal from './FlexibleBars/CategoryModal'
+import ManCategory from './FlexibleBars/ManCategory'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -20,6 +22,9 @@ createRoot(document.getElementById('root')).render(
       <Route path="/login/reset-pw/confirm-pw" element={<ConfirmPasswordComponent />} />
       <Route path="/login/reset-pw/confirm-pw/setnew-pw" element={<NewPasswordComponent />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
+      <Route path="man" element={<ManCategory />} />
+      <Route path="woman" element={<div>Woman Category</div>} />
+      <Route path="kids" element={<div>Kids Category</div>} />
     </Routes>
   </BrowserRouter>
 )
