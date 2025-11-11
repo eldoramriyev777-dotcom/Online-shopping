@@ -77,7 +77,7 @@ const SignInPageComponent = () => {
             <div className='topdivision'>
               <p>Sign In</p>
               <div>
-                <small>Already have an account?</small>
+                <small>Already have an account? </small>
                 <span style={{ cursor: "pointer"}}
                   onClick={() => handleButtonClick(() => navigate("/login/sign-up"))}
                 >Sign Up</span>

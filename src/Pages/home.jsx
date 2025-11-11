@@ -26,6 +26,7 @@ import trend4 from '../assets/home_assets/trend4.png'
 import trend5 from '../assets/home_assets/trend5.png'
 import trend6 from '../assets/home_assets/trend6.png'
 import like from '../assets/home_assets/like.svg'
+import { Box } from '@mui/material'
 
 const HomeCompanent = () => {
   const images = [
@@ -136,10 +137,13 @@ const HomeCompanent = () => {
                 <Trendtext>Trending products</Trendtext>
                 <ProductsGrid>
                   <GridInsideWrap>
-                    <GridImg src={trend1} alt="trend1" />
+                    <div className='trendproimgwrap' style={{width: "400px"}}>
+                     <GridImg src={trend1} alt="trend1" />
+                     <button>-46%</button>
+                    </div>
                     <div>
                       <p> <span>Athletic pants</span> <img src={like} alt="like" /> </p>
-                      <small>$259.00</small>
+                      <small>$259.00</small> 
                     </div>
                   </GridInsideWrap>
                   <GridInsideWrap>

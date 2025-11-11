@@ -50,7 +50,6 @@ export const SliderPartCon = styled.div`
     background: rgba(255, 255, 255, 0.7);
     padding: 6px 12px;
     border-radius: 20px;
-    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     backdrop-filter: blur(6px);
@@ -331,10 +330,30 @@ export const GridInsideWrap = styled.div`
       justify-content: space-between;
     }
   }
+  .trendproimgwrap{
+    button{
+    display: inline-flex;
+    padding: 5px 9px 3px 9px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 0 20px;
+    color: var(--White, #FFF);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    position: absolute;
+    border-radius: 100px;
+    background-color: var(--Brand-Color-F54F1F, #F54F1F);
+    border: none;
+  }
+  }
 `;
 
 export const GridImg = styled.img`
-  width: 400px;
+  width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 12px;
   &:hover {

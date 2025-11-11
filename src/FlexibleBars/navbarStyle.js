@@ -219,5 +219,11 @@ p{
 font-weight: 400;
 font-size: 18px;
 color: rgba(32, 32, 32, 1);
+&:hover{
+      cursor: pointer;
+      transform: scaleX(0.9);
+      transition: transform 0.3s ease;
+      transform-origin: right;
+    }
 }
 `

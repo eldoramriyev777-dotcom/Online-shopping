@@ -27,11 +27,19 @@ import parcel from '../assets/navbar_assets/parcel.svg'
 import like from '../assets/navbar_assets/like.svg'
 import login from '../assets/navbar_assets/login.svg'
 import search from '../assets/navbar_assets/search.svg'
+import linen from '../assets/navbar_assets/linen.png'
+import beige from '../assets/navbar_assets/beige.png'
+import jacket_search from '../assets/navbar_assets/jacket_search.png'
+import pants_search from '../assets/navbar_assets/pants_search.png'
+import nike_shoes from '../assets/navbar_assets/nike_shoes.png'
 
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import ManCategory from './ManCategory'
 import styled from 'styled-components'
+import WomanCategory from './WomanCategory'
+import KidsCategory from './KidsCategory'
+import productsData from './productsData.json'
 
 const NavbarComponent = () => {
   const navigate = useNavigate()
@@ -111,8 +119,31 @@ const NavbarComponent = () => {
     setOpen(false); // ✅ Tanlanganidan keyin avtomatik yopiladi
   };
 
-  const location = useLocation();
-  const current = location.pathname;
+  const [activeTab, setActiveTab] = useState("man"); // default holatda "man"
+  const renderContent = () => {
+    switch (activeTab) {
+      case "woman":
+        return <WomanCategory />;
+      case "kids":
+        return <KidsCategory />;
+      default:
+        return <ManCategory />;
+    }
+  };
+
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    if (query.trim() === "") {
+      setResults([]);
+    } else {
+      const filtered = productsData.filter((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setResults(filtered);
+    }
+  }, [query]);
 
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
@@ -296,47 +327,46 @@ const NavbarComponent = () => {
           <NavbarCenterWrap>
 
           <Popup
-      trigger={<BurgerImg src={burger} alt="burger" />}
-      modal
-      nested
-      closeOnDocumentClick
-      contentStyle={{ padding: 0, border: 'none', background: 'transparent' }}
-    >
-      {close => (
-        <FullscreenWrapper>
-          {/* <ModalContent>
-            <CloseButton onClick={close}>&times;</CloseButton>
-            <Header>Burger haqida ma’lumot 🍔</Header>
-            <Text>
-              Bu burger juda mazali! 😋 <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, harum.
-              Tempora iste tenetur delectus minima asperiores dolorem explicabo.
-            </Text>
-            <ActionButton
-              onClick={() => {
-                console.log('Modal yopildi');
-                close();
-              }}
-            >
-              Close
-            </ActionButton>
-          </ModalContent> */}
-          <ModalContent>
-          <CloseButton onClick={close}>&times;</CloseButton>
-          <Header>
-          <Tabs>
-          <Tab to="/category/woman">Woman</Tab>
-          <Tab className={
-        current.includes("man") || current === "/category" ? "active" : ""
-      } to="/category/man">Man</Tab>
-          <Tab to="/category/kids">Kids</Tab>
-        </Tabs>
-          </Header>
-          <ManCategory active/>
-        <Outlet />
-      </ModalContent>
-        </FullscreenWrapper>
-      )}
+            trigger={<BurgerImg src={burger} alt="burger" />}
+            modal
+            nested
+            closeOnDocumentClick
+            contentStyle={{
+              padding: 0,
+              border: "none",
+              background: "transparent",
+            }}
+          >
+            {(close) => (
+              <FullscreenWrapper>
+                <ModalContent>
+                  <CloseButton onClick={close}>&times;</CloseButton>
+                  <Header>
+                    <Tabs>
+                    <Tab
+                    active={activeTab === "woman"}
+                    onClick={() => setActiveTab("woman")}
+                  >
+                    Woman
+                  </Tab>
+                  <Tab
+                    active={activeTab === "man"}
+                    onClick={() => setActiveTab("man")}
+                  >
+                    Man
+                  </Tab>
+                  <Tab
+                    active={activeTab === "kids"}
+                    onClick={() => setActiveTab("kids")}
+                  >
+                    Kids
+                  </Tab>
+                    </Tabs>
+                  </Header>
+                  {renderContent()}
+                </ModalContent>
+              </FullscreenWrapper>
+            )}
           </Popup>
             {/* <CategoryModal/> */}
 
@@ -372,7 +402,84 @@ const NavbarComponent = () => {
               <p>Premium</p>
               <p style={{ color: '#F54F1F' }}>Sale</p>
             </div>
-            <img src={search} alt='search' />
+            <Popup
+              trigger={<img src={search} alt="search" style={{ cursor: "pointer" }} />}
+              modal
+              closeOnDocumentClick
+            >
+              {(close) => (
+                <FullSearchWrapper>
+                  <SearchTop>
+                    <h2><img src={search} alt="search" /></h2>
+                    <input type="text" placeholder="Search products..." 
+                     value={query}
+                     onChange={(e) => setQuery(e.target.value)}
+                     autoFocus
+                    />
+                      {query && (
+                        <div className="results-info">
+                          <p>Results</p>
+                          <span>{results.length} products</span>
+                        </div>
+                      )}
+                    <button onClick={close}>✕</button>
+                  </SearchTop>
+                  <SearchContent>
+                  <div className="results-list">
+                    {results.map((item) => (
+                      <div key={item.id} className="result-item">
+                        <strong>{item.category}</strong> {item.name.replace(item.category, "").trim()}
+                      </div>
+                    ))}
+                    {query && results.length === 0 && <p className="no-results">No products found</p>}
+                  </div>
+                    <div className="results">
+                      <p>Best tags</p>
+                      <div>
+                        <button>T-shirt</button>
+                        <button>Jacket</button>
+                        <button>Sport</button>
+                        <button>Adidas</button>
+                        <button>Shorts</button>
+                        <button>Hat</button>
+                        <button>Scarf</button>
+                        <button>Tie</button>
+                      </div>
+                    </div>
+                    <div className='topsellers'>
+                      <p>Best tags</p>
+                      <div className='popularProductItems'>
+                        <div>
+                        <img src={linen} alt="linen" />
+                        <span>Linen Blazer Jacket</span>
+                        <small>$519.00</small>
+                        </div>
+                        <div>
+                        <img src={beige} alt="beige" />
+                        <span>Beige Blazer Jacket</span>
+                        <small>$439.00</small>
+                        </div>
+                        <div>
+                        <img src={jacket_search} alt="jacket_search" />
+                        <span>Jacket</span>
+                        <small>$459.00</small>
+                        </div>
+                        <div>
+                        <img src={pants_search} alt="pants_search" />
+                        <span>Pants with soft material</span>
+                        <small>$179.00</small>
+                        </div>
+                        <div>
+                        <img src={nike_shoes} alt="nike_shoes" />
+                        <span>Nike Air Max 90</span>
+                        <small>$229.00</small>
+                        </div>
+                      </div>
+                    </div>
+                  </SearchContent>
+                </FullSearchWrapper>
+              )}
+            </Popup>
           </NavbarBottomWrap>
         </MidAndBotJointWrap>
       </NavbarBottomPartAllWrap>
@@ -402,28 +509,235 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
   font-weight: 500;
-  color: #555;
   text-decoration: none;
-  padding-bottom: 8px;
+  border-radius: 5px;
+  padding: 4px 3px;
   border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
-
-  &.active {
-    color: #000;
-    border-bottom: 2px solid #000;
-  }
+  background-color: ${(props) => (props.active ? "#000" : "#f0f0f0")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
+  transition: all 0.3s ease;
 
   &:hover {
     color: white;
-    background-color:  black;
-    padding: 2px 2px;
+    background-color: ${(props) => (props.active ? "#000" : "#ddd")};
+    padding: 4px 3px;
     cursor: pointer;
     text-align: center;
     border-radius: 5px;
   }
 `;
 
+const FullSearchWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 95vh; /* pastda 10% joy qolsin */
+  background: rgba(255, 255, 255, 0.98);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 20px 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  .search-modal {
+  width: 800px;
+  max-width: 90%;
+  background: white;
+  border-radius: 10px;
+  padding: 20px 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.search-header input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.results-list {
+  margin-top: 10px;
+}
+
+.result-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 15px;
+  color: #333;
+}
+
+.result-item strong {
+  color: #111;
+  font-weight: 600;
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+  margin-top: 15px;
+}
+
+`;
+
+const SearchTop = styled.div`
+background-color: #e9e9e9;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 15px;
+    background-color: #fcf6f6;
+    border: none;
+    outline: none;
+  }
+
+  button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+`;
+
+const SearchContent = styled.div`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    p{
+      color: var(--Black, #000);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      opacity: 0.4;
+    }
+    div{
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 10px;
+      button{
+        display: inline-flex;
+        padding: 8px 17px 6px 17px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 34px;
+        border: 1px solid rgba(0, 0, 0, 0.10);
+        background-color: transparent;
+        color: var(--Black, #000);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover{
+          background-color: rgba(0, 0, 0, 0.08); /* yumshoq kulrang fon */
+          transform: translateY(-2px); /* yengil ko‘tarilish */
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* nozik soya */
+        }
+        &:active{
+          background-color: rgba(0, 0, 0, 0.15);
+          color: #fff;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+  .topsellers{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+    p{
+      color: var(--Black, #000);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      opacity: 0.4;
+    }
+    .popularProductItems{
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 20px;
+      div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        span{
+          color: var(--Dark-Color-202020, #202020);
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+        small{
+          color: var(--Dark-Color-202020, #202020);
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          letter-spacing: -0.32px;
+        }
+      }
+    }
+  }
+`;
 
 export default NavbarComponent
