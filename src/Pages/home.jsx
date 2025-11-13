@@ -34,6 +34,7 @@ import shoes2 from '../assets/home_assets/shoes2.png'
 import shoes3 from '../assets/home_assets/shoes3.png'
 import InstagramIcon from "@mui/icons-material/Instagram"; // ✅ To‘g‘rilangan import
 import Footer from '../FlexibleBars/footer'
+import { useNavigate } from 'react-router-dom'
 
 const HomeCompanent = () => {
   const images = [
@@ -62,6 +63,10 @@ const HomeCompanent = () => {
     "https://picsum.photos/300/300?random=9",
     "https://picsum.photos/300/300?random=10"
   ];
+  const navigate = useNavigate()
+  const shopsPageOpener = () => {
+    navigate("/shops")
+  }
   return (
     <div>
         <NavbarComponent/>
@@ -134,7 +139,7 @@ const HomeCompanent = () => {
               <img style={{width: "616px"}} src={manca} alt="manca" />
               <div>
                 <p>Men’s shirts — 1254 items</p>
-                <small style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
+                <small onClick={shopsPageOpener} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
               </div>
             </div>
           </MenAndWomenSortCon>

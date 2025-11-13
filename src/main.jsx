@@ -10,6 +10,7 @@ import NewPasswordComponent from './auth/newpw'
 import DashboardComponent from './Pages/dashboard'
 import CategoryModal from './FlexibleBars/CategoryModal'
 import ManCategory from './FlexibleBars/ManCategory'
+import ShopsComponent from './Pages/shops'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="man" element={<ManCategory />} />
       <Route path="woman" element={<div>Woman Category</div>} />
       <Route path="kids" element={<div>Kids Category</div>} />
+      <Route path="/shops" element={<ShopsComponent />} />
     </Routes>
   </BrowserRouter>
 )
