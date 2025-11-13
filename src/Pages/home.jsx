@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdverSlideWrapper, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
+import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
 import NavbarComponent from '../FlexibleBars/navbar'
 import slider_woman from '../assets/home_assets/trendy-woman.png'
 import eCommerce from '../assets/home_assets/ecommerce.jpg'
@@ -26,7 +26,14 @@ import trend4 from '../assets/home_assets/trend4.png'
 import trend5 from '../assets/home_assets/trend5.png'
 import trend6 from '../assets/home_assets/trend6.png'
 import like from '../assets/home_assets/like.svg'
-import { Box } from '@mui/material'
+import styled from 'styled-components'
+import sweet_girl from '../assets/home_assets/sweet_girl.png'
+import sweet_boy from '../assets/home_assets/sweet_boy.png'
+import shoes1 from '../assets/home_assets/shoes1.png'
+import shoes2 from '../assets/home_assets/shoes2.png'
+import shoes3 from '../assets/home_assets/shoes3.png'
+import InstagramIcon from "@mui/icons-material/Instagram"; // ✅ To‘g‘rilangan import
+import Footer from '../FlexibleBars/footer'
 
 const HomeCompanent = () => {
   const images = [
@@ -42,6 +49,18 @@ const HomeCompanent = () => {
     cate4,
     cate5,
     cate6,
+  ];
+  const images_media = [
+    "https://picsum.photos/300/300?random=1",
+    "https://picsum.photos/300/300?random=2",
+    "https://picsum.photos/300/300?random=3",
+    "https://picsum.photos/300/300?random=4",
+    "https://picsum.photos/300/300?random=5",
+    "https://picsum.photos/300/300?random=6",
+    "https://picsum.photos/300/300?random=7",
+    "https://picsum.photos/300/300?random=8",
+    "https://picsum.photos/300/300?random=9",
+    "https://picsum.photos/300/300?random=10"
   ];
   return (
     <div>
@@ -185,8 +204,135 @@ const HomeCompanent = () => {
                 <TrendViewButton>View all</TrendViewButton>
             </TrendProductGridCon>
         </TrendingGridWrap>
+        <Container>
+          <Card>
+            <img src={sweet_girl} alt="Sweet girls" />
+            <div className="content">
+              <h2>For sweet girls</h2>
+              <button>Shop now</button>
+            </div>
+          </Card>
+
+          <Card>
+            <img src={sweet_boy} alt="Cheerful guys" />
+            <div className="content">
+              <h2>For cheerful guys</h2>
+              <button>Shop now</button>
+            </div>
+          </Card>
+        </Container>
+        <TrendingGridWrap>
+            <TrendProductGridCon>
+                <Trendtext>Trending shoes</Trendtext>
+                <ProductsGrid>
+                  <GridInsideWrap>
+                    <div className='trendproimgwrap' style={{width: "400px"}}>
+                     <GridImg src={shoes1} alt="shoes1" />
+                     <button>-46%</button>
+                    </div>
+                    <div>
+                      <p> <span>Blazer Mid 77 PRM</span> <img src={like} alt="like" /> </p>
+                      <small>$209.00</small> 
+                    </div>
+                  </GridInsideWrap>
+                  <GridInsideWrap>
+                    <GridImg src={shoes2} alt="shoes2" />
+                    <div>
+                      <p> <span>Nike Air Max 90</span> <img src={like} alt="like" /> </p>
+                      <small>$309.00</small>
+                    </div>
+                  </GridInsideWrap>
+                  <GridInsideWrap>
+                    <GridImg src={shoes3} alt="shoes3" />
+                    <div>
+                      <p> <span>ThomasMunz Force</span> <img src={like} alt="like" /> </p>
+                      <small>$259.00</small>
+                    </div>
+                  </GridInsideWrap>
+                </ProductsGrid>
+            </TrendProductGridCon>
+        </TrendingGridWrap>
+        <CarouselWrap>
+          <Swiper
+            modules={[Navigation]}
+            navigation
+            spaceBetween={10}
+            slidesPerView={5}
+            loop
+          >
+            {images_media.map((img, index) => (
+              <SwiperSlide key={index}>
+                <img src={img} alt={`Slide ${index}`} className="slide-img" />
+                <div className="slide-overlay">
+                  <InstagramIcon className="insta-icon" />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </CarouselWrap>
+        <Footer/>
     </div>
   )
 }
 
 export default HomeCompanent
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  max-width: 1300px;
+  width: 100%;
+  padding: 25px 20px;
+  margin: 0 auto;
+`;
+
+const Card = styled.div`
+  flex: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: flex-end;
+  justify-content: left;
+  min-height: 930px;
+  padding: 50px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    color: white;
+    padding-bottom: 25px;
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  button {
+    background: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #f2f2f2;
+  }
+`;

@@ -510,12 +510,15 @@ const Tabs = styled.div`
 
 const Tab = styled(NavLink)`
   display: flex;
+  width: 250px;
+  height: 50px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   font-weight: 500;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 95px;
   padding: 4px 3px;
   border-bottom: 2px solid transparent;
   background-color: ${(props) => (props.active ? "#000" : "#f0f0f0")};

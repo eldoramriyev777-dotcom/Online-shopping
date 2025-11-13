@@ -354,6 +354,7 @@ export const GridInsideWrap = styled.div`
 
 export const GridImg = styled.img`
   width: 100%;
+  height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 12px;
   &:hover {
@@ -379,5 +380,81 @@ export const TrendViewButton = styled.button`
     color: #fff;
     transform: translateY(-3px);
     box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
+  }
+`;
+export const CarouselWrap = styled.div`
+  max-width: 1300px;
+  width: 100%;
+  padding: 25px 20px;
+  margin: 0 auto;
+  position: relative;
+
+  .swiper {
+    width: 100%;
+  }
+
+  .swiper-slide {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .swiper-slide:hover {
+    transform: scale(1.03);
+  }
+
+  .slide-img {
+    width: 100%;
+    min-height: 350px;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+  }
+
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s ease;
+  }
+
+  .swiper-slide:hover .slide-overlay {
+    opacity: 1;
+  }
+
+  .insta-icon {
+    color: white;
+    font-size: 40px;
+    transition: 0.3s;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #000;
+    background: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    top: 45%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
+  }
+
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 18px;
+    font-weight: bold;
   }
 `;
