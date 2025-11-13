@@ -131,19 +131,76 @@ const NavbarComponent = () => {
     }
   };
 
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState(""); // category/brand/name filter
+  
+    // fetch products from JSON
+    useEffect(() => {
+      const fetchProducts = async () => {
+        try {
+          // Agar real fetch qilmoqchi bo'lsangiz:
+          // const res = await fetch("/productsData.json");
+          // const data = await res.json();
+          const data = productsData;
+          setProducts(data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        }
+      };
+      fetchProducts();
+    }, []);
+  
+    // search query filtering
+    useEffect(() => {
+      if (query.trim() === "") {
+        setResults([]);
+      } else {
+        const filtered = products.filter(
+          (item) =>
+            item.name.toLowerCase().includes(query.toLowerCase()) ||
+            item.brand.toLowerCase().includes(query.toLowerCase()) ||
+            item.category.toLowerCase().includes(query.toLowerCase())
+        );
+        setResults(filtered);
+      }
+    }, [query, products]);
 
-  useEffect(() => {
-    if (query.trim() === "") {
-      setResults([]);
-    } else {
-      const filtered = productsData.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase())
-      );
-      setResults(filtered);
-    }
-  }, [query]);
+    const bestTags = [...new Set(results.map((item) => item.category))].slice(
+      0,
+      8
+    );
+  
+// online rasm mapping
+const imageMap = {
+  "Linen Blazer Jacket": "https://source.unsplash.com/100x100/?blazer",
+  "Beige Blazer Jacket": "https://source.unsplash.com/100x100/?beige-jacket",
+  "Jacket": "https://source.unsplash.com/100x100/?jacket",
+  "Pants with soft material": "https://source.unsplash.com/100x100/?pants",
+  "Nike Air Max 90": "https://source.unsplash.com/100x100/?nike-shoes"
+};
+
+// Best tags – doimiy
+const allCategories = [...new Set(products.map((item) => item.category))].slice(0, 8);
+
+// Filter button click
+const handleFilterClick = (filter) => {
+  setSelectedFilter(filter);
+};
+
+// Filtered topsellers
+const filteredTopSellers = selectedFilter
+  ? products.filter(
+      (item) =>
+        item.category === selectedFilter ||
+        item.brand === selectedFilter ||
+        item.name === selectedFilter
+    )
+  : results.length > 0
+  ? results
+  : products;
+
 
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
@@ -403,83 +460,93 @@ const NavbarComponent = () => {
               <p style={{ color: '#F54F1F' }}>Sale</p>
             </div>
             <Popup
-              trigger={<img src={search} alt="search" style={{ cursor: "pointer" }} />}
-              modal
-              closeOnDocumentClick
-            >
-              {(close) => (
-                <FullSearchWrapper>
-                  <SearchTop>
-                    <h2><img src={search} alt="search" /></h2>
-                    <input type="text" placeholder="Search products..." 
-                     value={query}
-                     onChange={(e) => setQuery(e.target.value)}
-                     autoFocus
-                    />
-                      {query && (
-                        <div className="results-info">
-                          <p>Results</p>
-                          <span>{results.length} products</span>
-                        </div>
-                      )}
-                    <button onClick={close}>✕</button>
-                  </SearchTop>
-                  <SearchContent>
+            trigger={<img src={search} alt="search" style={{ cursor: "pointer" }} />}
+            modal
+            closeOnDocumentClick
+          >
+            {(close) => (
+              <FullSearchWrapper>
+                <SearchTop>
+                  <h2>
+                    <img src={search} alt="search" />
+                  </h2>
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    autoFocus
+                  />
+                  {query && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "84px",
+                        backgroundColor: "var(--Brand-Color-F54F1F, #F54F1F)",
+                        height: "24px",
+                        borderRadius: "100px",
+                      }}
+                      className="results-info"
+                    >
+                      <span style={{ fontSize: "12px", color: "#FFF", textAlign: "center" }}>
+                        {results.length} products
+                      </span>
+                    </div>
+                  )}
+                  <button onClick={close}>✕</button>
+                </SearchTop>
+
+                <SearchContent>
+                  {/* Best tags – doimiy */}
+                  <div className="results">
+                    <p>Best tags</p>
+                    <div>
+                      {allCategories.map((tag) => (
+                        <button key={tag} onClick={() => handleFilterClick(tag)}>
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Search results */}
                   <div className="results-list">
                     {results.map((item) => (
                       <div key={item.id} className="result-item">
-                        <strong>{item.category}</strong> {item.name.replace(item.category, "").trim()}
+                        <strong>{item.category}</strong> {item.name}
                       </div>
                     ))}
                     {query && results.length === 0 && <p className="no-results">No products found</p>}
                   </div>
-                    <div className="results">
-                      <p>Best tags</p>
-                      <div>
-                        <button>T-shirt</button>
-                        <button>Jacket</button>
-                        <button>Sport</button>
-                        <button>Adidas</button>
-                        <button>Shorts</button>
-                        <button>Hat</button>
-                        <button>Scarf</button>
-                        <button>Tie</button>
-                      </div>
+
+                  {/* Topsellers section */}
+                  <div className="topsellers">
+                    <p>Popular Products</p>
+                    <div className="popularProductItems">
+                      {filteredTopSellers.slice(0, 5).map((item) => {
+                        const imgSrc =
+                          imageMap[item.name] ||
+                          `https://source.unsplash.com/100x100/?${encodeURIComponent(item.name)}`;
+                        return (
+                          <div key={item.id}>
+                          <img
+                            src={`https://picsum.photos/seed/${item.id}/100/100`}
+                            alt={item.name}
+                            loading="lazy"
+                          />
+                            <span>{item.name}</span>
+                            <small>${item.price.toFixed(2)}</small>
+                          </div>  
+                        );
+                      })}
                     </div>
-                    <div className='topsellers'>
-                      <p>Best tags</p>
-                      <div className='popularProductItems'>
-                        <div>
-                        <img src={linen} alt="linen" />
-                        <span>Linen Blazer Jacket</span>
-                        <small>$519.00</small>
-                        </div>
-                        <div>
-                        <img src={beige} alt="beige" />
-                        <span>Beige Blazer Jacket</span>
-                        <small>$439.00</small>
-                        </div>
-                        <div>
-                        <img src={jacket_search} alt="jacket_search" />
-                        <span>Jacket</span>
-                        <small>$459.00</small>
-                        </div>
-                        <div>
-                        <img src={pants_search} alt="pants_search" />
-                        <span>Pants with soft material</span>
-                        <small>$179.00</small>
-                        </div>
-                        <div>
-                        <img src={nike_shoes} alt="nike_shoes" />
-                        <span>Nike Air Max 90</span>
-                        <small>$229.00</small>
-                        </div>
-                      </div>
-                    </div>
-                  </SearchContent>
-                </FullSearchWrapper>
-              )}
-            </Popup>
+                  </div>
+                </SearchContent>
+              </FullSearchWrapper>
+            )}
+          </Popup>
           </NavbarBottomWrap>
         </MidAndBotJointWrap>
       </NavbarBottomPartAllWrap>

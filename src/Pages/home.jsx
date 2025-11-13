@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
+import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, FormArea, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, SubscribeInner, SubscribeWrapper, TextArea, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
 import NavbarComponent from '../FlexibleBars/navbar'
 import slider_woman from '../assets/home_assets/trendy-woman.png'
 import eCommerce from '../assets/home_assets/ecommerce.jpg'
@@ -269,6 +269,19 @@ const HomeCompanent = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+          <SubscribeWrapper>
+            <SubscribeInner>
+              <TextArea>
+                <h3>Get a discount for the first order</h3>
+                <p>Subscribe to our news and special offers</p>
+              </TextArea>
+
+              <FormArea>
+                <input type="email" placeholder="Enter your email" />
+                <button>Shop now</button>
+              </FormArea>
+            </SubscribeInner>
+          </SubscribeWrapper>
         </CarouselWrap>
         <Footer/>
     </div>

@@ -55,7 +55,7 @@ const SignInPageComponent = () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({ username, password }))
         localStorage.setItem("fake_auth_logged_in", "true")
         setSnack({ open: true, message: "Login Successfull!!!", type: "success" })
-        setTimeout(() => navigate("/dashboard"), 1000)
+        setTimeout(() => navigate("/home"), 1000)
       } else {
         setSnack({ open: true, message: "Invalid Password or login!!!", type: "error" })
       }

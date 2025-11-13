@@ -458,3 +458,67 @@ export const CarouselWrap = styled.div`
     font-weight: bold;
   }
 `;
+export const SubscribeWrapper = styled.div`
+  max-width: 1300px;
+  width: 100%;
+  margin: 25px auto;
+`;
+
+export const SubscribeInner = styled.div`
+  background-color: var(--Grey-F7F7F7, #F7F7F7);
+  border-radius: 15px;
+  padding: 34px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
+export const TextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  p {
+    font-size: 16px;
+    margin: 0;
+    color: #555;
+  }
+`;
+
+export const FormArea = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  input {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    width: 250px;
+    font-size: 15px;
+  }
+
+  button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #333;
+  }
+`;
