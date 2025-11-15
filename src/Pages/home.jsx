@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, FormArea, GridImg, GridInsideWrap, MenAndWomenSortCon, MenVsWomenWrap, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, SubscribeInner, SubscribeWrapper, TextArea, TrendingGridWrap, TrendProductGridCon, Trendtext, TrendViewButton } from './homeStyle'
+import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridImgForOneType, GridInsideWrap, GridInsideWrapOneType, MenAndWomenSortCon, MenVsWomenWrap, OneTypeProductGrid, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendingGridWrapOneType, TrendProductGridCon, TrendProductGridConOneType, Trendtext, TrendtextOneType, TrendViewButton } from './homeStyle'
 import NavbarComponent from '../FlexibleBars/navbar'
 import slider_woman from '../assets/home_assets/trendy-woman.png'
 import eCommerce from '../assets/home_assets/ecommerce.jpg'
@@ -64,9 +64,10 @@ const HomeCompanent = () => {
     "https://picsum.photos/300/300?random=10"
   ];
   const navigate = useNavigate()
-  const shopsPageOpener = () => {
-    navigate("/shops")
-  }
+  const shopsPageOpener = (title) => {
+    localStorage.setItem("shopTitle", title);
+    navigate("/shops");
+  };
   return (
     <div>
         <NavbarComponent/>
@@ -132,14 +133,14 @@ const HomeCompanent = () => {
               <img style={{width: "616px"}} src={womanca} alt="womanca" />
               <div>
                   <p>Girls T-shirts — 924 items</p>
-                  <small style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
+                  <small onClick={() => shopsPageOpener("Girls T-shirts")} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
               </div>
             </div>
             <div className='categwrap'>
               <img style={{width: "616px"}} src={manca} alt="manca" />
               <div>
                 <p>Men’s shirts — 1254 items</p>
-                <small onClick={shopsPageOpener} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
+                <small onClick={() => shopsPageOpener("Men's clothes")} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
               </div>
             </div>
           </MenAndWomenSortCon>
@@ -226,37 +227,37 @@ const HomeCompanent = () => {
             </div>
           </Card>
         </Container>
-        <TrendingGridWrap>
-            <TrendProductGridCon>
-                <Trendtext>Trending shoes</Trendtext>
-                <ProductsGrid>
-                  <GridInsideWrap>
+        <TrendingGridWrapOneType>
+            <TrendProductGridConOneType>
+                <TrendtextOneType>Trending shoes</TrendtextOneType>
+                <OneTypeProductGrid>
+                  <GridInsideWrapOneType>
                     <div className='trendproimgwrap' style={{width: "400px"}}>
-                     <GridImg src={shoes1} alt="shoes1" />
+                     <GridImgForOneType src={shoes1} alt="shoes1" />
                      <button>-46%</button>
                     </div>
                     <div>
                       <p> <span>Blazer Mid 77 PRM</span> <img src={like} alt="like" /> </p>
                       <small>$209.00</small> 
                     </div>
-                  </GridInsideWrap>
-                  <GridInsideWrap>
-                    <GridImg src={shoes2} alt="shoes2" />
+                  </GridInsideWrapOneType>
+                  <GridInsideWrapOneType>
+                    <GridImgForOneType src={shoes2} alt="shoes2" />
                     <div>
                       <p> <span>Nike Air Max 90</span> <img src={like} alt="like" /> </p>
                       <small>$309.00</small>
                     </div>
-                  </GridInsideWrap>
-                  <GridInsideWrap>
-                    <GridImg src={shoes3} alt="shoes3" />
+                  </GridInsideWrapOneType>
+                  <GridInsideWrapOneType>
+                    <GridImgForOneType src={shoes3} alt="shoes3" />
                     <div>
                       <p> <span>ThomasMunz Force</span> <img src={like} alt="like" /> </p>
                       <small>$259.00</small>
                     </div>
-                  </GridInsideWrap>
-                </ProductsGrid>
-            </TrendProductGridCon>
-        </TrendingGridWrap>
+                  </GridInsideWrapOneType>
+                </OneTypeProductGrid>
+            </TrendProductGridConOneType>
+        </TrendingGridWrapOneType>
         <CarouselWrap>
           <Swiper
             modules={[Navigation]}
@@ -274,19 +275,6 @@ const HomeCompanent = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <SubscribeWrapper>
-            <SubscribeInner>
-              <TextArea>
-                <h3>Get a discount for the first order</h3>
-                <p>Subscribe to our news and special offers</p>
-              </TextArea>
-
-              <FormArea>
-                <input type="email" placeholder="Enter your email" />
-                <button>Shop now</button>
-              </FormArea>
-            </SubscribeInner>
-          </SubscribeWrapper>
         </CarouselWrap>
         <Footer/>
     </div>

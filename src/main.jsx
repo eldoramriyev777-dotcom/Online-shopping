@@ -11,6 +11,8 @@ import DashboardComponent from './Pages/dashboard'
 import CategoryModal from './FlexibleBars/CategoryModal'
 import ManCategory from './FlexibleBars/ManCategory'
 import ShopsComponent from './Pages/shops'
+import ProductsComponent from './Pages/products'
+import ShoppingCart from './Pages/cart'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -27,6 +29,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="woman" element={<div>Woman Category</div>} />
       <Route path="kids" element={<div>Kids Category</div>} />
       <Route path="/shops" element={<ShopsComponent />} />
+      <Route path="/products/:id" element={<ProductsComponent />} />
+      <Route path="/cart" element={<ShoppingCart />} />
     </Routes>
   </BrowserRouter>
 )

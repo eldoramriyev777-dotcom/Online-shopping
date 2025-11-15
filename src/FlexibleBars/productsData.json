@@ -1,102 +1,871 @@
 [
-  {"id":1,"name":"Nike Air Max 270","brand":"Nike","category":"Shoes","color":"Black","size":"M","price":120,"popularity":9,"image":"https://source.unsplash.com/random/300x300?nike-shoes-black"},
-  {"id":2,"name":"Nike Air Max 270","brand":"Nike","category":"Shoes","color":"White","size":"L","price":125,"popularity":9,"image":"https://source.unsplash.com/random/300x300?nike-shoes-white"},
-  {"id":3,"name":"Adidas Ultraboost","brand":"Adidas","category":"Shoes","color":"Black","size":"S","price":140,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-shoes-black"},
-  {"id":4,"name":"Adidas Ultraboost","brand":"Adidas","category":"Shoes","color":"White","size":"XL","price":145,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-shoes-white"},
-  {"id":5,"name":"Puma Sport Hoodie","brand":"Puma","category":"Clothes","color":"Blue","size":"L","price":60,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-blue"},
-  {"id":6,"name":"Puma Sport Hoodie","brand":"Puma","category":"Clothes","color":"Gray","size":"XL","price":65,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-gray"},
-  {"id":7,"name":"Levis Classic Jeans","brand":"Levis","category":"Jeans","color":"Blue","size":"M","price":50,"popularity":6,"image":"https://source.unsplash.com/random/300x300?jeans-blue"},
-  {"id":8,"name":"Levis Classic Jeans","brand":"Levis","category":"Jeans","color":"Black","size":"L","price":55,"popularity":6,"image":"https://source.unsplash.com/random/300x300?jeans-black"},
-  {"id":9,"name":"Nike Sports T-shirt","brand":"Nike","category":"T-shirt","color":"Red","size":"S","price":30,"popularity":8,"image":"https://source.unsplash.com/random/300x300?tshirt-red"},
-  {"id":10,"name":"Nike Sports T-shirt","brand":"Nike","category":"T-shirt","color":"Blue","size":"M","price":32,"popularity":8,"image":"https://source.unsplash.com/random/300x300?tshirt-blue"},
-  {"id":11,"name":"Adidas Running Shorts","brand":"Adidas","category":"Clothes","color":"Black","size":"L","price":25,"popularity":7,"image":"https://source.unsplash.com/random/300x300?shorts-black"},
-  {"id":12,"name":"Adidas Running Shorts","brand":"Adidas","category":"Clothes","color":"Gray","size":"XL","price":27,"popularity":7,"image":"https://source.unsplash.com/random/300x300?shorts-gray"},
-  {"id":13,"name":"Puma Sneakers Runner","brand":"Puma","category":"Shoes","color":"White","size":"M","price":85,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-shoes-white"},
-  {"id":14,"name":"Puma Sneakers Runner","brand":"Puma","category":"Shoes","color":"Black","size":"XL","price":90,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-shoes-black"},
-  {"id":15,"name":"Adidas Hoodie Classic","brand":"Adidas","category":"Clothes","color":"White","size":"L","price":60,"popularity":8,"image":"https://source.unsplash.com/random/300x300?hoodie-white"},
-  {"id":16,"name":"Adidas Hoodie Classic","brand":"Adidas","category":"Clothes","color":"Black","size":"M","price":62,"popularity":8,"image":"https://source.unsplash.com/random/300x300?hoodie-black"},
-  {"id":17,"name":"Levis Denim Jacket","brand":"Levis","category":"Jacket","color":"Blue","size":"L","price":80,"popularity":7,"image":"https://source.unsplash.com/random/300x300?jacket-blue"},
-  {"id":18,"name":"Levis Denim Jacket","brand":"Levis","category":"Jacket","color":"Black","size":"XL","price":85,"popularity":7,"image":"https://source.unsplash.com/random/300x300?jacket-black"},
-  {"id":19,"name":"Nike Sports Cap","brand":"Nike","category":"Accessories","color":"White","size":"One Size","price":20,"popularity":6,"image":"https://source.unsplash.com/random/300x300?cap-white"},
-  {"id":20,"name":"Nike Sports Cap","brand":"Nike","category":"Accessories","color":"Black","size":"One Size","price":22,"popularity":6,"image":"https://source.unsplash.com/random/300x300?cap-black"},
-  {"id":21,"name":"Adidas Track Pants","brand":"Adidas","category":"Clothes","color":"Black","size":"M","price":45,"popularity":7,"image":"https://source.unsplash.com/random/300x300?trackpants-black"},
-  {"id":22,"name":"Adidas Track Pants","brand":"Adidas","category":"Clothes","color":"Gray","size":"L","price":48,"popularity":7,"image":"https://source.unsplash.com/random/300x300?trackpants-gray"},
-  {"id":23,"name":"Puma Running Shorts","brand":"Puma","category":"Clothes","color":"Blue","size":"S","price":28,"popularity":6,"image":"https://source.unsplash.com/random/300x300?puma-shorts-blue"},
-  {"id":24,"name":"Puma Running Shorts","brand":"Puma","category":"Clothes","color":"Black","size":"M","price":30,"popularity":6,"image":"https://source.unsplash.com/random/300x300?puma-shorts-black"},
-  {"id":25,"name":"Nike Hoodie Sport","brand":"Nike","category":"Clothes","color":"Red","size":"XL","price":70,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-red"},
-  {"id":26,"name":"Nike Hoodie Sport","brand":"Nike","category":"Clothes","color":"Black","size":"L","price":72,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-black"},
-  {"id":27,"name":"Levis Casual Shirt","brand":"Levis","category":"Clothes","color":"White","size":"M","price":40,"popularity":6,"image":"https://source.unsplash.com/random/300x300?shirt-white"},
-  {"id":28,"name":"Levis Casual Shirt","brand":"Levis","category":"Clothes","color":"Blue","size":"L","price":42,"popularity":6,"image":"https://source.unsplash.com/random/300x300?shirt-blue"},
-  {"id":29,"name":"Adidas Cap Runner","brand":"Adidas","category":"Accessories","color":"Red","size":"One Size","price":18,"popularity":5,"image":"https://source.unsplash.com/random/300x300?adidas-cap-red"},
-  {"id":30,"name":"Adidas Cap Runner","brand":"Adidas","category":"Accessories","color":"White","size":"One Size","price":20,"popularity":5,"image":"https://source.unsplash.com/random/300x300?adidas-cap-white"},
-  {"id":31,"name":"Puma Jacket Windbreaker","brand":"Puma","category":"Jacket","color":"Green","size":"L","price":95,"popularity":8,"image":"https://source.unsplash.com/random/300x300?puma-jacket-green"},
-  {"id":32,"name":"Puma Jacket Windbreaker","brand":"Puma","category":"Jacket","color":"Black","size":"XL","price":100,"popularity":8,"image":"https://source.unsplash.com/random/300x300?puma-jacket-black"},
-  {"id":33,"name":"Nike Shorts Summer","brand":"Nike","category":"Clothes","color":"Blue","size":"M","price":28,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-blue"},
-  {"id":34,"name":"Nike Shorts Summer","brand":"Nike","category":"Clothes","color":"Black","size":"L","price":30,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-black"},
-  {"id":35,"name":"Levis Hoodie Casual","brand":"Levis","category":"Clothes","color":"Gray","size":"XL","price":65,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-gray"},
-  {"id":36,"name":"Levis Hoodie Casual","brand":"Levis","category":"Clothes","color":"Black","size":"XXL","price":68,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-black"},
-  {"id":37,"name":"Adidas Sneakers Run","brand":"Adidas","category":"Shoes","color":"White","size":"M","price":80,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-white"},
-  {"id":38,"name":"Adidas Sneakers Run","brand":"Adidas","category":"Shoes","color":"Black","size":"L","price":85,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-black"},
-  {"id":39,"name":"Puma Cap Classic","brand":"Puma","category":"Accessories","color":"White","size":"One Size","price":15,"popularity":5,"image":"https://source.unsplash.com/random/300x300?puma-cap-white"},
-  {"id":40,"name":"Puma Cap Classic","brand":"Puma","category":"Accessories","color":"Black","size":"One Size","price":17,"popularity":5,"image":"https://source.unsplash.com/random/300x300?puma-cap-black"},
-  {"id":41,"name":"Nike Sports T-shirt","brand":"Nike","category":"T-shirt","color":"Green","size":"S","price":28,"popularity":7,"image":"https://source.unsplash.com/random/300x300?tshirt-green"},
-  {"id":42,"name":"Nike Sports T-shirt","brand":"Nike","category":"T-shirt","color":"Yellow","size":"M","price":30,"popularity":7,"image":"https://source.unsplash.com/random/300x300?tshirt-yellow"},
-  {"id":43,"name":"Adidas Hoodie Run","brand":"Adidas","category":"Clothes","color":"Blue","size":"L","price":65,"popularity":8,"image":"https://source.unsplash.com/random/300x300?hoodie-blue"},
-  {"id":44,"name":"Adidas Hoodie Run","brand":"Adidas","category":"Clothes","color":"Gray","size":"XL","price":68,"popularity":8,"image":"https://source.unsplash.com/random/300x300?hoodie-gray"},
-  {"id":45,"name":"Puma Track Pants","brand":"Puma","category":"Clothes","color":"Black","size":"M","price":48,"popularity":7,"image":"https://source.unsplash.com/random/300x300?trackpants-black"},
-  {"id":46,"name":"Puma Track Pants","brand":"Puma","category":"Clothes","color":"Gray","size":"L","price":50,"popularity":7,"image":"https://source.unsplash.com/random/300x300?trackpants-gray"},
-  {"id":47,"name":"Levis Casual Jeans","brand":"Levis","category":"Jeans","color":"Blue","size":"S","price":55,"popularity":6,"image":"https://source.unsplash.com/random/300x300?jeans-blue"},
-  {"id":48,"name":"Levis Casual Jeans","brand":"Levis","category":"Jeans","color":"Black","size":"M","price":58,"popularity":6,"image":"https://source.unsplash.com/random/300x300?jeans-black"},
-  {"id":49,"name":"Nike Running Shorts","brand":"Nike","category":"Clothes","color":"Red","size":"L","price":32,"popularity":7,"image":"https://source.unsplash.com/random/300x300?shorts-red"},
-  {"id":50,"name":"Nike Running Shorts","brand":"Nike","category":"Clothes","color":"Blue","size":"XL","price":34,"popularity":7,"image":"https://source.unsplash.com/random/300x300?shorts-blue"},
-  {"id":51,"name":"Adidas Sneakers Sport","brand":"Adidas","category":"Shoes","color":"White","size":"M","price":90,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-white"},
-  {"id":52,"name":"Adidas Sneakers Sport","brand":"Adidas","category":"Shoes","color":"Black","size":"L","price":95,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-black"},
-  {"id":53,"name":"Puma Hoodie Casual","brand":"Puma","category":"Clothes","color":"Red","size":"M","price":60,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-red"},
-  {"id":54,"name":"Puma Hoodie Casual","brand":"Puma","category":"Clothes","color":"Blue","size":"L","price":63,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-blue"},
-  {"id":55,"name":"Nike Cap Sport","brand":"Nike","category":"Accessories","color":"White","size":"One Size","price":18,"popularity":6,"image":"https://source.unsplash.com/random/300x300?nike-cap-white"},
-  {"id":56,"name":"Nike Cap Sport","brand":"Nike","category":"Accessories","color":"Black","size":"One Size","price":20,"popularity":6,"image":"https://source.unsplash.com/random/300x300?nike-cap-black"},
-  {"id":57,"name":"Adidas Jacket Wind","brand":"Adidas","category":"Jacket","color":"Blue","size":"L","price":100,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-jacket-blue"},
-  {"id":58,"name":"Adidas Jacket Wind","brand":"Adidas","category":"Jacket","color":"Black","size":"XL","price":105,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-jacket-black"},
-  {"id":59,"name":"Levis Hoodie Classic","brand":"Levis","category":"Clothes","color":"Gray","size":"M","price":65,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-gray"},
-  {"id":60,"name":"Levis Hoodie Classic","brand":"Levis","category":"Clothes","color":"Black","size":"L","price":68,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-black"},
-  {"id":61,"name":"Nike Shorts Summer","brand":"Nike","category":"Clothes","color":"Yellow","size":"S","price":28,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-yellow"},
-  {"id":62,"name":"Nike Shorts Summer","brand":"Nike","category":"Clothes","color":"Blue","size":"M","price":30,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-blue"},
-  {"id":63,"name":"Adidas T-shirt Classic","brand":"Adidas","category":"T-shirt","color":"White","size":"L","price":35,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-tshirt-white"},
-  {"id":64,"name":"Adidas T-shirt Classic","brand":"Adidas","category":"T-shirt","color":"Black","size":"XL","price":38,"popularity":8,"image":"https://source.unsplash.com/random/300x300?adidas-tshirt-black"},
-  {"id":65,"name":"Puma Sneakers Classic","brand":"Puma","category":"Shoes","color":"White","size":"M","price":85,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-sneakers-white"},
-  {"id":66,"name":"Puma Sneakers Classic","brand":"Puma","category":"Shoes","color":"Black","size":"L","price":90,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-sneakers-black"},
-  {"id":67,"name":"Levis Casual Shirt","brand":"Levis","category":"Clothes","color":"White","size":"M","price":42,"popularity":6,"image":"https://source.unsplash.com/random/300x300?shirt-white"},
-  {"id":68,"name":"Levis Casual Shirt","brand":"Levis","category":"Clothes","color":"Blue","size":"L","price":45,"popularity":6,"image":"https://source.unsplash.com/random/300x300?shirt-blue"},
-  {"id":69,"name":"Nike Hoodie Sport","brand":"Nike","category":"Clothes","color":"Red","size":"XL","price":70,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-red"},
-  {"id":70,"name":"Nike Hoodie Sport","brand":"Nike","category":"Clothes","color":"Black","size":"L","price":72,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-black"},
-  {"id":71,"name":"Adidas Track Jacket","brand":"Adidas","category":"Jacket","color":"Gray","size":"M","price":95,"popularity":7,"image":"https://source.unsplash.com/random/300x300?adidas-jacket-gray"},
-  {"id":72,"name":"Adidas Track Jacket","brand":"Adidas","category":"Jacket","color":"Black","size":"L","price":100,"popularity":7,"image":"https://source.unsplash.com/random/300x300?adidas-jacket-black"},
-  {"id":73,"name":"Puma Cap Classic","brand":"Puma","category":"Accessories","color":"Red","size":"One Size","price":15,"popularity":5,"image":"https://source.unsplash.com/random/300x300?puma-cap-red"},
-  {"id":74,"name":"Puma Cap Classic","brand":"Puma","category":"Accessories","color":"White","size":"One Size","price":17,"popularity":5,"image":"https://source.unsplash.com/random/300x300?puma-cap-white"},
-  {"id":75,"name":"Nike Running Hoodie","brand":"Nike","category":"Clothes","color":"Blue","size":"M","price":65,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-blue"},
-  {"id":76,"name":"Nike Running Hoodie","brand":"Nike","category":"Clothes","color":"Gray","size":"L","price":68,"popularity":8,"image":"https://source.unsplash.com/random/300x300?nike-hoodie-gray"},
-  {"id":77,"name":"Levis Jeans Classic","brand":"Levis","category":"Jeans","color":"Blue","size":"S","price":55,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-jeans-blue"},
-  {"id":78,"name":"Levis Jeans Classic","brand":"Levis","category":"Jeans","color":"Black","size":"M","price":58,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-jeans-black"},
-  {"id":79,"name":"Adidas Shorts Sport","brand":"Adidas","category":"Clothes","color":"Green","size":"L","price":30,"popularity":7,"image":"https://source.unsplash.com/random/300x300?adidas-shorts-green"},
-  {"id":80,"name":"Adidas Shorts Sport","brand":"Adidas","category":"Clothes","color":"Blue","size":"XL","price":32,"popularity":7,"image":"https://source.unsplash.com/random/300x300?adidas-shorts-blue"},
-  {"id":81,"name":"Puma Hoodie Winter","brand":"Puma","category":"Clothes","color":"Black","size":"XL","price":70,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-black"},
-  {"id":82,"name":"Puma Hoodie Winter","brand":"Puma","category":"Clothes","color":"Gray","size":"XXL","price":72,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-gray"},
-  {"id":83,"name":"Nike Cap Summer","brand":"Nike","category":"Accessories","color":"Red","size":"One Size","price":18,"popularity":6,"image":"https://source.unsplash.com/random/300x300?nike-cap-red"},
-  {"id":84,"name":"Nike Cap Summer","brand":"Nike","category":"Accessories","color":"White","size":"One Size","price":20,"popularity":6,"image":"https://source.unsplash.com/random/300x300?nike-cap-white"},
-  {"id":85,"name":"Adidas Sneakers Classic","brand":"Adidas","category":"Shoes","color":"White","size":"M","price":90,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-white"},
-  {"id":86,"name":"Adidas Sneakers Classic","brand":"Adidas","category":"Shoes","color":"Black","size":"L","price":95,"popularity":9,"image":"https://source.unsplash.com/random/300x300?adidas-sneakers-black"},
-  {"id":87,"name":"Levis Hoodie Sport","brand":"Levis","category":"Clothes","color":"Gray","size":"L","price":65,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-gray"},
-  {"id":88,"name":"Levis Hoodie Sport","brand":"Levis","category":"Clothes","color":"Black","size":"XL","price":68,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-black"},
-  {"id":89,"name":"Nike T-shirt Classic","brand":"Nike","category":"T-shirt","color":"White","size":"M","price":32,"popularity":8,"image":"https://source.unsplash.com/random/300x300?tshirt-white"},
-  {"id":90,"name":"Nike T-shirt Classic","brand":"Nike","category":"T-shirt","color":"Black","size":"L","price":35,"popularity":8,"image":"https://source.unsplash.com/random/300x300?tshirt-black"},
-  {"id":91,"name":"Puma Track Hoodie","brand":"Puma","category":"Clothes","color":"Blue","size":"M","price":62,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-blue"},
-  {"id":92,"name":"Puma Track Hoodie","brand":"Puma","category":"Clothes","color":"Gray","size":"L","price":65,"popularity":7,"image":"https://source.unsplash.com/random/300x300?puma-hoodie-gray"},
-  {"id":93,"name":"Adidas Cap Sport","brand":"Adidas","category":"Accessories","color":"White","size":"One Size","price":18,"popularity":5,"image":"https://source.unsplash.com/random/300x300?adidas-cap-white"},
-  {"id":94,"name":"Adidas Cap Sport","brand":"Adidas","category":"Accessories","color":"Black","size":"One Size","price":20,"popularity":5,"image":"https://source.unsplash.com/random/300x300?adidas-cap-black"},
-  {"id":95,"name":"Nike Shorts Sport","brand":"Nike","category":"Clothes","color":"Red","size":"M","price":30,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-red"},
-  {"id":96,"name":"Nike Shorts Sport","brand":"Nike","category":"Clothes","color":"Blue","size":"L","price":32,"popularity":7,"image":"https://source.unsplash.com/random/300x300?nike-shorts-blue"},
-  {"id":97,"name":"Levis Casual Hoodie","brand":"Levis","category":"Clothes","color":"Gray","size":"XL","price":70,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-gray"},
-  {"id":98,"name":"Levis Casual Hoodie","brand":"Levis","category":"Clothes","color":"Black","size":"XXL","price":75,"popularity":6,"image":"https://source.unsplash.com/random/300x300?levis-hoodie-black"},
-  {"id":99,"name":"Puma Sneakers Sport","brand":"Puma","category":"Shoes","color":"White","size":"M","price":88,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-sneakers-white"},
-  {"id":100,"name":"Puma Sneakers Sport","brand":"Puma","category":"Shoes","color":"Black","size":"L","price":92,"popularity":9,"image":"https://source.unsplash.com/random/300x300?puma-sneakers-black"}
+  {
+    "id": 1,
+    "name": "Nike Air Max 270",
+    "brand": "Nike",
+    "category": "Shoes",
+    "size": ["M", "L"],
+    "color": ["Black", "White"],
+    "price": 120,
+    "discount_price": 108,
+    "description": "Comfortable Nike running shoes with Air Max cushioning.",
+    "rating": 9,
+    "tags": ["shoes", "nike", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-shoes-black",
+      "https://source.unsplash.com/random/300x300?nike-shoes-white",
+      "https://source.unsplash.com/random/300x300?nike-shoes"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Nike Air Max 270",
+    "brand": "Nike",
+    "category": "Shoes",
+    "size": ["M", "L"],
+    "color": ["Black", "White"],
+    "price": 125,
+    "discount_price": 112.5,
+    "description": "Sleek Nike Air Max 270 in white, perfect for sports and style.",
+    "rating": 9,
+    "tags": ["shoes", "nike", "airmax"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-shoes-white",
+      "https://source.unsplash.com/random/300x300?nike-shoes-black",
+      "https://source.unsplash.com/random/300x300?nike-airmax"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Adidas Ultraboost",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "size": ["S", "M", "XL"],
+    "color": ["Black", "White"],
+    "price": 140,
+    "discount_price": 126,
+    "description": "High-performance Adidas Ultraboost for running and casual wear.",
+    "rating": 8,
+    "tags": ["shoes", "adidas", "ultraboost", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-shoes-black",
+      "https://source.unsplash.com/random/300x300?adidas-shoes-white",
+      "https://source.unsplash.com/random/300x300?adidas-ultraboost"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Adidas Ultraboost",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "size": ["S", "M", "XL"],
+    "color": ["Black", "White"],
+    "price": 145,
+    "discount_price": 130.5,
+    "description": "Adidas Ultraboost in white for maximum comfort and style.",
+    "rating": 8,
+    "tags": ["shoes", "adidas", "ultraboost"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-shoes-white",
+      "https://source.unsplash.com/random/300x300?adidas-shoes-black",
+      "https://source.unsplash.com/random/300x300?adidas-ultraboost"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Puma Sport Hoodie",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Blue", "Gray"],
+    "price": 60,
+    "discount_price": 54,
+    "description": "Warm and sporty hoodie from Puma, perfect for workouts.",
+    "rating": 7,
+    "tags": ["hoodie", "puma", "clothes", "sport"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-hoodie-blue",
+      "https://source.unsplash.com/random/300x300?puma-hoodie-gray",
+      "https://source.unsplash.com/random/300x300?puma-hoodie"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Puma Sport Hoodie",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Blue", "Gray"],
+    "price": 65,
+    "discount_price": 58.5,
+    "description": "Gray Puma Sport Hoodie, cozy and stylish.",
+    "rating": 7,
+    "tags": ["hoodie", "puma", "clothes"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-hoodie-gray",
+      "https://source.unsplash.com/random/300x300?puma-hoodie-blue"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Levis Classic Jeans",
+    "brand": "Levis",
+    "category": "Jeans",
+    "size": ["M", "L", "S"],
+    "color": ["Blue", "Black"],
+    "price": 50,
+    "discount_price": 45,
+    "description": "Classic Levis jeans, durable and stylish for everyday wear.",
+    "rating": 6,
+    "tags": ["jeans", "levis", "clothes"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jeans-blue",
+      "https://source.unsplash.com/random/300x300?jeans-black"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Levis Classic Jeans",
+    "brand": "Levis",
+    "category": "Jeans",
+    "size": ["M", "L", "S"],
+    "color": ["Blue", "Black"],
+    "price": 55,
+    "discount_price": 49.5,
+    "description": "Black Levis jeans, perfect for casual and semi-formal outfits.",
+    "rating": 6,
+    "tags": ["jeans", "levis", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jeans-black",
+      "https://source.unsplash.com/random/300x300?jeans-blue"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Nike Sports T-shirt",
+    "brand": "Nike",
+    "category": "T-shirt",
+    "size": ["S", "M"],
+    "color": ["Red", "Blue", "Green"],
+    "price": 30,
+    "discount_price": 27,
+    "description": "Lightweight and breathable T-shirt for sports and casual wear.",
+    "rating": 8,
+    "tags": ["t-shirt", "nike", "sports"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?tshirt-red",
+      "https://source.unsplash.com/random/300x300?tshirt-blue",
+      "https://source.unsplash.com/random/300x300?tshirt-green"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Nike Sports T-shirt",
+    "brand": "Nike",
+    "category": "T-shirt",
+    "size": ["S", "M"],
+    "color": ["Red", "Blue", "Green"],
+    "price": 32,
+    "discount_price": 28.8,
+    "description": "Blue Nike Sports T-shirt, perfect for running and gym.",
+    "rating": 8,
+    "tags": ["t-shirt", "nike", "sports"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?tshirt-blue",
+      "https://source.unsplash.com/random/300x300?tshirt-red",
+      "https://source.unsplash.com/random/300x300?tshirt-green"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Adidas Running Shorts",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "XL", "M"],
+    "color": ["Black", "Gray"],
+    "price": 25,
+    "discount_price": 22.5,
+    "description": "Comfortable Adidas shorts for running and gym workouts.",
+    "rating": 7,
+    "tags": ["shorts", "adidas", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shorts-black",
+      "https://source.unsplash.com/random/300x300?shorts-gray",
+      "https://source.unsplash.com/random/300x300?adidas-shorts"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Adidas Running Shorts",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "XL", "M"],
+    "color": ["Black", "Gray"],
+    "price": 27,
+    "discount_price": 24.3,
+    "description": "Gray Adidas Running Shorts, lightweight and breathable.",
+    "rating": 7,
+    "tags": ["shorts", "adidas", "gym"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shorts-gray",
+      "https://source.unsplash.com/random/300x300?shorts-black"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Puma Sneakers Runner",
+    "brand": "Puma",
+    "category": "Shoes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Black"],
+    "price": 85,
+    "discount_price": 76.5,
+    "description": "High-performance Puma sneakers for running and casual wear.",
+    "rating": 9,
+    "tags": ["shoes", "puma", "sneakers"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-shoes-white",
+      "https://source.unsplash.com/random/300x300?puma-shoes-black",
+      "https://source.unsplash.com/random/300x300?puma-sneakers"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Puma Sneakers Runner",
+    "brand": "Puma",
+    "category": "Shoes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Black"],
+    "price": 90,
+    "discount_price": 81,
+    "description": "Black Puma Sneakers Runner, perfect for daily sports and gym.",
+    "rating": 9,
+    "tags": ["shoes", "puma", "runner"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-shoes-black",
+      "https://source.unsplash.com/random/300x300?puma-shoes-white"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Adidas Hoodie Classic",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "M", "XL"],
+    "color": ["White", "Black"],
+    "price": 60,
+    "discount_price": 54,
+    "description": "Classic Adidas hoodie, cozy and stylish for everyday wear.",
+    "rating": 8,
+    "tags": ["hoodie", "adidas", "clothes"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?hoodie-white",
+      "https://source.unsplash.com/random/300x300?hoodie-black",
+      "https://source.unsplash.com/random/300x300?adidas-hoodie"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Adidas Hoodie Classic",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "M", "XL"],
+    "color": ["White", "Black"],
+    "price": 62,
+    "discount_price": 55.8,
+    "description": "Black Adidas Hoodie Classic, stylish and warm.",
+    "rating": 8,
+    "tags": ["hoodie", "adidas", "classic"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?hoodie-black",
+      "https://source.unsplash.com/random/300x300?hoodie-white"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Levis Denim Jacket",
+    "brand": "Levis",
+    "category": "Jacket",
+    "size": ["L", "XL", "M"],
+    "color": ["Blue", "Black"],
+    "price": 80,
+    "discount_price": 72,
+    "description": "Classic Levis Denim Jacket, durable and fashionable.",
+    "rating": 7,
+    "tags": ["jacket", "levis", "denim"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jacket-blue",
+      "https://source.unsplash.com/random/300x300?jacket-black"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Levis Denim Jacket",
+    "brand": "Levis",
+    "category": "Jacket",
+    "size": ["L", "XL", "M"],
+    "color": ["Blue", "Black"],
+    "price": 85,
+    "discount_price": 76.5,
+    "description": "Black Levis Denim Jacket, perfect for casual outfits.",
+    "rating": 7,
+    "tags": ["jacket", "levis", "denim", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jacket-black",
+      "https://source.unsplash.com/random/300x300?jacket-blue"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Nike Sports Cap",
+    "brand": "Nike",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["White", "Black", "Red"],
+    "price": 20,
+    "discount_price": 18,
+    "description": "Nike cap suitable for sports and daily wear.",
+    "rating": 6,
+    "tags": ["cap", "nike", "accessories"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?cap-white",
+      "https://source.unsplash.com/random/300x300?cap-black",
+      "https://source.unsplash.com/random/300x300?cap-red"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Nike Sports Cap",
+    "brand": "Nike",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["White", "Black", "Red"],
+    "price": 22,
+    "discount_price": 19.8,
+    "description": "Black Nike Sports Cap, perfect for sun protection and style.",
+    "rating": 6,
+    "tags": ["cap", "nike", "accessories", "sports"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?cap-black",
+      "https://source.unsplash.com/random/300x300?cap-white",
+      "https://source.unsplash.com/random/300x300?nike-cap"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Adidas Track Pants",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["M", "L", "XL"],
+    "color": ["Black", "Gray"],
+    "price": 45,
+    "discount_price": 40.5,
+    "description": "Comfortable Adidas track pants for sports and casual wear.",
+    "rating": 7,
+    "tags": ["trackpants", "adidas", "sports"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?trackpants-black",
+      "https://source.unsplash.com/random/300x300?trackpants-gray",
+      "https://source.unsplash.com/random/300x300?adidas-trackpants"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Adidas Track Pants",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["M", "L", "XL"],
+    "color": ["Black", "Gray"],
+    "price": 48,
+    "discount_price": 43.2,
+    "description": "Gray Adidas Track Pants, perfect for jogging or gym workouts.",
+    "rating": 7,
+    "tags": ["trackpants", "adidas", "gym"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?trackpants-gray",
+      "https://source.unsplash.com/random/300x300?trackpants-black"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Puma Running Shorts",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black"],
+    "price": 28,
+    "discount_price": 25.2,
+    "description": "Blue Puma running shorts, lightweight and breathable.",
+    "rating": 6,
+    "tags": ["shorts", "puma", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-shorts-blue",
+      "https://source.unsplash.com/random/300x300?puma-shorts-black"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Puma Running Shorts",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black"],
+    "price": 30,
+    "discount_price": 27,
+    "description": "Black Puma Running Shorts, perfect for gym and outdoor sports.",
+    "rating": 6,
+    "tags": ["shorts", "puma", "gym"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-shorts-black",
+      "https://source.unsplash.com/random/300x300?puma-shorts-blue"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Nike Hoodie Sport",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["L", "XL", "M"],
+    "color": ["Red", "Black"],
+    "price": 70,
+    "discount_price": 63,
+    "description": "Nike Sport Hoodie, warm and stylish for outdoor workouts.",
+    "rating": 8,
+    "tags": ["hoodie", "nike", "sport"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-hoodie-red",
+      "https://source.unsplash.com/random/300x300?nike-hoodie-black",
+      "https://source.unsplash.com/random/300x300?nike-hoodie"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Nike Hoodie Sport",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["L", "XL", "M"],
+    "color": ["Red", "Black"],
+    "price": 72,
+    "discount_price": 64.8,
+    "description": "Black Nike Sport Hoodie, cozy and perfect for training.",
+    "rating": 8,
+    "tags": ["hoodie", "nike", "training"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-hoodie-black",
+      "https://source.unsplash.com/random/300x300?nike-hoodie-red"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Levis Casual Shirt",
+    "brand": "Levis",
+    "category": "Clothes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Blue"],
+    "price": 40,
+    "discount_price": 36,
+    "description": "Levis casual shirt, comfortable for everyday wear.",
+    "rating": 6,
+    "tags": ["shirt", "levis", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shirt-white",
+      "https://source.unsplash.com/random/300x300?shirt-blue"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Levis Casual Shirt",
+    "brand": "Levis",
+    "category": "Clothes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Blue"],
+    "price": 42,
+    "discount_price": 37.8,
+    "description": "Blue Levis Casual Shirt, stylish and breathable.",
+    "rating": 6,
+    "tags": ["shirt", "levis", "fashion"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shirt-blue",
+      "https://source.unsplash.com/random/300x300?shirt-white"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Adidas Cap Runner",
+    "brand": "Adidas",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["Red", "White"],
+    "price": 18,
+    "discount_price": 16.2,
+    "description": "Red Adidas Cap, perfect for running and outdoor activities.",
+    "rating": 5,
+    "tags": ["cap", "adidas", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-cap-red",
+      "https://source.unsplash.com/random/300x300?adidas-cap-white"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Adidas Cap Runner",
+    "brand": "Adidas",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["Red", "White"],
+    "price": 20,
+    "discount_price": 18,
+    "description": "White Adidas Cap Runner, comfortable and stylish.",
+    "rating": 5,
+    "tags": ["cap", "adidas", "sport"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-cap-white",
+      "https://source.unsplash.com/random/300x300?adidas-cap-red"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Puma Jacket Windbreaker",
+    "brand": "Puma",
+    "category": "Jacket",
+    "size": ["L", "XL"],
+    "color": ["Green", "Black"],
+    "price": 95,
+    "discount_price": 85.5,
+    "description": "Puma Windbreaker Jacket, lightweight and perfect for running or casual wear.",
+    "rating": 8,
+    "tags": ["jacket", "puma", "windbreaker"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-jacket-green",
+      "https://source.unsplash.com/random/300x300?puma-jacket-black"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Puma Jacket Windbreaker",
+    "brand": "Puma",
+    "category": "Jacket",
+    "size": ["L", "XL"],
+    "color": ["Green", "Black"],
+    "price": 100,
+    "discount_price": 90,
+    "description": "Black Puma Windbreaker Jacket, stylish and durable for outdoor activities.",
+    "rating": 8,
+    "tags": ["jacket", "puma", "outdoor"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-jacket-black",
+      "https://source.unsplash.com/random/300x300?puma-jacket-green"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Nike Shorts Summer",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black", "Yellow"],
+    "price": 28,
+    "discount_price": 25.2,
+    "description": "Nike Summer Shorts, breathable and ideal for sports or casual wear.",
+    "rating": 7,
+    "tags": ["shorts", "nike", "summer"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-shorts-blue",
+      "https://source.unsplash.com/random/300x300?nike-shorts-black",
+      "https://source.unsplash.com/random/300x300?nike-shorts"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Nike Shorts Summer",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black", "Yellow"],
+    "price": 30,
+    "discount_price": 27,
+    "description": "Black Nike Summer Shorts, perfect for gym and outdoor activities.",
+    "rating": 7,
+    "tags": ["shorts", "nike", "gym"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?nike-shorts-black",
+      "https://source.unsplash.com/random/300x300?nike-shorts-blue"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Levis Hoodie Casual",
+    "brand": "Levis",
+    "category": "Clothes",
+    "size": ["M", "L", "XL", "XXL"],
+    "color": ["Gray", "Black"],
+    "price": 65,
+    "discount_price": 58.5,
+    "description": "Levis Casual Hoodie, soft and cozy for everyday use.",
+    "rating": 6,
+    "tags": ["hoodie", "levis", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?levis-hoodie-gray",
+      "https://source.unsplash.com/random/300x300?levis-hoodie-black"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Levis Hoodie Casual",
+    "brand": "Levis",
+    "category": "Clothes",
+    "size": ["M", "L", "XL", "XXL"],
+    "color": ["Gray", "Black"],
+    "price": 68,
+    "discount_price": 61.2,
+    "description": "Levis Black Casual Hoodie, perfect for chilly days.",
+    "rating": 6,
+    "tags": ["hoodie", "levis", "warm"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?levis-hoodie-black",
+      "https://source.unsplash.com/random/300x300?levis-hoodie-gray"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Adidas Sneakers Run",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Black"],
+    "price": 80,
+    "discount_price": 72,
+    "description": "Adidas Sneakers for running, lightweight and comfortable.",
+    "rating": 9,
+    "tags": ["shoes", "adidas", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-sneakers-white",
+      "https://source.unsplash.com/random/300x300?adidas-sneakers-black"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Adidas Sneakers Run",
+    "brand": "Adidas",
+    "category": "Shoes",
+    "size": ["M", "L", "XL"],
+    "color": ["White", "Black"],
+    "price": 85,
+    "discount_price": 76.5,
+    "description": "Black Adidas Running Sneakers, perfect for sports and casual outings.",
+    "rating": 9,
+    "tags": ["shoes", "adidas", "sport"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?adidas-sneakers-black",
+      "https://source.unsplash.com/random/300x300?adidas-sneakers-white"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Puma Cap Classic",
+    "brand": "Puma",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["White", "Black", "Red"],
+    "price": 15,
+    "discount_price": 13.5,
+    "description": "Classic Puma Cap, lightweight and stylish for any outfit.",
+    "rating": 5,
+    "tags": ["cap", "puma", "classic"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-cap-white",
+      "https://source.unsplash.com/random/300x300?puma-cap-black",
+      "https://source.unsplash.com/random/300x300?puma-cap-red"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Puma Cap Classic",
+    "brand": "Puma",
+    "category": "Accessories",
+    "size": ["X", "S", "M", "L", "XL", "XXL"],
+    "color": ["White", "Black", "Red"],
+    "price": 17,
+    "discount_price": 15.3,
+    "description": "Black Puma Classic Cap, versatile and suitable for sports or casual wear.",
+    "rating": 5,
+    "tags": ["cap", "puma", "versatile"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?puma-cap-black",
+      "https://source.unsplash.com/random/300x300?puma-cap-white",
+      "https://source.unsplash.com/random/300x300?puma-cap-red"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Nike Sports T-shirt",
+    "brand": "Nike",
+    "category": "T-shirt",
+    "size": ["S", "M", "L"],
+    "color": ["Red", "Green", "Yellow"],
+    "price": 28,
+    "discount_price": 25.2,
+    "description": "Nike Sports T-shirt, breathable and comfortable for workouts or casual wear.",
+    "rating": 7,
+    "tags": ["tshirt", "nike", "sports"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?tshirt-red",
+      "https://source.unsplash.com/random/300x300?tshirt-green",
+      "https://source.unsplash.com/random/300x300?tshirt-yellow"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Nike Sports T-shirt",
+    "brand": "Nike",
+    "category": "T-shirt",
+    "size": ["S", "M", "L"],
+    "color": ["Red", "Green", "Yellow"],
+    "price": 30,
+    "discount_price": 27,
+    "description": "Nike Sports T-shirt, perfect for running and everyday casual outfits.",
+    "rating": 7,
+    "tags": ["tshirt", "nike", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?tshirt-yellow",
+      "https://source.unsplash.com/random/300x300?tshirt-red",
+      "https://source.unsplash.com/random/300x300?tshirt-green"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Adidas Hoodie Run",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Blue", "Gray"],
+    "price": 65,
+    "discount_price": 58.5,
+    "description": "Adidas Running Hoodie, lightweight and ideal for jogging or casual wear.",
+    "rating": 8,
+    "tags": ["hoodie", "adidas", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?hoodie-blue",
+      "https://source.unsplash.com/random/300x300?hoodie-gray"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Adidas Hoodie Run",
+    "brand": "Adidas",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Blue", "Gray"],
+    "price": 68,
+    "discount_price": 61.2,
+    "description": "Gray Adidas Running Hoodie, perfect for outdoor workouts and casual activities.",
+    "rating": 8,
+    "tags": ["hoodie", "adidas", "workout"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?hoodie-gray",
+      "https://source.unsplash.com/random/300x300?hoodie-blue"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Puma Track Pants",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["M", "L"],
+    "color": ["Black", "Gray"],
+    "price": 48,
+    "discount_price": 43.2,
+    "description": "Puma Track Pants, comfortable and suitable for sports and casual wear.",
+    "rating": 7,
+    "tags": ["trackpants", "puma", "sport"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?trackpants-black",
+      "https://source.unsplash.com/random/300x300?trackpants-gray"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Puma Track Pants",
+    "brand": "Puma",
+    "category": "Clothes",
+    "size": ["M", "L"],
+    "color": ["Black", "Gray"],
+    "price": 50,
+    "discount_price": 45,
+    "description": "Gray Puma Track Pants, ideal for jogging, workouts, or lounging at home.",
+    "rating": 7,
+    "tags": ["trackpants", "puma", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?trackpants-gray",
+      "https://source.unsplash.com/random/300x300?trackpants-black"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Levis Casual Jeans",
+    "brand": "Levis",
+    "category": "Jeans",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black"],
+    "price": 55,
+    "discount_price": 49.5,
+    "description": "Levis Casual Jeans, classic fit and suitable for everyday wear.",
+    "rating": 6,
+    "tags": ["jeans", "levis", "casual"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jeans-blue",
+      "https://source.unsplash.com/random/300x300?jeans-black"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Levis Casual Jeans",
+    "brand": "Levis",
+    "category": "Jeans",
+    "size": ["S", "M", "L"],
+    "color": ["Blue", "Black"],
+    "price": 58,
+    "discount_price": 52.2,
+    "description": "Black Levis Casual Jeans, versatile and perfect for casual and semi-formal outfits.",
+    "rating": 6,
+    "tags": ["jeans", "levis", "versatile"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?jeans-black",
+      "https://source.unsplash.com/random/300x300?jeans-blue"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Nike Running Shorts",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Red", "Blue"],
+    "price": 32,
+    "discount_price": 28.8,
+    "description": "Nike Running Shorts, lightweight and breathable for summer sports.",
+    "rating": 7,
+    "tags": ["shorts", "nike", "running"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shorts-red",
+      "https://source.unsplash.com/random/300x300?shorts-blue"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Nike Running Shorts",
+    "brand": "Nike",
+    "category": "Clothes",
+    "size": ["L", "XL"],
+    "color": ["Red", "Blue"],
+    "price": 34,
+    "discount_price": 30.6,
+    "description": "Blue Nike Running Shorts, ideal for running, gym, or casual wear.",
+    "rating": 7,
+    "tags": ["shorts", "nike", "gym"],
+    "images": [
+      "https://source.unsplash.com/random/300x300?shorts-blue",
+      "https://source.unsplash.com/random/300x300?shorts-red"
+    ]
+  }
 ]

@@ -40,6 +40,7 @@ import styled from 'styled-components'
 import WomanCategory from './WomanCategory'
 import KidsCategory from './KidsCategory'
 import productsData from './productsData.json'
+import { TrendViewButton } from '../Pages/homeStyle'
 
 const NavbarComponent = () => {
   const navigate = useNavigate()
@@ -78,7 +79,10 @@ const NavbarComponent = () => {
     { code: 'JPY', symbol: '¥', name: 'Japanese Yen' }
   ]
 
-  const handleCurrencySelect = (code) => setSelectedCurrency(code)
+  const handleCurrencySelect = (code) => {
+    setSelectedCurrency(code)
+    setOpen(false); // ✅ Tanlanganidan keyin avtomatik yopiladi
+  }
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -87,10 +91,13 @@ const NavbarComponent = () => {
     setTimeout(() => navigate('/login/sign-in'), 1500)
   }
 
-  const handleCityChange = (cityName) => setSelectedCity(cityName)
-  const handleLanguageChange = (lang) => setSelectedLanguage(lang)
-
+  const handleCityChange = (cityName) => {setSelectedCity(cityName)
+    setOpen(false); // ✅ Tanlanganidan keyin avtomatik yopiladi
+  }
+  const handleLanguageChange = (lang) => {setSelectedLanguage(lang)
+    setOpen(false); // ✅ Tanlanganidan keyin avtomatik yopiladi 
   // Responsive dropdown position
+  }
   const handleResize = () => {
     if (locationRef.current) {
       const rect = locationRef.current.getBoundingClientRect()
@@ -135,6 +142,7 @@ const NavbarComponent = () => {
     const [results, setResults] = useState([]);
     const [products, setProducts] = useState([]);
     const [selectedFilter, setSelectedFilter] = useState(""); // category/brand/name filter
+    const [visibleCount, setVisibleCount] = useState(18);
   
     // fetch products from JSON
     useEffect(() => {
@@ -201,6 +209,14 @@ const filteredTopSellers = selectedFilter
   ? results
   : products;
 
+  const handleSearched = (item) => {
+    // 1) O'sha mahsulotga o'tish
+    navigate(`/products/${item.id}`);
+    setQuery("");
+    setResults([]);
+    // // 2) Searchni tozalash
+    // setQuery("");
+  };
 
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
@@ -514,7 +530,7 @@ const filteredTopSellers = selectedFilter
                   {/* Search results */}
                   <div className="results-list">
                     {results.map((item) => (
-                      <div key={item.id} className="result-item">
+                      <div style={{cursor: "pointer"}}  onClick={() => handleSearched(item)} key={item.id} className="result-item">
                         <strong>{item.category}</strong> {item.name}
                       </div>
                     ))}
@@ -525,12 +541,12 @@ const filteredTopSellers = selectedFilter
                   <div className="topsellers">
                     <p>Popular Products</p>
                     <div className="popularProductItems">
-                      {filteredTopSellers.slice(0, 5).map((item) => {
+                      {filteredTopSellers.slice(0, visibleCount).map((item) => {
                         const imgSrc =
                           imageMap[item.name] ||
                           `https://source.unsplash.com/100x100/?${encodeURIComponent(item.name)}`;
                         return (
-                          <div key={item.id}>
+                          <div  key={item.id}>
                           <img
                             src={`https://picsum.photos/seed/${item.id}/100/100`}
                             alt={item.name}
@@ -543,6 +559,9 @@ const filteredTopSellers = selectedFilter
                       })}
                     </div>
                   </div>
+                   <TrendViewButton onClick={() => setVisibleCount(prev => prev + 9)}>
+                                View more
+                    </TrendViewButton>
                 </SearchContent>
               </FullSearchWrapper>
             )}
@@ -630,7 +649,6 @@ const FullSearchWrapper = styled.div`
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
 }
 
 .search-header input {
@@ -658,7 +676,7 @@ const FullSearchWrapper = styled.div`
 }
 
 .results-list {
-  margin-top: 10px;
+
 }
 
 .result-item {
@@ -676,7 +694,6 @@ const FullSearchWrapper = styled.div`
 .no-results {
   text-align: center;
   color: #888;
-  margin-top: 15px;
 }
 
 `;
@@ -782,8 +799,9 @@ const SearchContent = styled.div`
       opacity: 0.4;
     }
     .popularProductItems{
-      display: flex;
+      display: grid;
       align-items: center;
+      grid-template-areas: "a a a a a a";
       justify-content: left;
       gap: 20px;
       div{

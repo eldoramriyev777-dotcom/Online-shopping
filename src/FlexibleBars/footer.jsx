@@ -6,6 +6,86 @@ import mastercard from "../assets/home_assets/mastercard.svg";
 import paypal from "../assets/home_assets/paypal.svg";
 import gpay from "../assets/home_assets/gpay.svg";
 
+const AllFooterWrap = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+`
+ const SubscribeWrapper = styled.div`
+  max-width: 1300px;
+  width: 100%;
+  margin: 25px auto;
+`;
+
+ const SubscribeInner = styled.div`
+  background-color: var(--Grey-F7F7F7, #F7F7F7);
+  border-radius: 15px;
+  padding: 34px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
+ const TextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  h3 {
+    color: var(--Black, #000);
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 142.857% */
+    letter-spacing: -0.28px;
+  }
+
+  p {
+    color: var(--Dark-Color-202020, #202020);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 120% */
+    letter-spacing: -0.15px;
+  }
+`;
+
+ const FormArea = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 23px;
+
+  input {
+    width: 448px;
+    padding: 12px 0px;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    width: 250px;
+    font-size: 15px;
+    border-bottom: 1px solid #333;
+  }
+
+  button {
+    padding: 12px 24px;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 137px;
+    border-radius: 97px;
+    background-color: var(--Dark-Color-202020, #202020);
+  }
+
+  button:hover {
+    background-color: #333;
+  }
+`;
+
 const FooterContainer = styled.footer`
   padding: 25px 20px;
   max-width: 1300px;
@@ -14,29 +94,35 @@ const FooterContainer = styled.footer`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  font-family: Arial, sans-serif;
 
   h4 {
-    font-size: 14px;
+    color: var(--Black, #000);
+    font-size: 18px;
+    font-style: normal;
     font-weight: 700;
-    margin-bottom: 15px;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 30px;
   }
 
   p,
   a {
-    font-size: 14px;
-    color: #000;
+    color: var(--Black, #000);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
     text-decoration: none;
-    line-height: 1.8;
   }
 
   a:hover {
     text-decoration: underline;
+    color: orange;
   }
 
   .social-icons {
     display: flex;
-    gap: 15px;
+    gap: 24px;
     font-size: 18px;
   }
 
@@ -55,6 +141,20 @@ const FooterContainer = styled.footer`
 
 const Footer = () => {
   return (
+    <AllFooterWrap>
+       <SubscribeWrapper>
+      <SubscribeInner>
+        <TextArea>
+          <h3>Get a discount for the first order</h3>
+          <p>Subscribe to our news and special offers</p>
+        </TextArea>
+
+        <FormArea>
+          <input type="email" placeholder="Enter your email" />
+          <button>Shop now</button>
+        </FormArea>
+      </SubscribeInner>
+      </SubscribeWrapper>
     <FooterContainer>
       <div>
         <h4>CUSTOMER CARE</h4>
@@ -100,6 +200,7 @@ const Footer = () => {
         </div>
       </div>
     </FooterContainer>
+    </AllFooterWrap>
   );
 };
 

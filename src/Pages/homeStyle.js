@@ -382,6 +382,103 @@ export const TrendViewButton = styled.button`
     box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
   }
 `;
+export const TrendingGridWrapOneType = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const TrendProductGridConOneType = styled.div`
+  display: flex;
+  max-width: 1300px;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+  gap: 40px;
+`;
+
+export const TrendtextOneType = styled.p`
+  color: var(--Dark-Color-202020, #202020);
+  font-size: 45px;
+  font-weight: 400;
+  letter-spacing: -0.45px;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #f54f1f;
+  }
+`;
+
+export const OneTypeProductGrid = styled.div`
+  display: grid;
+  grid-template-areas: "a a a";
+  row-gap: 40px;
+  column-gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const GridInsideWrapOneType = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+
+  div {
+    display: flex;
+    align-items: start;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10;
+
+    p {
+      display: flex;
+      width: 400px;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .trendproimgwrap{
+    button{
+    display: inline-flex;
+    padding: 5px 9px 3px 9px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 0 20px;
+    color: var(--White, #FFF);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    position: absolute;
+    border-radius: 100px;
+    background-color: var(--Brand-Color-F54F1F, #F54F1F);
+    border: none;
+  }
+  }
+`;
+
+export const GridImgForOneType = styled.img`
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  }
+`;
 export const CarouselWrap = styled.div`
   max-width: 1300px;
   width: 100%;
@@ -430,7 +527,7 @@ export const CarouselWrap = styled.div`
 
   .insta-icon {
     color: white;
-    font-size: 40px;
+    font-size: 35px;
     transition: 0.3s;
   }
 
@@ -439,8 +536,10 @@ export const CarouselWrap = styled.div`
     color: #000;
     background: white;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    padding: 6px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
     top: 45%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     transition: 0.3s ease;
@@ -456,69 +555,5 @@ export const CarouselWrap = styled.div`
   .swiper-button-prev::after {
     font-size: 18px;
     font-weight: bold;
-  }
-`;
-export const SubscribeWrapper = styled.div`
-  max-width: 1300px;
-  width: 100%;
-  margin: 25px auto;
-`;
-
-export const SubscribeInner = styled.div`
-  background-color: var(--Grey-F7F7F7, #F7F7F7);
-  border-radius: 15px;
-  padding: 34px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-`;
-
-export const TextArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  p {
-    font-size: 16px;
-    margin: 0;
-    color: #555;
-  }
-`;
-
-export const FormArea = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  input {
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    width: 250px;
-    font-size: 15px;
-  }
-
-  button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    background-color: black;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  button:hover {
-    background-color: #333;
   }
 `;
