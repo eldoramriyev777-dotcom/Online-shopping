@@ -169,24 +169,38 @@ h3{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .sizeBtn{
-        width: 64px;
-        height: 44px;
-        flex-shrink: 0;
-        margin-left: 10px;
-        border: none;
-        padding: 13px 19px 9px 19px;
-        text-align: center;
-        color: var(--Dark-Color-202020, #202020);
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        border-radius: 76px;
-        background-color: var(--Grey-F7F7F7, #F7F7F7);
-        &:hover{
-            background-color: var(--Dark-Color-202020, #202020);
-            color: #FFF;
+    .sizeButtons{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 4px;
+        .sizeBtn {
+            width: 64px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;  /* 🔥 Matnni vertikal o‘rtaga keltiradi */
+            flex-shrink: 0;
+            margin-left: 10px;
+            border: none;
+            padding: 0; /* 🔥 Endi padding kerak emas */
+            text-align: center;
+            color: var(--Dark-Color-202020, #202020);
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            border-radius: 76px;
+            background-color: var(--Grey-F7F7F7, #F7F7F7);
+
+            &:hover {
+                border: 1px solid var(--Dark-Color-202020, #202020);
+            }
+
+            &.active {
+                background-color: var(--Dark-Color-202020, #202020);
+                color: #FFF;
+            }
         }
     }
 }
@@ -203,6 +217,7 @@ export const wrapperStyle = {
     borderRadius: "15px",
     overflow: "hidden",
     cursor: "pointer",
+    minHeight: "400px",
   };
   
   export const imgStyle = {
@@ -210,6 +225,7 @@ export const wrapperStyle = {
     height: "320px",
     objectFit: "cover",
     borderRadius: "15px",
+    height: "auto",
   };
   
   export const overlayStyle = {

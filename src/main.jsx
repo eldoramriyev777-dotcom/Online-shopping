@@ -13,6 +13,7 @@ import ManCategory from './FlexibleBars/ManCategory'
 import ShopsComponent from './Pages/shops'
 import ProductsComponent from './Pages/products'
 import ShoppingCart from './Pages/cart'
+import ShippingPage from './Pages/shipping'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -31,6 +32,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/shops" element={<ShopsComponent />} />
       <Route path="/products/:id" element={<ProductsComponent />} />
       <Route path="/cart" element={<ShoppingCart />} />
+      <Route path="/shipping" element={<ShippingPage />} />
     </Routes>
   </BrowserRouter>
 )

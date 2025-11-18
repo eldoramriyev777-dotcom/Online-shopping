@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import NavbarComponent from "../FlexibleBars/navbar";
 import Footer from "../FlexibleBars/footer";
-import { Breadcrumbs, Typography, Link as MUILink, Divider } from "@mui/material";
+import { Breadcrumbs, Typography, Link as MUILink, Divider, Modal, Box, Button, Snackbar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Link as RouterLink, useParams } from "react-router-dom";
@@ -45,31 +45,72 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import MiniCart from "./MiniCart";
 
 const ProductsComponent = () => {
   
-  const colors = ["#FF3B30", "#FF9500", "#FFCC00", "#34C759", "#007AFF", "#AF52DE"];
-  const [active, setActive] = useState(colors[0]);
-  const [expanded, setExpanded] = React.useState("panel1");
-
-
-  const images = [relateimg1, relateimg2, relateimg3, relateimg1, relateimg2, relateimg3];
-
-  // swiper ref (agar kerak bo'lsa)
-  const swiperRef = useRef(null);
-
-  // ensure wrapperStyle has position: relative for absolute nav buttons
-  const wrapperWithPos = { ...(wrapperStyle || {}), position: "relative" };
-
-  const handleChange = (panel, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-
+    // 1️⃣ URL parametri orqali mahsulotni olish
     const { id } = useParams();
     const product = data.find((p) => p.id === parseInt(id));
-  
-    if (!product) return <p>Product not found</p>;  
+    if (!product) return <p>Product not found</p>;
     const current = `${product.category}`;
+  
+    // 2️⃣ State-lar (hook'lar doimo componentning yuqorisida bo‘lishi kerak)
+    const [modalOpen, setModalOpen] = useState(false);
+    const [activeColor, setActiveColor] = useState(product.color[0]);
+    const [activeSize, setActiveSize] = useState(product.size[0]);
+    const [expanded, setExpanded] = useState("panel1");
+  
+    const [cart, setCart] = useState([]);        // Cart state
+    const [cartOpen, setCartOpen] = useState(false); // Mini cart ochilishi
+    const [notify, setNotify] = useState(false); // Snackbar notification
+  
+    // 3️⃣ Swiper ref (agar kerak bo‘lsa)
+    const swiperRef = useRef(null);
+  
+    // 4️⃣ Accordion toggle funksiyasi
+    const handleChange = (panel, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
+  
+    // 5️⃣ Related products filter
+    const relatedProducts = data.filter(
+      (p) => p.category === product.category && p.id !== product.id
+    );
+  
+    // 6️⃣ Mini cart va localStorage uchun Add to Cart funksiyasi
+    const handleCart = () => {
+    // Cartdagi oxirgi id ni topamiz
+      const maxId = cart.length > 0 ? Math.max(...cart.map(item => item.id)) : 0;
+
+      const cartItem = {
+        id: maxId + 1,           // Cart ichidagi ketma-ket id
+        productId: product.id,    // Asl mahsulot id
+        name: product.name,
+        price: product.price,
+        color: activeColor,
+        size: activeSize,
+        image: `https://picsum.photos/seed/${product.id}/300/400`,
+        qty: 1
+      };
+      
+      console.log("Added to cart:", cartItem);
+  
+      // LocalStorage ga saqlash
+      const oldCart = JSON.parse(localStorage.getItem("cart")) || [];
+      oldCart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(oldCart));
+  
+      // React state-ni ham yangilash
+      setCart(oldCart);
+      setCartOpen(true);
+      setNotify(true);
+    };
+  
+    // 7️⃣ Style object
+    const wrapperWithPos = { ...(wrapperStyle || {}), position: "relative" };
+    
+    
   return (
     <div>
       <NavbarComponent />
@@ -119,42 +160,101 @@ const ProductsComponent = () => {
                 <p>-67%</p>
               </div>
 
-              <div className="colorpickerSide">
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "start", justifyContent: "center", gap: "4px" }}>
-                  <p style={{color: "#202020", fontSize: "18px"}}>Color</p>
-                  <span style={{color: "#9EA3A8", fontSize: "14px"}}>Silver</span>
+                {/* Color Picker */}
+                <div className="colorpickerSide">
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                    <p style={{ fontSize: "18px", color: "#202020" }}>Color</p>
+                    <span style={{ fontSize: "14px", color: "#9EA3A8" }}>{activeColor}</span>
+                  </div>
+
+                  <div className="color-picker">
+                    {product.color.map((clr) => (
+                      <button
+                        key={clr}
+                        className={`color-btn ${activeColor === clr ? "active" : ""}`}
+                        style={{ ["--clr"]: clr }}
+                        onClick={() => setActiveColor(clr)}
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                <div className="color-picker">
-                  {colors.map((clr) => (
-                    <button
-                      key={clr}
-                      className={`color-btn ${active === clr ? "active" : ""}`}
-                      style={{ ["--clr"]: clr }} // agar css var ishlatilsa
-                      onClick={() => setActive(clr)}
-                    />
-                  ))}
-                </div>
-              </div>
+                <Divider />
 
-              <Divider />
+                {/* Size Picker */}
+                <div className="sizeWrap">
+                  <div style={{ display: "flex", alignItems: "start", flexDirection: "column", gap: "4px" }}>
+                    <p style={{display: "flex", gap: "8px", fontSize: "18px", color: "#202020" }}>
+                      Size
+                      <img
+                        src={extraInfo}
+                        alt="extraInfo"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setModalOpen(true)}
+                      />
+                    </p>
+                    <span style={{ fontSize: "14px", color: "#9EA3A8" }}>{activeSize}</span>
+                  </div>
 
-              <div className="sizeWrap">
-                <div>
-                  <p style={{display: "flex", alignItems: "center", justifyContent: "left", gap: "4px",
-                    color: "#202020", fontSize: "18px"
-                  }}> Size <img src={extraInfo} alt="extraInfo" /> </p>
-                  <span style={{color: "#9EA3A8", fontSize: "14px"}}>Medium</span>
-                </div>
-                <div className="sizeButtons">
-                  <button className="sizeBtn">XS</button>
-                  <button className="sizeBtn">S</button>
-                  <button className="sizeBtn">M</button>
-                  <button className="sizeBtn">L</button>
-                </div>
-              </div>
+                  {/* Modal for Size Details */}
+                  <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 300,
+                        bgcolor: "background.paper",
+                        borderRadius: 2,
+                        boxShadow: 24,
+                        p: 3,
+                      }}
+                    >
+                      <Typography variant="h6" gutterBottom>
+                        Size Details
+                      </Typography>
+                      <ul>
+                        {/* {product.sizeDetails.map((detail, i) => (
+                          <li key={i}>{detail}</li>
+                        ))} */}
+                        <li>Size S: Chest 34-36", Waist 28-30"</li>
+                        <li>Size M: Chest 38-40", Waist 32-34"</li>
+                        <li>Size L: Chest 42-44", Waist 36-38"</li>
+                        <li>Size XL: Chest 46-48", Waist 40-42"</li>
+                      </ul>
+                      <Box mt={2} textAlign="right">
+                      <Button variant="contained" onClick={() => setModalOpen(false)}>
+                        Close
+                      </Button>
+                      </Box>
+                    </Box>
+                  </Modal>
 
-              <button className="addBtn">Add to cart</button>
+                  <div className="sizeButtons">
+                    {product.size.map((size) => (
+                      <button
+                        key={size}
+                        className={`sizeBtn ${activeSize === size ? "active" : ""}`}
+                        onClick={() => setActiveSize(size)}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+              <button onClick={handleCart} className="addBtn">Add to cart</button>
+
+              <MiniCart cart={cart} cartOpen={cartOpen} setCartOpen={setCartOpen} />
+
+              <Snackbar
+                  open={notify}
+                  autoHideDuration={3000}
+                  onClose={() => setNotify(false)}
+                  message="Product added to the cart!"
+                />
+
 
               <div style={{ display: "flex", gap: "8px", alignItems: "start", justifyContent: "space-between", flexDirection: "column" }}>
                 {/* 1 - Accordion */}
@@ -283,7 +383,7 @@ const ProductsComponent = () => {
           }}
           style={{ paddingBottom: "40px" }}
         >
-          {images.map((img, i) => (
+          {/* {images.map((img, i) => (
             <SwiperSlide key={i}>
               <div
                 style={cardWrap}
@@ -297,6 +397,15 @@ const ProductsComponent = () => {
               <p style={{ marginTop: "10px", fontWeight: "500" }}>Product name</p>
               <p style={{ fontWeight: "600" }}>$199.00</p>
             </SwiperSlide>
+          ))} */}
+          {relatedProducts.map((p) => (
+            <SwiperSlide key={p.id}>
+              <div style={cardWrap}>
+                <img src={`https://picsum.photos/seed/${p.id}/300/400`} alt={p.name} style={imgStyle} />
+              </div>
+              <p style={{ marginTop: "10px", fontWeight: "500" }}>{p.name}</p>
+              <p style={{ fontWeight: "600" }}>${p.price}.00</p>
+            </SwiperSlide>
           ))}
         </Swiper>
 
@@ -304,8 +413,11 @@ const ProductsComponent = () => {
         <button
           className="prev-btn"
           style={{
+            display: "flex", 
+            alignItems: "center",
+            justifyContent: "center",
             position: "absolute",
-            right: "96%",
+            left: "-6px",
             top: "50%",
             transform: "translateY(-50%)",
             borderRadius: "50%",
@@ -315,7 +427,7 @@ const ProductsComponent = () => {
             border: "1px solid #ddd",
             cursor: "pointer",
             zIndex: 50,
-            fontSize: "32px"
+            fontSize: "36px"
           }}
         >
           ‹
@@ -324,8 +436,11 @@ const ProductsComponent = () => {
         <button
           className="next-btn"
           style={{
+            display: "flex", 
+            alignItems: "center",
+            justifyContent: "center",
             position: "absolute",
-            right: "10px",
+            right: "-6px",
             top: "50%",
             transform: "translateY(-50%)",
             borderRadius: "50%",
@@ -335,7 +450,7 @@ const ProductsComponent = () => {
             border: "1px solid #ddd",
             cursor: "pointer",
             zIndex: 50,
-            fontSize: "32px"
+            fontSize: "36px"
           }}
         >
           ›
