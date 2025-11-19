@@ -8,15 +8,17 @@ import ResetpasswordComponent from './auth/resetpassword'
 import ConfirmPasswordComponent from './auth/confirm-pw'
 import NewPasswordComponent from './auth/newpw'
 import DashboardComponent from './Pages/dashboard'
-import CategoryModal from './FlexibleBars/CategoryModal'
 import ManCategory from './FlexibleBars/ManCategory'
 import ShopsComponent from './Pages/shops'
 import ProductsComponent from './Pages/products'
 import ShoppingCart from './Pages/cart'
 import ShippingPage from './Pages/shipping'
+import ScrollToTop from './Pages/RouterWrapper'
+import PaymentComponent from './Pages/payment'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
+  <ScrollToTop />
     <Routes>
       <Route path="/home" element={<HomeCompanent />} />
       <Route path="/" element={<HomeCompanent />} />
@@ -33,6 +35,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/products/:id" element={<ProductsComponent />} />
       <Route path="/cart" element={<ShoppingCart />} />
       <Route path="/shipping" element={<ShippingPage />} />
+      <Route path="/shopping-payment" element={<PaymentComponent />} />
     </Routes>
   </BrowserRouter>
 )

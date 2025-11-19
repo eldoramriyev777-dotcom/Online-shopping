@@ -218,6 +218,9 @@ const filteredTopSellers = selectedFilter
     // setQuery("");
   };
 
+  const handleHome = () => {
+    navigate('/home');
+  }
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
       <NavbarAllWrap>
@@ -443,7 +446,7 @@ const filteredTopSellers = selectedFilter
           </Popup>
             {/* <CategoryModal/> */}
 
-            <img src={blossom} alt='blossom' />
+            <img style={{cursor: "pointer"}} onClick={handleHome} src={blossom} alt='blossom' />
             <div className='leftsidewrap'>
               <img src={parcel} alt='parcel' />
               <img src={like} alt='like' />

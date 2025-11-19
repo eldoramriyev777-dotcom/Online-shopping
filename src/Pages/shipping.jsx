@@ -1,34 +1,72 @@
+import { Button, Divider, Typography } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Done } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  padding: 50px;
-  font-family: 'Arial', sans-serif;
-  gap: 50px;
-  background-color: #f8f9fa;
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-    padding: 20px;
-  }
+  flex-direction: column;
+  padding: 10px 20px;
+  gap: 33px;
+  min-width: 100vh;
+  min-height: 100vh;
 `;
-
+const Header = styled.div`
+display: flex;
+width: 100%;
+align-items: center;
+justify-content: space-between;
+.steps{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: center;
+  .step{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .doneStep{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #AEEA00;
+  }
+  .undoneStep{
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DCDCDC;
+  }
+}
+`
+const BottomWrap = styled.div`
+display: flex;
+gap: 70px;
+justify-content: space-between;
+`
 const Left = styled.div`
   flex: 1;
-  background-color: #fff;
-  padding: 40px;
   border-radius: 15px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
 `;
 
 const Right = styled.div`
   flex: 1;
-  height: 600px;
+  height: 500px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+
 
   @media (max-width: 900px) {
     height: 400px;
@@ -37,20 +75,27 @@ const Right = styled.div`
 `;
 
 const Title = styled.h1`
+  color: var(--black, #000);
   font-size: 32px;
-  margin-bottom: 25px;
-  color: #333;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 32px; /* 100% */
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+`;
+const InputWrapper = styled.div`
+  position: relative;
+  flex: 1;
+  margin-bottom: 10px;
 `;
 
 const InputGroup = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 55px;
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -58,24 +103,44 @@ const InputGroup = styled.div`
 `;
 
 const Input = styled.input`
-  flex: 1;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: 100%;
+  padding: 10px 0 5px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
   font-size: 16px;
-  transition: all 0.2s;
+  background: transparent;
+  transition: 0.2s;
+
   &:focus {
     border-color: #ff5a00;
-    box-shadow: 0 0 5px rgba(255, 90, 0, 0.3);
     outline: none;
   }
 `;
 
 const Label = styled.label`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 14px;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #555;
+  color: #777;
+  transition: 0.2s ease;
+  pointer-events: none;
+
+  ${InputWrapper}:focus-within & {
+    top: 0;
+    font-size: 11px;
+    color: #ff5a00;
+  }
+
+  /* Inputda text bo‘lsa ham yuqorida turishi uchun */
+  ${({ hasValue }) =>
+    hasValue &&
+    `
+    top: 0;
+    font-size: 11px;
+    color: #000;
+  `}
 `;
 
 const ShippingOption = styled.div`
@@ -84,10 +149,10 @@ const ShippingOption = styled.div`
   align-items: center;
   padding: 15px 20px;
   margin-top: 10px;
-  border: 1px solid ${({ selected }) => (selected ? "#ff5a00" : "#ddd")};
+  border-radius: 15px;
+  background-color: var(--Gray-bg, #F5F6F6);
   border-radius: 8px;
   cursor: pointer;
-  background-color: ${({ selected }) => (selected ? "#fff4e6" : "#fff")};
   transition: all 0.2s;
   &:hover {
     border-color: #ff5a00;
@@ -98,11 +163,15 @@ const ShippingOption = styled.div`
 const ContinueButton = styled.button`
   margin-top: 25px;
   padding: 15px 0;
+  display: flex;
+  width: 200px;
   font-size: 18px;
-  background: linear-gradient(90deg, #ff5a00 0%, #ff8a00 100%);
+  align-items: center;
+  justify-content: center;
+  background: #ff5a00;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 90px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s;
@@ -119,49 +188,160 @@ const MapIframe = styled.iframe`
 `;
 
 const ShippingPage = () => {
+
   const [shippingMethod, setShippingMethod] = useState("standard");
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+
+  const handleBack = () => {
+  navigate("/cart");
+}
+
+  const handlePayment = () => {
+  navigate("/shopping-payment");
+}
 
   return (
     <Container>
+      <Header>
+        <Button onClick={handleBack} sx={{display: "flex", gap: "10px", backgroundColor: "transparent", color: "black"}}> <ArrowBackIcon /> Back cart</Button>
+        <div className="steps">
+          <div className="step">
+           <div className="doneStep"><Done /></div>  <p>Login</p>
+          </div>
+          <Divider sx={{width: "60px"}} />
+          <div className="step">
+            <div className="doneStep">2</div>  <p>Shipping adress</p>
+          </div>
+          <Divider sx={{width: "60px"}} />
+          <div className="step">
+            <div className="undoneStep">3</div>  <p>Billing Address</p>
+          </div>
+        </div>
+      </Header>
+      <Divider sx={{m: -2}} /> 
+      <BottomWrap>
       <Left>
-        <Title>Shipping Address</Title>
+      <Title>Shipping Address</Title>
         <Form>
           <InputGroup>
-            <div style={{ flex: 1 }}>
-              <Label>First Name</Label>
-              <Input placeholder="Marvin" />
-            </div>
-            <div style={{ flex: 1 }}>
-              <Label>Last Name</Label>
-              <Input placeholder="Antonio" />
-            </div>
-          </InputGroup>
-          <Input placeholder="Company" />
-          <Input placeholder="Country / Region" />
-          <Input placeholder="Address" />
-          <Input placeholder="Apartment, suite, etc." />
-          <Input placeholder="City" />
-          <Input placeholder="Zip code" />
-          <Input placeholder="Phone number" />
-          <Input placeholder="Email address" />
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>First Name</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
 
-          <Label>Shipping Method</Label>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Last Name</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Company</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Country / Region</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Address</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Apartment, suite, etc.</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>City</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Zip code</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Phone number</Label>
+            <Input
+            type="tel"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>Email address</Label>
+            <Input
+            type="email"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+          <Typography>Shipping method</Typography>
           <ShippingOption
             selected={shippingMethod === "standard"}
             onClick={() => setShippingMethod("standard")}
           >
-            <span>Standard Shipping (2 to 5 business days)</span>
+            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <input name="shippingMethod" type="radio" />
+            <p style={{display: "flex", flexDirection: "column"}}> <small>Standard Shipping</small> <span>2 to 5 business days</span></p>
+            </div>
             <span>Free</span>
           </ShippingOption>
           <ShippingOption
             selected={shippingMethod === "express"}
             onClick={() => setShippingMethod("express")}
           >
-            <span>Express Shipping (1 to 2 business days)</span>
+            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <input name="shippingMethod" type="radio" />
+            <p style={{display: "flex", flexDirection: "column"}}> <small>Express Shipping</small> <span>1 to 2 business days</span></p>
+            </div>
             <span>$10</span>
           </ShippingOption>
 
-          <ContinueButton>Continue</ContinueButton>
+          <ContinueButton onClick={handlePayment}>Continue</ContinueButton>
         </Form>
       </Left>
 
@@ -172,6 +352,7 @@ const ShippingPage = () => {
           loading="lazy"
         />
       </Right>
+      </BottomWrap>
     </Container>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
-  Button,
   Checkbox,
   Divider,
   IconButton,
@@ -14,6 +13,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import NavbarComponent from "../FlexibleBars/navbar";
 import { HeaderCart } from "./cartStyle";
 import Footer from "../FlexibleBars/footer";
+import { useNavigate } from "react-router-dom";
+import { Snackbar, Alert, Button } from "@mui/material";
 
 const ShoppingCart = () => {
   const [cart, setCart] = useState([]);
@@ -122,6 +123,22 @@ const ShoppingCart = () => {
         acc + (item.price * (1 - (item.discount || 0) / 100)) * item.qty,
       0
     );
+
+    const [disabledBtn, setDisabledBtn] = useState(false);
+    const navigate = useNavigate()
+    const [snack, setSnack] = useState(false);
+
+    const handleShipping = () => {
+      setDisabledBtn(true);
+      setSnack(true);
+      setTimeout(() => {
+        navigate("/shipping");
+      }, 1000);
+    }
+    const handleCloseSnack = (event, reason) => {
+      if (reason === "clickaway") return;
+      setOpen(false);
+    };
 
   return (
     <div>
@@ -242,6 +259,8 @@ const ShoppingCart = () => {
           <TextField fullWidth placeholder="Promo code" sx={{ my: 1 }} />
           <Typography color="error">Discounts: -$40</Typography>
           <Button
+            disabled={disabledBtn}
+            onClick={handleShipping}
             variant="contained"
             fullWidth
             sx={{ mt: 2, backgroundColor: "#F54F1F" }}
@@ -249,6 +268,23 @@ const ShoppingCart = () => {
             Go to checkout
           </Button>
         </Box>
+
+        <Snackbar
+          open={snack}
+          autoHideDuration={3000}
+          onClose={handleCloseSnack}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert 
+            severity="success" 
+            variant="filled"     // 🔥 To'liq background rangi bilan chiqadi
+            onClose={handleCloseSnack}
+            sx={{ width: "100%" }}
+          >
+            Great Go On!
+          </Alert>
+        </Snackbar>
+
       </Box>
       <Footer />
     </div>
