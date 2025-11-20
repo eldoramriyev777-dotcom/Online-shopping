@@ -86,17 +86,6 @@ justify-content: space-between;
     align-items: center;
     justify-content: center;
     gap: 30px;
-    .breakline{
-        width: 30px;
-        rotate: 90deg;
-        opacity: 0.1;
-        border-width: 1px;
-        background-color: #202020;
-        border: 1px solid #202020;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
     p{
         display: flex;
         align-items: center;

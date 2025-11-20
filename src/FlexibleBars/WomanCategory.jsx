@@ -15,17 +15,16 @@ export default function WomanCategory() {
         <Column>
           <Title>Shoes</Title>
           <Item>Boots — 686</Item>
-          <Item>Sneakers — 327</Item>
+          <Item>Sandals — 327</Item>
           <Item>Shoes — 198</Item>
-          <Item>Men’s boots — 96</Item>
-          <Item>Men’s slippers — 86</Item>
-          <Item>Men’s moccasins — 53</Item>
+          <Item>Woman's boots — 96</Item>
+          <Item>Woman's slippers — 86</Item>
+          <Item>Woman's moccasins — 53</Item>
         </Column>
 
         <Column>
           <Title>Clothing</Title>
           <Item>Pants — 5759</Item>
-          <Item>Outerwear — 6605</Item>
           <Item>Jumpers, sweaters, cardigans — 4674</Item>
           <Item>Jeans — 2791</Item>
           <Item>Homewear — 982</Item>

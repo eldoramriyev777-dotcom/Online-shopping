@@ -146,6 +146,7 @@ export const CategorySwiper = styled.div`
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+      border-radius: 30px;
     }
 
     img {

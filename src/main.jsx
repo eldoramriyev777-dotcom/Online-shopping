@@ -15,6 +15,7 @@ import ShoppingCart from './Pages/cart'
 import ShippingPage from './Pages/shipping'
 import ScrollToTop from './Pages/RouterWrapper'
 import PaymentComponent from './Pages/payment'
+import FavouritesComponent from './Pages/favourites'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -36,6 +37,7 @@ createRoot(document.getElementById('root')).render(
       <Route path="/cart" element={<ShoppingCart />} />
       <Route path="/shipping" element={<ShippingPage />} />
       <Route path="/shopping-payment" element={<PaymentComponent />} />
+      <Route path="/favourites" element={<FavouritesComponent />} />
     </Routes>
   </BrowserRouter>
 )

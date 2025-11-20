@@ -17,9 +17,6 @@ export default function KidsCategory() {
           <Item>Boots — 686</Item>
           <Item>Sneakers — 327</Item>
           <Item>Shoes — 198</Item>
-          <Item>Men’s boots — 96</Item>
-          <Item>Men’s slippers — 86</Item>
-          <Item>Men’s moccasins — 53</Item>
         </Column>
 
         <Column>
@@ -27,9 +24,7 @@ export default function KidsCategory() {
           <Item>Pants — 5759</Item>
           <Item>Outerwear — 6605</Item>
           <Item>Jumpers, sweaters, cardigans — 4674</Item>
-          <Item>Jeans — 2791</Item>
           <Item>Homewear — 982</Item>
-          <Item>Underwear — 2266</Item>
         </Column>
 
         <Column>
@@ -38,13 +33,11 @@ export default function KidsCategory() {
           <Item>Running — 3</Item>
           <Item>Swimming — 11</Item>
           <Item>Tennis — 3</Item>
-          <Item>Fitness — 4</Item>
         </Column>
 
         <Column>
           <Title>Accessories</Title>
           <Item>Hats — 148</Item>
-          <Item>Wallets — 13</Item>
           <Item>Bags — 41</Item>
           <Item>Gloves — 4</Item>
           <Item>Scarves and shawls — 6</Item>

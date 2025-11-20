@@ -27,11 +27,6 @@ import parcel from '../assets/navbar_assets/parcel.svg'
 import like from '../assets/navbar_assets/like.svg'
 import login from '../assets/navbar_assets/login.svg'
 import search from '../assets/navbar_assets/search.svg'
-import linen from '../assets/navbar_assets/linen.png'
-import beige from '../assets/navbar_assets/beige.png'
-import jacket_search from '../assets/navbar_assets/jacket_search.png'
-import pants_search from '../assets/navbar_assets/pants_search.png'
-import nike_shoes from '../assets/navbar_assets/nike_shoes.png'
 
 import { NavLink, useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
@@ -41,6 +36,7 @@ import WomanCategory from './WomanCategory'
 import KidsCategory from './KidsCategory'
 import productsData from './productsData.json'
 import { TrendViewButton } from '../Pages/homeStyle'
+import { Divider } from '@mui/material'
 
 const NavbarComponent = () => {
   const navigate = useNavigate()
@@ -50,6 +46,7 @@ const NavbarComponent = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedLanguage, setSelectedLanguage] = useState('English')
   const [selectedCurrency, setSelectedCurrency] = useState('USD')
+  const [isLoggedIn, setIsLoggedIn] = useState(false) // Bu yerda haqiqiy autentifikatsiya holatini tekshirish kerak
 
   const locationRef = useRef(null)
   const languageRef = useRef(null)
@@ -89,6 +86,11 @@ const NavbarComponent = () => {
     setFadeOut(true)
     setTimeout(() => setLoading(true), 500)
     setTimeout(() => navigate('/login/sign-in'), 1500)
+
+    setTimeout(() => {
+      setIsLoggedIn(true)
+    }, 2000);
+
   }
 
   const handleCityChange = (cityName) => {setSelectedCity(cityName)
@@ -220,6 +222,12 @@ const filteredTopSellers = selectedFilter
 
   const handleHome = () => {
     navigate('/home');
+  }
+  const handleShop = () => {
+    navigate('/shops');
+  }
+  const handleFavorit = () => {
+    navigate('/favourites');
   }
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
@@ -448,10 +456,27 @@ const filteredTopSellers = selectedFilter
 
             <img style={{cursor: "pointer"}} onClick={handleHome} src={blossom} alt='blossom' />
             <div className='leftsidewrap'>
-              <img src={parcel} alt='parcel' />
-              <img src={like} alt='like' />
-              <div className='breakline'></div>
-              <p
+              <img onClick={handleShop} src={parcel} alt='parcel' />
+              <img onClick={handleFavorit} src={like} alt='like' />
+              <Divider orientation="vertical" flexItem />
+              {isLoggedIn ? (
+               <div 
+               style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
+             >
+               <img 
+                 src={"https://i.pravatar.cc/150"} 
+                 alt="avatar" 
+                 style={{ 
+                   width: "32px", 
+                   height: "32px", 
+                   borderRadius: "50%", 
+                   objectFit: "cover" 
+                 }} 
+               />
+               <small>Welcome back!</small>
+             </div>
+              ) : (
+                <p
                 onClick={handleClick}
                 style={{
                   cursor: 'pointer',
@@ -463,6 +488,7 @@ const filteredTopSellers = selectedFilter
                 <img src={login} alt='login' />
                 <small>Login</small>
               </p>
+              )}
             </div>
           </NavbarCenterWrap>
           <div className='freeline'></div>
@@ -476,7 +502,7 @@ const filteredTopSellers = selectedFilter
               <p>Brands</p>
               <p>Sports</p>
               <p>Premium</p>
-              <p style={{ color: '#F54F1F' }}>Sale</p>
+              <p onClick={handleShop} style={{ color: '#F54F1F' }}>Sale</p>
             </div>
             <Popup
             trigger={<img src={search} alt="search" style={{ cursor: "pointer" }} />}
