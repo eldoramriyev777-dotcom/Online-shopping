@@ -1,5 +1,5 @@
 import { Button, Divider, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Done } from "@mui/icons-material";
@@ -14,7 +14,10 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Snackbar, Alert } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Container = styled.div`
   display: flex;
@@ -196,7 +199,7 @@ const Label = styled.label`
     `
     top: 0;
     font-size: 11px;
-    color: #ff5a00;
+    color: #000;
   `}
 `;
 
@@ -220,9 +223,79 @@ const ShippingOption = styled.div`
 const PaymentComponent = () => {
   const [shippingMethod, setShippingMethod] = useState("standard");
   const navigate = useNavigate();
+  const [nameOnCard, setNameOnCard] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  const [open, setOpen] = useState(false);
+
+
 const handleBack = () => {
   navigate("/cart");
 }
+const handleProceedToPay = () => {
+  setOpen(true);
+  setTimeout(() => {
+    navigate("/home");
+  }, 3000);
+}
+const handleClose = (event, reason) => {
+  if (reason === "clickaway") return;
+  setOpen(false);
+};
+const handleBackToShipping = () => {
+  navigate("/shipping");
+}
+
+
+const [cart, setCart] = useState([]);
+const [promo, setPromo] = useState("");
+const [discount, setDiscount] = useState(0);
+
+useEffect(() => {
+  const stored = JSON.parse(localStorage.getItem("cart")) || [];
+  const normalized = stored.map((item, index) => ({
+    ...item,
+    qty: item.qty || 1,
+    id: item.id || index + 1,
+  }));
+  setCart(normalized);
+}, []);
+
+const updateCart = (updated) => {
+  setCart(updated);
+  localStorage.setItem("cart", JSON.stringify(updated));
+};
+
+const handleQty = (id, delta) => {
+  const updated = cart.map((item) =>
+    item.id === id
+      ? { ...item, qty: Math.max(1, item.qty + delta) }
+      : item
+  );
+  updateCart(updated);
+};
+
+const handleDelete = (id) => {
+  const updated = cart.filter((item) => item.id !== id);
+  updateCart(updated);
+};
+
+const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+const shipping = subtotal > 200 ? 0 : 9.99;
+const total = subtotal - discount + shipping;
+
+const applyPromo = () => {
+  if (promo.toLowerCase() === "eldor10") {
+    setDiscount(subtotal * 0.1);
+  } else if (promo.toLowerCase() === "free") {
+    setDiscount(subtotal);
+  } else {
+    setDiscount(0);
+  }
+};
+
+
   return (
     <Container>
       <Header>
@@ -259,40 +332,40 @@ const handleBack = () => {
         <Form>
           <InputGroup>
           <InputWrapper>
-            <Label >Name on card</Label>
+            <Label hasValue={nameOnCard !== ""} >Name on card</Label>
             <Input
             type="text"
-              // value={firstName}
-              // onChange={(e) => setFirstName(e.target.value)}
+              value={nameOnCard}
+              onChange={(e) => setNameOnCard(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label >Card number</Label>
+            <Label hasValue={cardNumber !== ""}>Card number</Label>
             <Input
             type="number"
-              // value={firstName}
-              // onChange={(e) => setFirstName(e.target.value)}
+            value={cardNumber}
+            onChange={(e) => setCardNumber(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label >Expiration date (MM / YY)</Label>
+            <Label hasValue={expirationDate !== ""}>Expiration date (MM / YY)</Label>
             <Input
             type="text"
-              // value={firstName}
-              // onChange={(e) => setFirstName(e.target.value)}
+            value={expirationDate}
+            onChange={(e) => setExpirationDate(e.target.value)}
             />
           </InputWrapper>
 
           <InputWrapper>
-            <Label >Security code (CVV)</Label>
+            <Label hasValue={securityCode !== ""}>Security code (CVV)</Label>
             <Input
             type="text"
-              // value={lastName}
-              // onChange={(e) => setLastName(e.target.value)}
+            value={securityCode}
+            onChange={(e) => setSecurityCode(e.target.value)} 
             />
           </InputWrapper>
         </InputGroup>
@@ -332,42 +405,77 @@ const handleBack = () => {
         </ShippingOption>
 
         <div className="buttons" style={{display: "flex", gap: "20px", justifyContent: "left", alignItems: "center", marginTop: "30px"}}>
-          <button className="backBtn">Back</button>
-          <button className="payBtn">Pay</button>
+          <button onClick={handleBackToShipping} className="backBtn">Back</button>
+          <button onClick={handleProceedToPay} className="payBtn">Pay</button>
         </div>
+
+        <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert 
+          onClose={handleClose} 
+          severity="success" 
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Payment done!
+        </Alert>
+      </Snackbar>
 
       </Left>
 
       <Right>
-      <Paper
-        elevation={0}
+  <Paper
+    elevation={0}
+    sx={{
+      width: 420,
+      borderRadius: "20px",
+      p: 3,
+      backgroundColor: "#fff",
+      border: "1px solid #f1f1f1",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+      display: "flex",
+      flexDirection: "column",
+    }}
+  >
+    <Typography variant="h5" fontWeight={700} mb={3}>
+      Shopping Cart
+    </Typography>
+
+    {/* PRODUCT LIST */}
+    {cart.map((item) => (
+      <Box
+        key={item.id}
         sx={{
-          width: 420,
-          borderRadius: "20px",
-          p: 3,
-          backgroundColor: "#fff",
-          border: "1px solid #f1f1f1",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           display: "flex",
-          flexDirection: "column",
+          gap: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          bgcolor: "#f9f9f9",
         }}
       >
-        {/* PRODUCT ITEM 1 */}
-        <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-          <img
-            src="https://i.imgur.com/pDl6Z8K.jpeg"
-            alt="item"
-            width={80}
-            height={80}
-            style={{ borderRadius: 12, objectFit: "cover" }}
-          />
-          <Box>
-            <Typography fontWeight={600}>
-              Blouse BAON, women, color Blue
-            </Typography>
+        <img
+          src={item.image}
+          alt={item.title}
+          width={90}
+          height={90}
+          style={{ borderRadius: 12, objectFit: "cover" }}
+        />
+
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography fontWeight={600}>{item.title}</Typography>
+
+          {item.size && (
             <Typography fontSize={14} color="gray">
-              Size: XS • Colour: thunder
+              Size: {Array.isArray(item.size) ? item.size[0] : item.size}
             </Typography>
+          )}
+
+          {item.oldPrice && (
             <Typography
               sx={{
                 textDecoration: "line-through",
@@ -376,124 +484,80 @@ const handleBack = () => {
                 mt: 0.5,
               }}
             >
-              $ 175.00
+              ${item.oldPrice}
             </Typography>
-            <Typography fontWeight={700} fontSize={18}>
-              $ 120.00
-            </Typography>
-          </Box>
+          )}
+
+          <Typography fontWeight={700} fontSize={18}>
+            ${item.price}
+          </Typography>
+
+          {/* QTY Faqat ko‘rsatish (o‘zgartirish bo‘lmaydi) */}
+          <Typography sx={{ mt: 1, fontWeight: 600 }}>
+            Qty: {item.qty}
+          </Typography>
         </Box>
 
-        {/* PRODUCT ITEM 2 */}
-        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
-          <img
-            src="https://i.imgur.com/EFVn8qu.jpeg"
-            alt="item"
-            width={80}
-            height={80}
-            style={{ borderRadius: 12, objectFit: "cover" }}
-          />
-          <Box>
-            <Typography fontWeight={600}>
-              Blouse BAON, women, color Blue
-            </Typography>
-            <Typography fontSize={14} color="gray">
-              Size: XS • Colour: thunder
-            </Typography>
-            <Typography
-              sx={{
-                textDecoration: "line-through",
-                fontSize: 14,
-                color: "#888",
-                mt: 0.5,
-              }}
-            >
-              $ 175.00
-            </Typography>
-            <Typography fontWeight={700} fontSize={18}>
-              $ 120.00
-            </Typography>
-          </Box>
-        </Box>
+        {/* Delete button mumkin bo‘lsa qoldirdim */}
+        <IconButton onClick={() => handleDelete(item.id)}>
+          <DeleteIcon color="error" />
+        </IconButton>
+      </Box>
+    ))}
 
-        {/* PROMO CODE INPUT */}
-        <Typography fontSize={14} color="#777">
-          Promo code
-        </Typography>
+    <Divider sx={{ my: 2 }} />
 
-        <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-          <TextField
-            fullWidth
-            placeholder="200"
-            size="small"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "10px",
-              },
-            }}
-          />
+    {/* PROMO CODE */}
+    <Typography fontWeight={600} mb={1}>
+      Promo Code
+    </Typography>
 
-          <IconButton sx={{ ml: -6 }}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </Box>
+    <Box sx={{ display: "flex", gap: 1 }}>
+      <TextField
+        fullWidth
+        placeholder="Enter promo code"
+        value={promo}
+        onChange={(e) => setPromo(e.target.value)}
+      />
+      <Button variant="contained" onClick={applyPromo}>
+        Apply
+      </Button>
+    </Box>
 
-        {/* SUMMARY SECTION */}
-        <Box sx={{ mt: 4 }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mb: 1.5,
-              fontSize: 16,
-            }}
-          >
-            <Typography color="#444">2 Products • 0,2 kg</Typography>
-            <Typography>$240</Typography>
-          </Box>
+    <Divider sx={{ my: 3 }} />
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mb: 1.5,
-            }}
-          >
-            <Typography color="#444">Promo code</Typography>
-            <Typography sx={{ color: "red" }}>- $10</Typography>
-          </Box>
+    {/* PRICE SUMMARY */}
+    <Typography fontWeight={600} mb={1}>
+      Order Summary
+    </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mb: 2,
-            }}
-          >
-            <Typography color="#444">Discounts</Typography>
-            <Typography sx={{ color: "red" }}>- $40</Typography>
-          </Box>
+    <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+      <Typography color="gray">Subtotal</Typography>
+      <Typography>${subtotal.toFixed(2)}</Typography>
+    </Box>
 
-          <Divider sx={{ my: 1.5 }} />
+    <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+      <Typography color="gray">Discount</Typography>
+      <Typography>-${discount.toFixed(2)}</Typography>
+    </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mt: 1,
-            }}
-          >
-            <Typography fontWeight={600} fontSize={20}>
-              Total
-            </Typography>
-            <Typography fontWeight={800} fontSize={28}>
-              $190
-            </Typography>
-          </Box>
-        </Box>
-      </Paper>
-      </Right>
+    <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+      <Typography color="gray">Shipping</Typography>
+      <Typography>{shipping === 0 ? "FREE" : `$${shipping}`}</Typography>
+    </Box>
+
+    <Divider sx={{ my: 2 }} />
+
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Typography fontWeight={700} fontSize={20}>
+        Total
+      </Typography>
+      <Typography fontWeight={700} fontSize={20}>
+        ${total.toFixed(2)}
+      </Typography>
+    </Box>
+  </Paper>
+</Right>
       </BottomWrap>
     </Container>
   );

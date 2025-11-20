@@ -192,6 +192,15 @@ const ShippingPage = () => {
   const [shippingMethod, setShippingMethod] = useState("standard");
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleBack = () => {
   navigate("/cart");
@@ -235,87 +244,87 @@ const ShippingPage = () => {
           </InputWrapper>
 
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Last Name</Label>
+            <Label hasValue={lastName !== ""}>Last Name</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Company</Label>
+            <Label hasValue={company !== ""}>Company</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
             />
           </InputWrapper>
 
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Country / Region</Label>
+            <Label hasValue={country !== ""}>Country / Region</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Address</Label>
+            <Label hasValue={address !== ""}>Address</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
           </InputWrapper>
 
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Apartment, suite, etc.</Label>
+            <Label hasValue={apartment !== ""}>Apartment, suite, etc.</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={apartment}
+              onChange={(e) => setApartment(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>City</Label>
+            <Label hasValue={city !== ""}>City</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
           </InputWrapper>
 
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Zip code</Label>
+            <Label hasValue={zipCode !== ""}>Zip code</Label>
             <Input
             type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>
         <InputGroup>
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Phone number</Label>
+            <Label hasValue={phoneNumber !== ""}>Phone number</Label>
             <Input
             type="tel"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </InputWrapper>
 
           <InputWrapper>
-            <Label hasValue={firstName !== ""}>Email address</Label>
+            <Label hasValue={email !== ""}>Email address</Label>
             <Input
             type="email"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </InputWrapper>
         </InputGroup>

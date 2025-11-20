@@ -68,6 +68,9 @@ const HomeCompanent = () => {
     localStorage.setItem("shopTitle", title);
     navigate("/shops");
   };
+  const handleCategory = () => {
+    navigate("/categories");
+  }
   return (
     <div>
         <NavbarComponent/>
@@ -101,7 +104,7 @@ const HomeCompanent = () => {
           <CategoryCon>
               <div className='infoCategory'>
                 <p>Category</p>
-                <button>View all categories</button>
+                <button onClick={handleCategory}>View all categories</button>
               </div>
               <CategorySwiper>
               <Swiper

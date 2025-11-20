@@ -129,6 +129,7 @@ const ShoppingCart = () => {
     const [snack, setSnack] = useState(false);
 
     const handleShipping = () => {
+      if (cart.length === 0) return alert("Your cart is empty!");
       setDisabledBtn(true);
       setSnack(true);
       setTimeout(() => {
@@ -221,7 +222,7 @@ const ShoppingCart = () => {
                   </IconButton>
                 </Box>
                 <Box>
-                  <Typography>${item.price || 0}</Typography>
+                  <Typography>${item.price * item.qty}</Typography>
                   {item.oldPrice && (
                     <Typography
                       variant="body2"

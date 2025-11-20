@@ -229,6 +229,9 @@ const filteredTopSellers = selectedFilter
   const handleFavorit = () => {
     navigate('/favourites');
   }
+  const handleIdeas = () => {
+    navigate('/ideas');
+  }
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
       <NavbarAllWrap>
@@ -493,12 +496,12 @@ const filteredTopSellers = selectedFilter
           </NavbarCenterWrap>
           <div className='freeline'></div>
           <NavbarBottomWrap>
-            <div>
-              <p>Ideas</p>
-              <p>New</p>
-              <p>Clothing</p>
-              <p>Shoes</p>
-              <p>Accessories</p>
+            <div className='navlinks'>
+              <p onClick={handleIdeas}>Ideas</p>
+              <p>New</p> 
+              <p onClick={handleShop}>Clothing</p>
+              <p onClick={handleShop}>Shoes</p>
+              <p onClick={handleShop}>Accessories</p>
               <p>Brands</p>
               <p>Sports</p>
               <p>Premium</p>

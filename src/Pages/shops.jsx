@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavbarComponent from '../FlexibleBars/navbar';
 import { FilterProductsWrap, NavLinks, NavLinksWrap } from './shopsStyle';
-import { Breadcrumbs, Typography, Link as MUILink, FormControl, Select, MenuItem, InputLabel } from '@mui/material';
+import { Breadcrumbs, Typography, Link as MUILink, FormControl, Select, MenuItem, InputLabel, Button } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -103,7 +103,14 @@ const ShopsComponent = () => {
 
     setProducts(filtered);
   }, [category, size, color, brand, price, popular]);
-
+  const resetFilter = () => {
+    setCategory("");
+    setSize("");
+    setColor("");
+    setBrand("");
+    setPrice("");
+    setPopular("");
+  }
 
 
   const commonSx = {
@@ -272,7 +279,7 @@ const ShopsComponent = () => {
                   ))}
                 </Select>
               </FormControl>
-
+                <Button onClick={resetFilter}>Reset filter</Button>
             </div>
 
 
