@@ -6,22 +6,35 @@ import {
   IconButton,
   Typography,
   TextField,
+  Button,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import NavbarComponent from "../FlexibleBars/navbar";
-import { HeaderCart } from "./cartStyle";
 import Footer from "../FlexibleBars/footer";
+import { HeaderCart } from "./cartStyle";
 import { useNavigate } from "react-router-dom";
-import { Snackbar, Alert, Button } from "@mui/material";
+import Spinner from "./Spinner"; // Spinner komponentingiz
 
 const ShoppingCart = () => {
   const [cart, setCart] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [loading, setLoading] = useState(true); // 🔹 Loading state
+  const [disabledBtn, setDisabledBtn] = useState(false);
+  const [snack, setSnack] = useState(false);
+  const navigate = useNavigate();
 
   const activeColor = "Blue"; // Misol uchun
   const activeSize = "M";     // Misol uchun
+
+  // 🔹 Spinner uchun useEffect
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Component mount bo‘lganda localStorage’dan o‘qish
   useEffect(() => {
@@ -86,7 +99,6 @@ const ShoppingCart = () => {
       );
 
       if (existingIndex !== -1) {
-        // Shu item allaqachon mavjud, faqat qty oshirish
         const updatedCart = [...prevCart];
         updatedCart[existingIndex] = {
           ...updatedCart[existingIndex],
@@ -95,7 +107,6 @@ const ShoppingCart = () => {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return updatedCart;
       } else {
-        // Yangi item qo‘shish
         const maxId =
           prevCart.length > 0 ? Math.max(...prevCart.map((i) => i.id)) : 0;
         const cartItem = {
@@ -115,7 +126,7 @@ const ShoppingCart = () => {
     });
   };
 
-  // Total hisoblash (discount bo‘lsa hisoblash mumkin)
+  // Total hisoblash
   const total = cart
     .filter((item) => selected.includes(item.id))
     .reduce(
@@ -124,170 +135,181 @@ const ShoppingCart = () => {
       0
     );
 
-    const [disabledBtn, setDisabledBtn] = useState(false);
-    const navigate = useNavigate()
-    const [snack, setSnack] = useState(false);
+  const handleShipping = () => {
+    if (cart.length === 0) return alert("Your cart is empty!");
+    setDisabledBtn(true);
+    setSnack(true);
+    setTimeout(() => {
+      navigate("/shipping");
+    }, 1000);
+  };
 
-    const handleShipping = () => {
-      if (cart.length === 0) return alert("Your cart is empty!");
-      setDisabledBtn(true);
-      setSnack(true);
-      setTimeout(() => {
-        navigate("/shipping");
-      }, 1000);
-    }
-    const handleCloseSnack = (event, reason) => {
-      if (reason === "clickaway") return;
-      setOpen(false);
-    };
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") return;
+    setSnack(false);
+  };
 
+  // 🔹 JSX
   return (
     <div>
-      <NavbarComponent />
-      <HeaderCart>
+      {loading ? (
+        <Spinner /> // 🔹 Loading paydo bo‘ladi
+      ) : (
         <div>
-          <h3>Shopping Cart</h3>
-          <p>
-            {cart.length} {cart.length === 1 ? "item" : "items"}
-          </p>
-        </div>
-      </HeaderCart>
-      <Box display="flex" gap={4} p={4}>
-        {/* Left Cart Items */}
-        <Box flex={3}>
-          <Box
-            sx={{ backgroundColor: "#F7F7F7", padding: "20px", borderRadius: "15px" }}
-            display="flex"
-            alignItems="center"
-            mb={2}
-            gap={2}
-          >
-            <Checkbox
-              checked={selected.length === cart.length && cart.length > 0}
-              onChange={handleSelectAll}
-            />
-            <Typography>Select all</Typography>
-            <Button
-              startIcon={<DeleteIcon />}
-              onClick={handleDeleteSelected}
-              disabled={selected.length === 0}
-            >
-              Delete selected
-            </Button>
-          </Box>
-
-          <Divider />
-
-          {cart.length === 0 ? (
-            <Typography mt={2}>Your cart is empty.</Typography>
-          ) : (
-            cart.map((item) => (
+          <NavbarComponent />
+          <HeaderCart>
+            <div>
+              <h3>Shopping Cart</h3>
+              <p>
+                {cart.length} {cart.length === 1 ? "item" : "items"}
+              </p>
+            </div>
+          </HeaderCart>
+          <Box display="flex" gap={4} p={4}>
+            {/* Left Cart Items */}
+            <Box flex={3}>
               <Box
-                key={item.id}
+                sx={{
+                  backgroundColor: "#F7F7F7",
+                  padding: "20px",
+                  borderRadius: "15px",
+                }}
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"
-                py={2}
+                mb={2}
+                gap={2}
               >
                 <Checkbox
-                  checked={selected.includes(item.id)}
-                  onChange={() => handleSelect(item.id)}
+                  checked={selected.length === cart.length && cart.length > 0}
+                  onChange={handleSelectAll}
                 />
-                <Box display="flex" alignItems="center" gap={2}>
-                  <img
-                    style={{ borderRadius: "20px" }}
-                    src={item.image}
-                    alt={item.name}
-                    width={80}
-                  />
-                  <Box>
-                    <Typography fontWeight={500}>{item.name}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Size: {item.size} • Colour: {item.color}
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box
-                  sx={{ backgroundColor: "#F7F7F7", padding: "2px", borderRadius: "20px" }}
-                  display="flex"
-                  alignItems="center"
-                  gap={1}
+                <Typography>Select all</Typography>
+                <Button
+                  startIcon={<DeleteIcon />}
+                  onClick={handleDeleteSelected}
+                  disabled={selected.length === 0}
                 >
-                  <IconButton onClick={() => handleQtyChange(item.id, -1)}>
-                    <RemoveIcon />
-                  </IconButton>
-                  <Typography>{item.qty}</Typography>
-                  <IconButton onClick={() => handleQtyChange(item.id, 1)}>
-                    <AddIcon />
-                  </IconButton>
-                </Box>
-                <Box>
-                  <Typography>${item.price * item.qty}</Typography>
-                  {item.oldPrice && (
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      sx={{ textDecoration: "line-through" }}
-                    >
-                      ${item.oldPrice}
-                    </Typography>
-                  )}
-                  {item.discount && (
-                    <Typography color="error">-{item.discount}%</Typography>
-                  )}
-                </Box>
-                <IconButton onClick={() => handleDelete(item.id)}>
-                  <DeleteIcon />
-                </IconButton>
+                  Delete selected
+                </Button>
               </Box>
-            ))
-          )}
-        </Box>
 
-        {/* Right Summary */}
-        <Box
-          sx={{ backgroundColor: "#F7F7F7" }}
-          flex={1}
-          p={2}
-          border="1px solid #ddd"
-          borderRadius={2}
-        >
-          <Typography variant="h6">Total</Typography>
-          <Divider sx={{ my: 1 }} />
-          <Typography>{selected.length} Products</Typography>
-          <Typography>Weight: 0.2 kg</Typography>
-          <Typography>Subtotal: ${total.toFixed(2)}</Typography>
-          <TextField fullWidth placeholder="Promo code" sx={{ my: 1 }} />
-          <Typography color="error">Discounts: -$40</Typography>
-          <Button
-            disabled={disabledBtn}
-            onClick={handleShipping}
-            variant="contained"
-            fullWidth
-            sx={{ mt: 2, backgroundColor: "#F54F1F" }}
-          >
-            Go to checkout
-          </Button>
-        </Box>
+              <Divider />
 
-        <Snackbar
-          open={snack}
-          autoHideDuration={3000}
-          onClose={handleCloseSnack}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        >
-          <Alert 
-            severity="success" 
-            variant="filled"     // 🔥 To'liq background rangi bilan chiqadi
-            onClose={handleCloseSnack}
-            sx={{ width: "100%" }}
-          >
-            Great Go On!
-          </Alert>
-        </Snackbar>
+              {cart.length === 0 ? (
+                <Typography mt={2}>Your cart is empty.</Typography>
+              ) : (
+                cart.map((item) => (
+                  <Box
+                    key={item.id}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    py={2}
+                  >
+                    <Checkbox
+                      checked={selected.includes(item.id)}
+                      onChange={() => handleSelect(item.id)}
+                    />
+                    <Box display="flex" alignItems="center" gap={2}>
+                      <img
+                        style={{ borderRadius: "20px" }}
+                        src={item.image}
+                        alt={item.name}
+                        width={80}
+                      />
+                      <Box>
+                        <Typography fontWeight={500}>{item.name}</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Size: {item.size} • Colour: {item.color}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box
+                      sx={{
+                        backgroundColor: "#F7F7F7",
+                        padding: "2px",
+                        borderRadius: "20px",
+                      }}
+                      display="flex"
+                      alignItems="center"
+                      gap={1}
+                    >
+                      <IconButton onClick={() => handleQtyChange(item.id, -1)}>
+                        <RemoveIcon />
+                      </IconButton>
+                      <Typography>{item.qty}</Typography>
+                      <IconButton onClick={() => handleQtyChange(item.id, 1)}>
+                        <AddIcon />
+                      </IconButton>
+                    </Box>
+                    <Box>
+                      <Typography>${item.price * item.qty}</Typography>
+                      {item.oldPrice && (
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          sx={{ textDecoration: "line-through" }}
+                        >
+                          ${item.oldPrice}
+                        </Typography>
+                      )}
+                      {item.discount && (
+                        <Typography color="error">-{item.discount}%</Typography>
+                      )}
+                    </Box>
+                    <IconButton onClick={() => handleDelete(item.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
+                ))
+              )}
+            </Box>
 
-      </Box>
-      <Footer />
+            {/* Right Summary */}
+            <Box
+              sx={{ backgroundColor: "#F7F7F7" }}
+              flex={1}
+              p={2}
+              border="1px solid #ddd"
+              borderRadius={2}
+            >
+              <Typography variant="h6">Total</Typography>
+              <Divider sx={{ my: 1 }} />
+              <Typography>{selected.length} Products</Typography>
+              <Typography>Weight: 0.2 kg</Typography>
+              <Typography>Subtotal: ${total.toFixed(2)}</Typography>
+              <TextField fullWidth placeholder="Promo code" sx={{ my: 1 }} />
+              <Typography color="error">Discounts: -$40</Typography>
+              <Button
+                disabled={disabledBtn}
+                onClick={handleShipping}
+                variant="contained"
+                fullWidth
+                sx={{ mt: 2, backgroundColor: "#F54F1F" }}
+              >
+                Go to checkout
+              </Button>
+            </Box>
+
+            <Snackbar
+              open={snack}
+              autoHideDuration={3000}
+              onClose={handleCloseSnack}
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+              <Alert
+                severity="success"
+                variant="filled"
+                onClose={handleCloseSnack}
+                sx={{ width: "100%" }}
+              >
+                Great Go On!
+              </Alert>
+            </Snackbar>
+          </Box>
+          <Footer />
+        </div>
+      )}
     </div>
   );
 };

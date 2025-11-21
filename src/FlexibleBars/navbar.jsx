@@ -657,7 +657,11 @@ const FullSearchWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  display: flex;
+  max-width: 100vw;
+  width: 100%;
+  align-items: space-between;
+  align-items: center;
   height: 95vh; /* pastda 10% joy qolsin */
   background: rgba(255, 255, 255, 0.98);
   display: flex;
@@ -707,10 +711,6 @@ const FullSearchWrapper = styled.div`
   margin-top: 10px;
 }
 
-.results-list {
-
-}
-
 .result-item {
   padding: 10px 0;
   border-bottom: 1px solid #f2f2f2;
@@ -733,6 +733,9 @@ const FullSearchWrapper = styled.div`
 const SearchTop = styled.div`
 background-color: #e9e9e9;
   padding: 20px;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;

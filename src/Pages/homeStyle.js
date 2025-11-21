@@ -4,6 +4,14 @@ export const AdverSlideWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  .sliderimg{
+    width: 100%;
+    height: 600px;
+  img{
+    height: 100%;
+   }
+  }
+
 `;
 
 export const SliderPartCon = styled.div`
@@ -127,7 +135,6 @@ export const CategoryCon = styled.div`
 
 export const CategorySwiper = styled.div`
   display: flex;
-
   .swiper {
     width: 100%;
     padding: 20px 0;
@@ -174,6 +181,8 @@ export const MenAndWomenSortCon = styled.div`
 
   .categwrap {
     display: flex;
+    max-width : 616px;
+    width: 100%;
     flex-direction: column;
     align-items: start;
     justify-content: center;

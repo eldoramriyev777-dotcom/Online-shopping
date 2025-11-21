@@ -25,6 +25,7 @@ export default function KidsCategory() {
           <Item>Outerwear — 6605</Item>
           <Item>Jumpers, sweaters, cardigans — 4674</Item>
           <Item>Homewear — 982</Item>
+          <Item>Pajamas - 512</Item>
         </Column>
 
         <Column>

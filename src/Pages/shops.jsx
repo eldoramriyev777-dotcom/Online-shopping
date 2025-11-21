@@ -9,11 +9,19 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { GridImg, GridInsideWrap, ProductsGrid, TrendingGridWrap, TrendProductGridCon, TrendViewButton } from './homeStyle';
 import like from '../assets/home_assets/like.svg';
 import data from "../FlexibleBars/productsData.json";
+import Spinner from './Spinner';
 
 
 const ShopsComponent = () => {
+  const [loading, setLoading] = useState(true);
   const current = "Products";
   const [title, setTitle] = useState("All products");
+
+  useEffect(() => {
+    // 2 soniya kutib loadingni o‘chiradi
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("shopTitle");
@@ -135,215 +143,218 @@ const ShopsComponent = () => {
 
   return (
     <div>
-      <NavbarComponent />
+      {loading ? (<Spinner />) : (
+              <div>
+                <NavbarComponent />
 
-      {/* Breadcrumbs */}
-      <NavLinksWrap>
-        <NavLinks>
-          <Breadcrumbs
-            aria-label="breadcrumb"
-            separator={<NavigateNextIcon fontSize="small" />}
-            sx={{ display: "flex", alignItems: "center", py: 1 }}
+{/* Breadcrumbs */}
+<NavLinksWrap>
+  <NavLinks>
+    <Breadcrumbs
+      aria-label="breadcrumb"
+      separator={<NavigateNextIcon fontSize="small" />}
+      sx={{ display: "flex", alignItems: "center", py: 1 }}
+    >
+      <MUILink
+        component={RouterLink}
+        to="/home"
+        underline="hover"
+        sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+      >
+        <HomeIcon fontSize="small" />
+        Home
+      </MUILink>
+      <Typography color="text.primary">{current}</Typography>
+    </Breadcrumbs>
+  </NavLinks>
+</NavLinksWrap>
+
+
+{/* Filters */}
+<FilterProductsWrap>
+  <div style={{
+    maxWidth: "1300px",
+    width: "100%",
+    display: 'flex',
+    alignItems: 'start',
+    flexDirection: "column",
+    justifyContent: 'space-between',
+    padding: "0 20px"
+  }}>
+    <Typography
+      sx={{
+        color: '202020',
+        fontSize: "80px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "15px"
+      }}
+    >
+      {title}
+      <span style={{ fontSize: "40px", fontStyle: "italic" }}>
+        ({products.length})
+      </span>
+    </Typography>
+    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <p style={{ fontSize: "18px", color: "#202020" }}>Filter</p>
+
+        {/* CATEGORY */}
+        <FormControl>
+          <Select
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            displayEmpty
+            IconComponent={ArrowDropDownIcon}
+            sx={commonSx}
           >
-            <MUILink
-              component={RouterLink}
-              to="/home"
-              underline="hover"
-              sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-            >
-              <HomeIcon fontSize="small" />
-              Home
-            </MUILink>
-            <Typography color="text.primary">{current}</Typography>
-          </Breadcrumbs>
-        </NavLinks>
-      </NavLinksWrap>
-
-
-      {/* Filters */}
-      <FilterProductsWrap>
-        <div style={{
-          maxWidth: "1300px",
-          width: "100%",
-          display: 'flex',
-          alignItems: 'start',
-          flexDirection: "column",
-          justifyContent: 'space-between',
-          padding: "0 20px"
-        }}>
-          <Typography
-            sx={{
-              color: '202020',
-              fontSize: "80px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "15px"
-            }}
-          >
-            {title}
-            <span style={{ fontSize: "40px", fontStyle: "italic" }}>
-              ({products.length})
-            </span>
-          </Typography>
-          <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <p style={{ fontSize: "18px", color: "#202020" }}>Filter</p>
-
-              {/* CATEGORY */}
-              <FormControl>
-                <Select
-                  value={category}
-                  onChange={e => setCategory(e.target.value)}
-                  displayEmpty
-                  IconComponent={ArrowDropDownIcon}
-                  sx={commonSx}
-                >
-                  <MenuItem  value="">
-                    <span style={{ color: "#999" }}>Category</span>
-                  </MenuItem>
-                  {categories.map(c => (
-                    <MenuItem key={c} value={c}>{c}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* SIZE */}
-              <FormControl>
-                <Select
-                  value={size}
-                  onChange={e => setSize(e.target.value)}
-                  displayEmpty
-                  IconComponent={ArrowDropDownIcon}
-                  sx={commonSx}
-                >
-                  <MenuItem  value="">
-                    <span style={{ color: "#999" }}>Size</span>
-                  </MenuItem>
-                  {sizes.map(s => (
-                    <MenuItem key={s} value={s}>{s}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* COLOR */}
-              <FormControl>
-                <Select
-                  value={color}
-                  onChange={e => setColor(e.target.value)}
-                  displayEmpty
-                  IconComponent={ArrowDropDownIcon}
-                  sx={commonSx}
-                >
-                  <MenuItem  value="">
-                    <span style={{ color: "#999" }}>Color</span>
-                  </MenuItem>
-                  {colors.map(c => (
-                    <MenuItem key={c} value={c}>{c}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* BRAND */}
-              <FormControl>
-                <Select
-                  value={brand}
-                  onChange={e => setBrand(e.target.value)}
-                  displayEmpty
-                  IconComponent={ArrowDropDownIcon}
-                  sx={commonSx}
-                >
-                  <MenuItem  value="">
-                    <span style={{ color: "#999" }}>Brand</span>
-                  </MenuItem>
-                  {brands.map(b => (
-                    <MenuItem key={b} value={b}>{b}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-
-              {/* PRICE */}
-              <FormControl>
-                <Select
-                  value={price}
-                  onChange={e => setPrice(e.target.value)}
-                  displayEmpty
-                  IconComponent={ArrowDropDownIcon}
-                  sx={commonSx}
-                >
-                  <MenuItem  value="">
-                    <span style={{ color: "#999" }}>Price</span>
-                  </MenuItem>
-                  {priceOptions.map(p => (
-                    <MenuItem key={p} value={p}>{p}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-                <Button onClick={resetFilter}>Reset filter</Button>
-            </div>
-
-
-            {/* SORTING */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-              <Select
-                value={popular}
-                onChange={e => setPopular(e.target.value)}
-                displayEmpty
-                IconComponent={ArrowDropDownIcon}
-                sx={commonSx}
-              >
-                <MenuItem  value="">
-                  <span style={{ color: "#999" }}>Popular</span>
-                </MenuItem>
-
-                <MenuItem value="By ratings">By ratings</MenuItem>
-                <MenuItem value="By discount">By discount</MenuItem>
-              </Select>
-            </div>
-          </div>
-        </div>
-      </FilterProductsWrap>
-
-
-
-
-
-
-      {/* PRODUCT GRID */}
-      <TrendingGridWrap>
-        <TrendProductGridCon>
-          <ProductsGrid>
-
-            {products.slice(0, visibleCount).map(product => (
-              <GridInsideWrap
-                key={product.id}
-                onClick={() => navigate(`/products/${product.id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <div className='trendproimgwrap' style={{ width: "400px" }}>
-                  <GridImg src={`https://picsum.photos/seed/${product.id}/300/400`} alt={product.name} />
-                  <button>-{Math.round((1 - product.discount_price / product.price) * 100)}%</button>
-                </div>
-                <div>
-                  <p>
-                    <span>{product.name}</span>
-                    <img src={like} alt="like" />
-                  </p>
-                  <small>${product.discount_price} <del>${product.price}</del></small>
-                </div>
-              </GridInsideWrap>
+            <MenuItem  value="">
+              <span style={{ color: "#999" }}>Category</span>
+            </MenuItem>
+            {categories.map(c => (
+              <MenuItem key={c} value={c}>{c}</MenuItem>
             ))}
+          </Select>
+        </FormControl>
 
-          </ProductsGrid>
+        {/* SIZE */}
+        <FormControl>
+          <Select
+            value={size}
+            onChange={e => setSize(e.target.value)}
+            displayEmpty
+            IconComponent={ArrowDropDownIcon}
+            sx={commonSx}
+          >
+            <MenuItem  value="">
+              <span style={{ color: "#999" }}>Size</span>
+            </MenuItem>
+            {sizes.map(s => (
+              <MenuItem key={s} value={s}>{s}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-          {visibleCount < products.length && (
-            <TrendViewButton onClick={() => setVisibleCount(prev => prev + 9)}>
-              View more
-            </TrendViewButton>
-          )}
-        </TrendProductGridCon>
-      </TrendingGridWrap>
+        {/* COLOR */}
+        <FormControl>
+          <Select
+            value={color}
+            onChange={e => setColor(e.target.value)}
+            displayEmpty
+            IconComponent={ArrowDropDownIcon}
+            sx={commonSx}
+          >
+            <MenuItem  value="">
+              <span style={{ color: "#999" }}>Color</span>
+            </MenuItem>
+            {colors.map(c => (
+              <MenuItem key={c} value={c}>{c}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
+        {/* BRAND */}
+        <FormControl>
+          <Select
+            value={brand}
+            onChange={e => setBrand(e.target.value)}
+            displayEmpty
+            IconComponent={ArrowDropDownIcon}
+            sx={commonSx}
+          >
+            <MenuItem  value="">
+              <span style={{ color: "#999" }}>Brand</span>
+            </MenuItem>
+            {brands.map(b => (
+              <MenuItem key={b} value={b}>{b}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* PRICE */}
+        <FormControl>
+          <Select
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+            displayEmpty
+            IconComponent={ArrowDropDownIcon}
+            sx={commonSx}
+          >
+            <MenuItem  value="">
+              <span style={{ color: "#999" }}>Price</span>
+            </MenuItem>
+            {priceOptions.map(p => (
+              <MenuItem key={p} value={p}>{p}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+          <Button onClick={resetFilter}>Reset filter</Button>
+      </div>
+
+
+      {/* SORTING */}
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <Select
+          value={popular}
+          onChange={e => setPopular(e.target.value)}
+          displayEmpty
+          IconComponent={ArrowDropDownIcon}
+          sx={commonSx}
+        >
+          <MenuItem  value="">
+            <span style={{ color: "#999" }}>Popular</span>
+          </MenuItem>
+
+          <MenuItem value="By ratings">By ratings</MenuItem>
+          <MenuItem value="By discount">By discount</MenuItem>
+        </Select>
+      </div>
+    </div>
+  </div>
+</FilterProductsWrap>
+
+
+
+
+
+
+{/* PRODUCT GRID */}
+<TrendingGridWrap>
+  <TrendProductGridCon>
+    <ProductsGrid>
+
+      {products.slice(0, visibleCount).map(product => (
+        <GridInsideWrap
+          key={product.id}
+          onClick={() => navigate(`/products/${product.id}`)}
+          style={{ cursor: "pointer" }}
+        >
+          <div className='trendproimgwrap' style={{ width: "400px" }}>
+            <GridImg src={`https://picsum.photos/seed/${product.id}/300/400`} alt={product.name} />
+            <button>-{Math.round((1 - product.discount_price / product.price) * 100)}%</button>
+          </div>
+          <div>
+            <p>
+              <span>{product.name}</span>
+              <img src={like} alt="like" />
+            </p>
+            <small>${product.discount_price} <del>${product.price}</del></small>
+          </div>
+        </GridInsideWrap>
+      ))}
+
+    </ProductsGrid>
+
+    {visibleCount < products.length && (
+      <TrendViewButton onClick={() => setVisibleCount(prev => prev + 9)}>
+        View more
+      </TrendViewButton>
+    )}
+  </TrendProductGridCon>
+</TrendingGridWrap>
+              </div>
+      )}
     </div>
   );
 };

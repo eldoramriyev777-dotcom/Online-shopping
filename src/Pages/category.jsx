@@ -3,13 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import NavbarComponent from '../FlexibleBars/navbar';
 import Footer from '../FlexibleBars/footer';
 import styled from 'styled-components';
+import shoes from '../assets/home_assets/shoesCategory.jpg';
+import clothes from '../assets/home_assets/clothesCategory.jpg';
+import jeans from '../assets/home_assets/jeansCategory.jpg';
+import tShirts from '../assets/home_assets/tshirtsCategory.jpg';
+import jacket from '../assets/home_assets/jacketCategory.jpg';
+import accessories from '../assets/home_assets/accessoriesCategory.avif';
+import Spinner from './Spinner';
 
 const CategoryComponent = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true)
 
+  // 🔹 Spinner uchun useEffect
   useEffect(() => {
-    fetch('/public/productsData.json') // public papkadan
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+  
+  useEffect(() => {
+    fetch('/productsData.json') // public papkadan
       .then(res => res.json())
       .then(data => {
         const uniqueCategories = Array.from(new Set(data.map(item => item.category)))
@@ -17,7 +31,7 @@ const CategoryComponent = () => {
             id: index + 1,
             name: cat,
             // LoremFlickr dan kategoriya nomiga mos rasm
-            image: `https://pixabay.com/photos/shopping-online-e-commerce-fashion-4000414/`
+            image: [shoes, clothes, jeans, tShirts, jacket, accessories]
           }));
         setCategories(uniqueCategories);
       })
@@ -26,30 +40,43 @@ const CategoryComponent = () => {
 
   return (
     <div>
-      <NavbarComponent />
-      <PageWrapper>
-        <h1>Categories</h1>
-        <CardsWrapper>
-          {categories.map((cat) => (
-            <Card key={cat.id} onClick={() => navigate('/shops', { state: { category: cat.name } })}>
-              <img src={cat.image} alt={cat.name} />
-              <h3>{cat.name}</h3>
-              <button>View Products</button>
-            </Card>
-          ))}
-        </CardsWrapper>
-      </PageWrapper>
-      <Footer />
+      {loading ? (<Spinner /> ) : (
+        <div>
+        <NavbarComponent />
+        <PageWrapperCategory>
+        <PageWrapper>
+          <h1>Categories</h1>
+          <CardsWrapper>
+            {categories.map((cat, index) => (
+              <Card key={cat.id} onClick={() => navigate('/shops', { state: { category: cat.name } })}>
+                <img src={cat.image[index]} alt={cat.name} />
+                <h3>{cat.name}</h3>
+                <button>View Products</button>
+              </Card>
+            ))}
+          </CardsWrapper>
+        </PageWrapper>
+        </PageWrapperCategory>
+        <Footer />
+      </div>
+      )}
     </div>
   );
 };
 
 export default CategoryComponent;
 
+const PageWrapperCategory = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
 // Styled Components
 const PageWrapper = styled.div`
   min-height: 100vh;
   padding: 60px 20px;
+  max-width: 1300px;
+  width: 100%;
   text-align: center;
 
   h1 {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AdverSlideWrapper, CarouselWrap, CategoryCon, CategorySwiper, CategoryWrap, GridImg, GridImgForOneType, GridInsideWrap, GridInsideWrapOneType, MenAndWomenSortCon, MenVsWomenWrap, OneTypeProductGrid, PremiumShopWrap, PremShopCon, ProductsGrid, SliderPartCon, TrendingGridWrap, TrendingGridWrapOneType, TrendProductGridCon, TrendProductGridConOneType, Trendtext, TrendtextOneType, TrendViewButton } from './homeStyle'
 import NavbarComponent from '../FlexibleBars/navbar'
 import slider_woman from '../assets/home_assets/trendy-woman.png'
@@ -63,6 +63,16 @@ const HomeCompanent = () => {
     "https://picsum.photos/300/300?random=9",
     "https://picsum.photos/300/300?random=10"
   ];
+
+  const trend_images = [
+    trend1,
+    trend2,
+    trend3,
+    trend4,
+    trend5,
+    trend6
+  ];
+
   const navigate = useNavigate()
   const shopsPageOpener = (title) => {
     localStorage.setItem("shopTitle", title);
@@ -71,6 +81,32 @@ const HomeCompanent = () => {
   const handleCategory = () => {
     navigate("/categories");
   }
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true);
+      try {
+        const response = await fetch("/productsData.json");
+        if (!response.ok) throw new Error("HTTP error! status: " + response.status);
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (!data) return <div>No data found</div>;
+
+  // render oldidan
+const topProducts = [...data].sort((a, b) => b.rating - a.rating).slice(0, 6);
+
   return (
     <div>
         <NavbarComponent/>
@@ -88,13 +124,13 @@ const HomeCompanent = () => {
               disableOnInteraction: false,
             }}
           >
-            <SwiperSlide>
+            <SwiperSlide className='sliderimg'>
               <img src={slider_woman} alt="slider_woman" />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className='sliderimg'>
               <img src={eCommerce} alt="eCommerce" />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className='sliderimg'>
              <img src={shopify} alt="shopify" />
             </SwiperSlide>
             </Swiper>
@@ -111,6 +147,7 @@ const HomeCompanent = () => {
                 modules={[Navigation, Pagination, Autoplay]}
                 slidesPerView={5}
                 spaceBetween={20}
+                onClick={handleCategory}
                 loop={true}
                 navigation
                 pagination={{ clickable: true }}
@@ -133,14 +170,14 @@ const HomeCompanent = () => {
         <MenVsWomenWrap>
           <MenAndWomenSortCon>
             <div className='categwrap'>
-              <img style={{width: "616px"}} src={womanca} alt="womanca" />
+              <img style={{maxWidth: "616px", width: "100%"}} src={womanca} alt="womanca" />
               <div>
                   <p>Girls T-shirts — 924 items</p>
                   <small onClick={() => shopsPageOpener("Girls T-shirts")} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
               </div>
             </div>
             <div className='categwrap'>
-              <img style={{width: "616px"}} src={manca} alt="manca" />
+              <img style={{maxWidth: "616px", width: "100%"}} src={manca} alt="manca" />
               <div>
                 <p>Men’s shirts — 1254 items</p>
                 <small onClick={() => shopsPageOpener("Men's clothes")} style={{display: "flex", gap: "16px", cursor: "pointer"}}> <img src={vec} alt="vec" /> View all products</small>
@@ -164,17 +201,29 @@ const HomeCompanent = () => {
             <TrendProductGridCon>
                 <Trendtext>Trending products</Trendtext>
                 <ProductsGrid>
-                  <GridInsideWrap>
-                    <div className='trendproimgwrap' style={{width: "400px"}}>
-                     <GridImg src={trend1} alt="trend1" />
-                     <button>-46%</button>
-                    </div>
-                    <div>
-                      <p> <span>Athletic pants</span> <img src={like} alt="like" /> </p>
-                      <small>$259.00</small> 
-                    </div>
-                  </GridInsideWrap>
-                  <GridInsideWrap>
+                {
+                  topProducts.map((product, index) => (
+                      <GridInsideWrap 
+                        onClick={() => navigate(`/products/${product.id}`)} 
+                        style={{ cursor: "pointer" }}
+                        key={product.id}
+                      >
+                        <div className='trendproimgwrap' style={{ width: "400px" }}>
+                          <GridImg src={trend_images[index % trend_images.length]} alt="trend" />
+                          <button>-46%</button>
+                        </div>
+                        <div>
+                          <p>
+                            <span>{product.name}</span> <img src={like} alt="like" />
+                          </p>
+                          <small>$ {product.price}</small>
+                        </div>
+                      </GridInsideWrap>
+                    ))
+                }
+
+
+                  {/* <GridInsideWrap>
                     <GridImg src={trend2} alt="trend2" />
                     <div>
                       <p> <span>Athletic pants</span> <img src={like} alt="like" /> </p>
@@ -208,9 +257,9 @@ const HomeCompanent = () => {
                       <p> <span>Athletic pants</span> <img src={like} alt="like" /> </p>
                       <small>$259.00</small>
                     </div>
-                  </GridInsideWrap>
+                  </GridInsideWrap> */}
                 </ProductsGrid>
-                <TrendViewButton>View all</TrendViewButton>
+                <TrendViewButton onClick={() => navigate('/shops')}>View all</TrendViewButton>
             </TrendProductGridCon>
         </TrendingGridWrap>
         <Container>

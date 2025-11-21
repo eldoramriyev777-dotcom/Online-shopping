@@ -1,8 +1,9 @@
 // IdeasComponent.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavbarComponent from '../FlexibleBars/navbar';
 import Footer from '../FlexibleBars/footer';
+import Spinner from '../Pages/Spinner';
 
 const IdeasComponent = () => {
   const sampleIdeas = [
@@ -32,9 +33,19 @@ const IdeasComponent = () => {
     }
   ];
 
+  const [loading, setLoading] = useState(true); // 🔹 Loading state
+  // 🔹 Spinner uchun useEffect
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <div>
-      <NavbarComponent />
+      {loading ? (<Spinner />) : (
+        <div>
+           <NavbarComponent />
       <IdeasWrapper>
         {/* Hero Section */}
         <HeroSection>
@@ -65,6 +76,8 @@ const IdeasComponent = () => {
         </CTASection>
       </IdeasWrapper>
       <Footer />
+        </div>
+      )}
     </div>
   );
 };
