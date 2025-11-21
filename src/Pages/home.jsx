@@ -35,6 +35,7 @@ import shoes3 from '../assets/home_assets/shoes3.png'
 import InstagramIcon from "@mui/icons-material/Instagram"; // ✅ To‘g‘rilangan import
 import Footer from '../FlexibleBars/footer'
 import { useNavigate } from 'react-router-dom'
+import Spinner from './Spinner'
 
 const HomeCompanent = () => {
   const images = [
@@ -101,7 +102,7 @@ const HomeCompanent = () => {
     getData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div> <Spinner/> </div>;
   if (!data) return <div>No data found</div>;
 
   // render oldidan
