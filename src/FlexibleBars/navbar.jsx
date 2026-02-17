@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback, use } from 'react'
 import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 import {
@@ -36,10 +36,17 @@ import WomanCategory from './WomanCategory'
 import KidsCategory from './KidsCategory'
 import productsData from './productsData.json'
 import { TrendViewButton } from '../Pages/homeStyle'
-import { Divider } from '@mui/material'
+import { Avatar, Divider, Stack, Typography } from '@mui/material'
+import { toast } from 'react-toastify'
+import axios from 'axios'
+import { API_URL } from '../config'
+import ProfileMenu from './profile'
+import Swal from "sweetalert2";
+
 
 const NavbarComponent = () => {
   const navigate = useNavigate()
+  const [user, setUser] = useState(null)
   const [fadeOut, setFadeOut] = useState(false)
   const [loading, setLoading] = useState(false)
   const [selectedCity, setSelectedCity] = useState('Amsterdam')
@@ -75,6 +82,35 @@ const NavbarComponent = () => {
     { code: 'EUR', symbol: '€', name: 'Euro' },
     { code: 'JPY', symbol: '¥', name: 'Japanese Yen' }
   ]
+
+    const fetchUserData = useCallback(async (token) => {
+      try {
+        const { data } = await axios.get(API_URL + "/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        
+        setUser(data.data)
+        localStorage.setItem("user", JSON.stringify(data.data))
+    
+      } catch (error) {
+        toast.error(
+          error.response?.data?.message ||
+          error.response?.data?.msg ||
+          "Authentication failed"
+        )
+      
+        localStorage.removeItem("token")
+        navigate("/")
+      }    
+    }, [navigate])
+    
+  
+    React.useEffect(() => {
+      const token = localStorage.getItem("token")
+      fetchUserData(token)
+    }, [fetchUserData])
 
   const handleCurrencySelect = (code) => {
     setSelectedCurrency(code)
@@ -176,11 +212,6 @@ const NavbarComponent = () => {
         setResults(filtered);
       }
     }, [query, products]);
-
-    const bestTags = [...new Set(results.map((item) => item.category))].slice(
-      0,
-      8
-    );
   
 // online rasm mapping
 const imageMap = {
@@ -232,6 +263,38 @@ const filteredTopSellers = selectedFilter
   const handleIdeas = () => {
     navigate('/ideas');
   }
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, logout",
+      cancelButtonText: "Cancel",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user")
+        Swal.fire({
+          icon: "success",
+          title: "Logged out!",
+          timer: 1200,
+          showConfirmButton: false
+        });
+  
+        navigate("/login/sign-in");
+      }
+    });
+  };
+
+  const handleProfile = () => {
+    navigate("/#");
+  };
+
   return (
     <FullWrap style={{ position: 'relative', overflow: 'hidden' }}>
       <NavbarAllWrap>
@@ -462,23 +525,8 @@ const filteredTopSellers = selectedFilter
               <img onClick={handleShop} src={parcel} alt='parcel' />
               <img onClick={handleFavorit} src={like} alt='like' />
               <Divider orientation="vertical" flexItem />
-              {isLoggedIn ? (
-               <div 
-               style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}
-             >
-               <img 
-                 src={"https://i.pravatar.cc/150"} 
-                 alt="avatar" 
-                 style={{ 
-                   width: "32px", 
-                   height: "32px", 
-                   borderRadius: "50%", 
-                   objectFit: "cover" 
-                 }} 
-               />
-               <small>Welcome back!</small>
-             </div>
-              ) : (
+
+            { !user && (
                 <p
                 onClick={handleClick}
                 style={{
@@ -486,12 +534,24 @@ const filteredTopSellers = selectedFilter
                   transition: 'opacity 1s ease, transform 1s ease',
                   opacity: fadeOut ? 0 : 1,
                   transform: fadeOut ? 'scale(0.95)' : 'scale(1)'
-                }}
-              >
+                  }}
+                >
                 <img src={login} alt='login' />
                 <small>Login</small>
-              </p>
-              )}
+                </p>
+            ) 
+            }
+            { user && (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "-15px"}}>
+                <ProfileMenu
+                  user={user}
+                  onLogout={handleLogout}
+                  onProfile={handleProfile}
+                />
+              </div>
+            ) 
+            }
+      
             </div>
           </NavbarCenterWrap>
           <div className='freeline'></div>
@@ -605,7 +665,7 @@ const filteredTopSellers = selectedFilter
       {/* Loading overlay */}
       {loading && (
         <div style={{
-          position: 'absolute',
+          position: 'fixed', // absolute emas, fixed bo‘lsa ekran bo‘ylab
           inset: 0,
           backgroundColor: 'rgba(255,255,255,0.9)',
           display: 'flex',

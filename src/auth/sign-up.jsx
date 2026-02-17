@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SignInAllWrap, SignUpContainer, SignUpImg, SignUpTop } from "./loginStyle";
 import signup from "../assets/login_assets/sign-up.jpg";
 import blossom from "../assets/login_assets/BLOSSOM.png";
 import { Link, useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
+import { API_URL } from "../config";
 
 const SignUpComponent = () => {
   const [formData, setFormData] = useState({
@@ -76,17 +78,30 @@ const SignUpComponent = () => {
 
   const allValid = Object.values(errors).every(err => !err) && Object.values(formData).every(val => val || val === false) && formData.agree;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!allValid) {
       setSnackbar({ open: true, message: "Please fill all required fields correctly.", type: "error" });
       return;
     }
-
-    setSnackbar({ open: true, message: "Registration completed!", type: "success" });
-    console.log("Form data:", formData);
-
-    setTimeout(() => navigate("/login/sign-in"), 1500);
+    try {
+      const res = await axios.post(API_URL + "/users/signup", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password
+      })
+      const data = res.data
+      if (data.success) {
+        setSnackbar({ open: true, message: data.message || "Successfully signed up!", type: "success" })
+        setTimeout(() => navigate("/login/sign-in"), 1000)
+      }
+    } catch (error) {
+      console.error(error)
+      setTimeout(() => {
+        setSnackbar({ open: true, message: error.response?.data?.message || error.message || "Enter valid information!", type: "error" })
+      }, 500);
+    }
   };
 
   return (
@@ -156,7 +171,7 @@ const SignUpComponent = () => {
         </SignUpContainer>
       </SignInAllWrap>
 
-      <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+      <Snackbar open={snackbar.open} autoHideDuration={2000} onClose={() => setSnackbar({ ...snackbar, open: false })} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
         <Alert severity={snackbar.type} onClose={() => setSnackbar({ ...snackbar, open: false })} sx={{ width: "100%" }}>
           {snackbar.message}
         </Alert>

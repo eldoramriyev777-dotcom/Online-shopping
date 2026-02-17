@@ -5,37 +5,54 @@ import blossom from '../assets/login_assets/BLOSSOM.png'
 import google from '../assets/login_assets/google.svg'
 import facebook from '../assets/login_assets/facebook.svg'
 import apple from '../assets/login_assets/apple.svg'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Snackbar, Alert } from "@mui/material";
 import { ClipLoader } from 'react-spinners'
+import axios from 'axios'
+import { API_URL } from '../config'
 
-const STORAGE_KEY = "fake_auth_credientials"
+const SignInPageComponent =  () => {
 
-const getStorageCredientials = () => {
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored) {
-    try {
-      return JSON.parse(stored)
-    } catch {
-      console.error("KEY_ERROR")
-    }
-  }
-  const default_login = {username: "admin@manage.com", password: "12345"}
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(default_login))
-  return default_login
-}
-
-const SignInPageComponent = () => {
   const [showPassword, setShowPassword] = useState(false)
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [snack, setSnack] = useState({ message: "", open: false, type: "" })
   const [loading, setLoading] = useState(false)
-
   const navigate = useNavigate()
+
+  const user = localStorage.getItem("token"); // yoki redux/context
+
+  if (user) {
+    return <Navigate to="/home" replace />;
+  }
 
   const handleClose = () => {
     setSnack((prev) => ({ ...prev, open: false }))
+  }
+
+  const login = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { data } = await axios.post(API_URL + "/users/login", {
+        email,
+        password
+      })
+      if (data.success) {
+        localStorage.setItem("token", data.token)
+        setSnack({ open: true, message: data.message || "Login Successfull!!!", type: "success" })
+        setTimeout(() => navigate("/home", { replace: true }), 1000)
+      }
+    } catch (error) {
+      console.error(error)
+      setTimeout(() => {
+        setSnack({ open: true, message: error.response?.data?.message || error.message || "Invalid Password or login!!!", type: "error" })
+      }, 500);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
   }
 
   // Universal handler for all interactive elements
@@ -45,21 +62,6 @@ const SignInPageComponent = () => {
       if (callback) callback()
       setLoading(false)
     }, 1000) // 1.5 sekund overlay + spinner
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    handleButtonClick(() => {
-      const stored = getStorageCredientials()
-      if (username.trim() === stored.username && password.trim() === stored.password) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ username, password }))
-        localStorage.setItem("fake_auth_logged_in", "true")
-        setSnack({ open: true, message: "Login Successfull!!!", type: "success" })
-        setTimeout(() => navigate("/home"), 1000)
-      } else {
-        setSnack({ open: true, message: "Invalid Password or login!!!", type: "error" })
-      }
-    })
   }
 
   return (
@@ -84,19 +86,20 @@ const SignInPageComponent = () => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: "flex", gap: "100px", alignItems: "center", flexDirection: "column", marginTop: "100px" }}>
+            <form onSubmit={login} style={{ display: "flex", gap: "100px", alignItems: "center", flexDirection: "column", marginTop: "100px" }}>
               <div className='midinputwrap'>
                 <input
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   id="email"
-                  type="email"
+                  name='email'
                   placeholder="Email"
                 />
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
+                  name='password'
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                 />
@@ -142,7 +145,7 @@ const SignInPageComponent = () => {
         {/* Loading overlay */}
         {loading && (
           <div style={{
-            position: "absolute",
+            position: "fixed",
             inset: 0,
             backgroundColor: "rgba(255,255,255,0.9)",
             display: "flex",

@@ -1,9 +1,224 @@
 import { Button, Divider, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Done } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { API_URL } from "../config";
+import { toast } from "react-toastify";
+
+const ShippingPage = () => {
+  const [user, setUser] = useState(null)  
+  const [shippingMethod, setShippingMethod] = useState("standard");
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+
+  const fetchUserData = useCallback(async (token) => {
+    try {
+      const { data } = await axios.get(API_URL + "/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+  
+      setUser(data.data)
+      localStorage.setItem("user", JSON.stringify(data.data))
+  
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+        error.response?.data?.msg ||
+        "Authentication failed"
+      )
+    
+      localStorage.removeItem("token")
+      navigate("/login/sign-in")
+    }    
+  }, [navigate])
+  
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+      navigate("/login/sign-in")
+      return
+    }
+    fetchUserData(token)
+  }, [fetchUserData, navigate])
+
+  const handleBack = () => {
+  navigate("/cart");
+}
+
+  const handlePayment = () => {
+  navigate("/shopping-payment");
+}
+
+  return (
+    <Container>
+      <Header>
+        <Button onClick={handleBack} sx={{display: "flex", gap: "10px", backgroundColor: "transparent", color: "black"}}> <ArrowBackIcon /> Back cart</Button>
+        <div className="steps">
+          <div className="step">
+           <div className="doneStep"><Done /></div>  <p>Login</p>
+          </div>
+          <Divider sx={{width: "60px"}} />
+          <div className="step">
+            <div className="doneStep">2</div>  <p>Shipping adress</p>
+          </div>
+          <Divider sx={{width: "60px"}} />
+          <div className="step">
+            <div className="undoneStep">3</div>  <p>Billing Address</p>
+          </div>
+        </div>
+      </Header>
+      <Divider sx={{m: -2}} /> 
+      <BottomWrap>
+      <Left>
+      <Title>Shipping Address</Title>
+        <Form>
+          <InputGroup>
+          <InputWrapper>
+            <Label hasValue={firstName !== ""}>First Name</Label>
+            <Input
+            type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={lastName !== ""}>Last Name</Label>
+            <Input
+            type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={company !== ""}>Company</Label>
+            <Input
+            type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={country !== ""}>Country / Region</Label>
+            <Input
+            type="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={address !== ""}>Address</Label>
+            <Input
+            type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={apartment !== ""}>Apartment, suite, etc.</Label>
+            <Input
+            type="text"
+              value={apartment}
+              onChange={(e) => setApartment(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={city !== ""}>City</Label>
+            <Input
+            type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={zipCode !== ""}>Zip code</Label>
+            <Input
+            type="text"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+        <InputGroup>
+          <InputWrapper>
+            <Label hasValue={phoneNumber !== ""}>Phone number</Label>
+            <Input
+            type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </InputWrapper>
+
+          <InputWrapper>
+            <Label hasValue={email !== ""}>Email address</Label>
+            <Input
+            type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputWrapper>
+        </InputGroup>
+          <Typography>Shipping method</Typography>
+          <ShippingOption
+            selected={shippingMethod === "standard"}
+            onClick={() => setShippingMethod("standard")}
+          >
+            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <input name="shippingMethod" type="radio" />
+            <p style={{display: "flex", flexDirection: "column"}}> <small>Standard Shipping</small> <span>2 to 5 business days</span></p>
+            </div>
+            <span>Free</span>
+          </ShippingOption>
+          <ShippingOption
+            selected={shippingMethod === "express"}
+            onClick={() => setShippingMethod("express")}
+          >
+            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
+            <input name="shippingMethod" type="radio" />
+            <p style={{display: "flex", flexDirection: "column"}}> <small>Express Shipping</small> <span>1 to 2 business days</span></p>
+            </div>
+            <span>$10</span>
+          </ShippingOption>
+
+          <ContinueButton onClick={handlePayment}>Continue</ContinueButton>
+        </Form>
+      </Left>
+
+      <Right>
+        <MapIframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.95373531531785!3d-37.81627974202156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f9e1db%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
+          allowFullScreen=""
+          loading="lazy"
+        />
+      </Right>
+      </BottomWrap>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -186,184 +401,5 @@ const MapIframe = styled.iframe`
   height: 100%;
   border: none;
 `;
-
-const ShippingPage = () => {
-
-  const [shippingMethod, setShippingMethod] = useState("standard");
-  const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [company, setCompany] = useState("");
-  const [country, setCountry] = useState("");
-  const [address, setAddress] = useState("");
-  const [apartment, setApartment] = useState("");
-  const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-
-  const handleBack = () => {
-  navigate("/cart");
-}
-
-  const handlePayment = () => {
-  navigate("/shopping-payment");
-}
-
-  return (
-    <Container>
-      <Header>
-        <Button onClick={handleBack} sx={{display: "flex", gap: "10px", backgroundColor: "transparent", color: "black"}}> <ArrowBackIcon /> Back cart</Button>
-        <div className="steps">
-          <div className="step">
-           <div className="doneStep"><Done /></div>  <p>Login</p>
-          </div>
-          <Divider sx={{width: "60px"}} />
-          <div className="step">
-            <div className="doneStep">2</div>  <p>Shipping adress</p>
-          </div>
-          <Divider sx={{width: "60px"}} />
-          <div className="step">
-            <div className="undoneStep">3</div>  <p>Billing Address</p>
-          </div>
-        </div>
-      </Header>
-      <Divider sx={{m: -2}} /> 
-      <BottomWrap>
-      <Left>
-      <Title>Shipping Address</Title>
-        <Form>
-          <InputGroup>
-          <InputWrapper>
-            <Label hasValue={firstName !== ""}>First Name</Label>
-            <Input
-            type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <Label hasValue={lastName !== ""}>Last Name</Label>
-            <Input
-            type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </InputWrapper>
-        </InputGroup>
-        <InputGroup>
-          <InputWrapper>
-            <Label hasValue={company !== ""}>Company</Label>
-            <Input
-            type="text"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <Label hasValue={country !== ""}>Country / Region</Label>
-            <Input
-            type="text"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            />
-          </InputWrapper>
-        </InputGroup>
-        <InputGroup>
-          <InputWrapper>
-            <Label hasValue={address !== ""}>Address</Label>
-            <Input
-            type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <Label hasValue={apartment !== ""}>Apartment, suite, etc.</Label>
-            <Input
-            type="text"
-              value={apartment}
-              onChange={(e) => setApartment(e.target.value)}
-            />
-          </InputWrapper>
-        </InputGroup>
-        <InputGroup>
-          <InputWrapper>
-            <Label hasValue={city !== ""}>City</Label>
-            <Input
-            type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <Label hasValue={zipCode !== ""}>Zip code</Label>
-            <Input
-            type="text"
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-            />
-          </InputWrapper>
-        </InputGroup>
-        <InputGroup>
-          <InputWrapper>
-            <Label hasValue={phoneNumber !== ""}>Phone number</Label>
-            <Input
-            type="tel"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </InputWrapper>
-
-          <InputWrapper>
-            <Label hasValue={email !== ""}>Email address</Label>
-            <Input
-            type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </InputWrapper>
-        </InputGroup>
-          <Typography>Shipping method</Typography>
-          <ShippingOption
-            selected={shippingMethod === "standard"}
-            onClick={() => setShippingMethod("standard")}
-          >
-            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
-            <input name="shippingMethod" type="radio" />
-            <p style={{display: "flex", flexDirection: "column"}}> <small>Standard Shipping</small> <span>2 to 5 business days</span></p>
-            </div>
-            <span>Free</span>
-          </ShippingOption>
-          <ShippingOption
-            selected={shippingMethod === "express"}
-            onClick={() => setShippingMethod("express")}
-          >
-            <div style={{display: "flex", alignItems: "center", gap: "20px"}}>
-            <input name="shippingMethod" type="radio" />
-            <p style={{display: "flex", flexDirection: "column"}}> <small>Express Shipping</small> <span>1 to 2 business days</span></p>
-            </div>
-            <span>$10</span>
-          </ShippingOption>
-
-          <ContinueButton onClick={handlePayment}>Continue</ContinueButton>
-        </Form>
-      </Left>
-
-      <Right>
-        <MapIframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.95373531531785!3d-37.81627974202156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f9e1db%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
-          allowFullScreen=""
-          loading="lazy"
-        />
-      </Right>
-      </BottomWrap>
-    </Container>
-  );
-};
 
 export default ShippingPage;
