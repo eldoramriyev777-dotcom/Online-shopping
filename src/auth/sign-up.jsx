@@ -7,6 +7,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { API_URL } from "../config";
+import { ClipLoader } from "react-spinners";
 
 const SignUpComponent = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const SignUpComponent = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [snackbar, setSnackbar] = useState({ open: false, message: "", type: "success" });
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -85,6 +87,7 @@ const SignUpComponent = () => {
       return;
     }
     try {
+      setLoading(true)
       const res = await axios.post(API_URL + "/users/signup", {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -93,8 +96,34 @@ const SignUpComponent = () => {
       })
       const data = res.data
       if (data.success) {
-        setSnackbar({ open: true, message: data.message || "Successfully signed up!", type: "success" })
-        setTimeout(() => navigate("/login/sign-in"), 1000)
+        try {
+          const res = await axios.post(
+            `${API_URL}/users/send-otp`,
+            { email: formData.email }
+          );
+
+          const data = res.data;
+
+          if (data.success) {
+            setSnackbar({
+              open: true,
+              message: "OTP code sent successfully!",
+              type: "success"
+            })
+          }
+        } catch (error) {
+          setSnackbar({
+            open: true,
+            message:
+              error.response?.data?.message || "Server error",
+            type: "error"
+          });
+        } finally {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        }
+        setTimeout(() => navigate(`/login/reset-pw/confirm-pw?email=${formData.email}`), 1000)
       }
     } catch (error) {
       console.error(error)
@@ -165,7 +194,7 @@ const SignUpComponent = () => {
               </div>
 
               {/** Button */}
-              <button type="submit" disabled={!allValid} style={{ backgroundColor: allValid ? "#007bff" : "#ccc", cursor: allValid ? "pointer" : "not-allowed", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", marginTop: "10px" }}>Submit</button>
+              <button type="submit" disabled={!allValid} style={{ backgroundColor: allValid ? "#007bff" : "#ccc", cursor: allValid ? "pointer" : "not-allowed", color: "#fff", border: "none", padding: "10px 20px", borderRadius: "5px", marginTop: "10px" }}>Continue</button>
             </form>
           </SignUpTop>
         </SignUpContainer>
@@ -176,6 +205,21 @@ const SignUpComponent = () => {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      {loading && (
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(255,255,255,0.9)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 999
+        }}>
+          <ClipLoader color="#F54F1F" size={60} />
+        </div>
+      )}
+
     </div>
   );
 };

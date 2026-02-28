@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { ConfirmPwForm, LoginImg, SignInAllWrap, SignInContainer, SignUpContainer } from './loginStyle'
 import signin from '../assets/login_assets/sign-in.jpg'
 import blossom from '../assets/login_assets/BLOSSOM.png'
 import resend from '../assets/login_assets/resend.svg'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
+import axios from 'axios'
+import { API_URL } from '../config'
+import { ClipLoader } from 'react-spinners'
+import Alert from '@mui/material/Alert'
+
 
 const ConfirmPasswordComponent = () => {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const inputsRef = useRef([]);
+  const [searchParams] = useSearchParams();
   const [time, setTime] = useState(120);
   const [isRunning, setIsRunning] = useState(true);
-  const location = useLocation();
-  const email = location.state?.email || "Unknown email";
-  const [value, setValue] = useState("");
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "info" });
+  const email = searchParams.get("email");
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -49,8 +55,8 @@ const ConfirmPasswordComponent = () => {
     if (isRunning) {
       setSnackbar({
         open: true,
-        message: "Timer is still running. Are you sure you want to go back?",
-        severity: "info",
+        message: "Timer is still running. You can't go back when time is running!",
+        severity: "warning",
       });
     } else {
       navigate(-1);
@@ -63,10 +69,70 @@ const ConfirmPasswordComponent = () => {
     navigate(-1);
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e, index) => {
+    const value = e.target.value.replace(/[^0-9]/g, "");
+  
+    const newOtp = [...otp];
+    newOtp[index] = value;   // bu safar bo‘sh string ham yoziladi
+    setOtp(newOtp);
+  
+    // agar value bo‘lsa keyingisiga o‘tadi
+    if (value && index < otp.length - 1) {
+      inputsRef.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      if (!otp[index] && index > 0) {
+        inputsRef.current[index - 1].focus();
+      }
+    }
+  };
+
+  const code = otp.join("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (value) {
-      navigate("/login/reset-pw/confirm-pw/setnew-pw");
+    if (code && email) {
+      try {
+        const res = await axios.post(`${API_URL}/users/verify-otp`, {
+          email,
+          code
+        });
+      
+        const data = res.data;
+      
+        if (data.success) {
+          setLoading(true)
+          setSnackbar({
+            open: true,
+            message: "OTP verified successfully!",
+            severity: "success"
+          });
+    
+          setTimeout(() => {
+            navigate("/login/sign-in")
+          }, 1000);
+        } else {
+          setSnackbar({
+            open: true,
+            message: data.message || "OTP verification failed",
+            severity: "error"
+          });
+        }
+      
+      } catch (error) {
+        setSnackbar({
+          open: true,
+          message: error.response?.data?.message || "Server error",
+          severity: "error"
+        });
+      }  finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
     } else {
       setSnackbar({ open: true, message: "Please enter the validation code", severity: "error" });
     }
@@ -85,16 +151,25 @@ const ConfirmPasswordComponent = () => {
         <SignUpContainer>
           <ConfirmPwForm>
             <div className='confirmTexts'>
-              <p>Confirm password</p>
-              <small>OTP code was sent to</small><span>{email}</span>
+              <p>Enter the verification code</p>
+              <small>OTP code was sent to</small><span>{email ? email : "Your email"}</span>
             </div>
 
             <div className='midinputswithtime'>
               <div className='inputswrap'>
-                <input onChange={(e) => setValue(e.target.value)} type="text" />
-                <input onChange={(e) => setValue(e.target.value)} type="text" />
-                <input onChange={(e) => setValue(e.target.value)} type="text" />
-                <input onChange={(e) => setValue(e.target.value)} type="text" />
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={1}
+                  value={digit}
+                  ref={(el) => (inputsRef.current[index] = el)}
+                  onChange={(e) => handleChange(e, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                />
+              ))}
               </div>
 
               <p style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -147,7 +222,7 @@ const ConfirmPasswordComponent = () => {
           ) : null
         }
       >
-        <MuiAlert
+        <Alert
           elevation={6}
           variant="filled"
           onClose={handleClose}
@@ -155,8 +230,23 @@ const ConfirmPasswordComponent = () => {
           sx={{ width: '100%' }}
         >
           {snackbar.message}
-        </MuiAlert>
+        </Alert>
       </Snackbar>
+      
+      {loading && (
+          <div style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(255,255,255,0.9)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999
+          }}>
+            <ClipLoader color="#F54F1F" size={60} />
+          </div>
+        )}
+
     </div>
   );
 };

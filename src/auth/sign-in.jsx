@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { LoginImg, SignInAllWrap, SignInContainer, SignInFooter, SignInTop } from './loginStyle'
 import signin from '../assets/login_assets/sign-in.jpg'
 import blossom from '../assets/login_assets/BLOSSOM.png'
 import google from '../assets/login_assets/google.svg'
 import facebook from '../assets/login_assets/facebook.svg'
 import apple from '../assets/login_assets/apple.svg'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Snackbar, Alert } from "@mui/material";
 import { ClipLoader } from 'react-spinners'
 import axios from 'axios'
@@ -20,11 +20,14 @@ const SignInPageComponent =  () => {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const user = localStorage.getItem("token"); // yoki redux/context
+  
+  useEffect(() => {
+    const user = localStorage.getItem("token");
 
-  if (user) {
-    return <Navigate to="/home" replace />;
-  }
+    if (user) {
+      navigate("/home", { replace: true });
+    }
+  }, [navigate]);
 
   const handleClose = () => {
     setSnack((prev) => ({ ...prev, open: false }))
@@ -96,7 +99,7 @@ const SignInPageComponent =  () => {
                   placeholder="Email"
                 />
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? setShowPassword("text") : "password"}
                   id="password"
                   value={password}
                   name='password'

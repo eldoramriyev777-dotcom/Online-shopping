@@ -55,7 +55,7 @@ const ProfileMenu = ({ user, onLogout, onProfile }) => {
           <Typography fontWeight={600}>
             {user?.firstName + " " + user?.lastName}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="blue">
             {user?.email}
           </Typography>
         </Box>

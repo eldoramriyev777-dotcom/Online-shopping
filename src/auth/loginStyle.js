@@ -605,26 +605,26 @@ animation: ${fadeInUp} 0.5s ease forwards;
   align-items: end;
   justify-content: center;
   flex-direction: column;
-  gap: 16px;
+  gap: 5px;
   .inputswrap{
     display: flex;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    align-items: start;
+    justify-content: left;
+    gap: 5px;
     input{
-      width: 79px;
+      width: 55px;
       height: 52px;
       flex-shrink: 0;
       border-radius: 15px;
       border: 2px solid var(--Gray-text, #9EA3A8);
       background-color: transparent;
       text-align: center;
-      font-size: 28px;
+      font-size: 20px;
       transition: all 0.3s ease;
       &:focus{
           outline: none;
-          border-color: var(--Brand-Color-F54F1F, #F54F1F);
+          border-color: var(--Brand-Color-F54F1F,rgb(42, 167, 17));
           box-shadow: 0 4px 10px rgba(245,79,31,0.2);
           transform: scale(1.05);
       }
