@@ -1,1 +1,1 @@
-export const API_URL = "https://e-commerce.innerlogic.cloud/api"
+export const API_URL = "https://e-commerce.innerlogic.cloud"
